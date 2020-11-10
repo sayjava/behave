@@ -3,28 +3,39 @@ name: "Investigating nonesense claims"
 description: "A sample test that works well"
 
 expectations:
-  - httpRequest:
-      path: /reference/api/v1/access
+  - request:
+      path: /todo/new
       method: POST
       body:
         entity:
-          id: some_id
-					msg: "A message"
+          id: new_id
+          text: "A new todo post"
 
-    reponse:
+    response:
       statusCode: 200
       body:
-        access:
-          decision: ALLOWED
-          reason:
-            code: FREE_ARTICLES_FROM_MOCK_SERVER
         entity:
-          id: /article/main_ga_article
-          type: 1
+          desc: "Worked well"
       headers:
         X-Flyt-Special: "Super Header"
         X-Flyt-Session: "Flyt Session"
-		
-		times:
+
+    times:
       remainingTimes: 2
       unlimited: false
+
+  - request:
+      path: /post/^(id)/
+      method: DELETE
+    response:
+      statusCode: 200
+      body:
+        entity:
+          reason: "Deleted post"
+
+      times:
+        remainingTimes: 2
+        unlimited: false
+
+      delay: 10
+        
