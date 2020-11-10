@@ -1,0 +1,30 @@
+name: "Investigating nonesense claims"
+
+description: "A sample test that works well"
+
+expectations:
+  - httpRequest:
+      path: /reference/api/v1/access
+      method: POST
+      body:
+        entity:
+          id: some_id
+					msg: "A message"
+
+    reponse:
+      statusCode: 200
+      body:
+        access:
+          decision: ALLOWED
+          reason:
+            code: FREE_ARTICLES_FROM_MOCK_SERVER
+        entity:
+          id: /article/main_ga_article
+          type: 1
+      headers:
+        X-Flyt-Special: "Super Header"
+        X-Flyt-Session: "Flyt Session"
+		
+		times:
+      remainingTimes: 2
+      unlimited: false
