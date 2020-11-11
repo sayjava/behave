@@ -27,15 +27,47 @@ expectations:
   - request:
       path: /post/^(id)/
       method: DELETE
+
     response:
       statusCode: 200
       body:
         entity:
           reason: "Deleted post"
 
-      times:
-        remainingTimes: 2
-        unlimited: false
+    times:
+      remainingTimes: 2
+      unlimited: false
 
-      delay: 10
+    delay: 10
+
+    timeToLive: 100
+
+    priority: 10
+
+  - request:
+      path: /post/{id}
+      method: GET
+      pathParameters:
+        - id: fist_post_id
+
+      queryStringParameters:
+        - status: 
+          - done
+          - working
+
+    response:
+      statusCode: 200
+      body:
+        entity:
+          reason: "Deleted post"
+
+    times:
+      remainingTimes: 2
+      unlimited: false
+
+    delay: 10
+
+    timeToLive: 100
+
+    priority: 10
         
