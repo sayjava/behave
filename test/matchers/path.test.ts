@@ -97,3 +97,40 @@ test("matches path parameter", () => {
   expect(url(expectation, request2)).toBe(true);
   expect(url(expectation, request3)).toBe(false);
 });
+
+test("matches regex path parameter", () => {
+  const expectation: Expectation = {
+    name: "simple path",
+    request: {
+      path: "/todo/{todoId}",
+      headers: {},
+      method: "GET",
+      pathParams: {
+        todoId: ["[a-z]+"],
+      },
+    },
+    response: {},
+  };
+
+  const request1: Request = {
+    path: "/todo/take-out-trash",
+    headers: {},
+    method: "GET",
+  };
+
+  const request2: Request = {
+    path: "/todo/paint-the-room",
+    headers: {},
+    method: "GET",
+  };
+
+  const request3: Request = {
+    path: "/todo/43",
+    headers: {},
+    method: "GET",
+  };
+
+  expect(url(expectation, request1)).toBe(true);
+  expect(url(expectation, request2)).toBe(true);
+  expect(url(expectation, request3)).toBe(false);
+});

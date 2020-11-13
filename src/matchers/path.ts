@@ -6,9 +6,9 @@ export default (exp: Expectation, req: Request): boolean => {
 
   const pathRegexes = Object.entries(exp.request.pathParams || {})
     .map(([key, values]) => {
-      const pathRegex = new RegExp(`{${key}}`);
+      const paramsRegex = new RegExp(`{${key}}`);
       return values.map((value) => {
-        const newValue = String(value).replace(pathRegex, value);
+        const newValue = String(exp.request.path).replace(paramsRegex, value);
         return new RegExp(newValue);
       });
     })
