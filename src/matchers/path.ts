@@ -13,11 +13,10 @@ export default (exp: Expectation, req: Request): boolean => {
     .flat()
     .concat([new RegExp(exp.request.path)]);
 
+  // include the query parameters in the generated paths
   if (Object.keys(exp.request.queryParams || {}).length) {
     const queryParams = Object.entries(exp.request.queryParams)
-      .map(([key, values]) => {
-        return `${key}=(${values.join("|")})`;
-      })
+      .map(([key, values]) => `${key}=(${values.join("|")})`)
       .join(`&`);
 
     regexPaths = regexPaths.map(
@@ -25,10 +24,7 @@ export default (exp: Expectation, req: Request): boolean => {
     );
   }
 
-  const [matched] = regexPaths.filter((regex) => {
-    const [matched] = req.path.match(regex) || [];
-    return matched;
-  });
-
+  // at least one of the generated paths should match
+  const [matched] = regexPaths.filter((regex) => req.path.match(regex)).flat();
   return !!matched;
 };

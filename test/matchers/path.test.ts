@@ -172,3 +172,43 @@ test("query string parameters", () => {
   expect(url(expectation, request2)).toBe(true);
   expect(url(expectation, request3)).toBe(false);
 });
+
+test("query string parameters and path parameters", () => {
+  const expectation: Expectation = {
+    name: "simple path",
+    request: {
+      path: "/todo/{id}",
+      headers: {},
+      method: "GET",
+      pathParams: {
+        id: [12, 13],
+      },
+      queryParams: {
+        done: ["yes", "no"],
+      },
+    },
+    response: {},
+  };
+
+  const request1: Request = {
+    path: "/todo/12?done=yes",
+    headers: {},
+    method: "GET",
+  };
+
+  const request2: Request = {
+    path: "/todo/13?done=no",
+    headers: {},
+    method: "GET",
+  };
+
+  const request3: Request = {
+    path: "/todo/14",
+    headers: {},
+    method: "GET",
+  };
+
+  expect(url(expectation, request1)).toBe(true);
+  expect(url(expectation, request2)).toBe(true);
+  expect(url(expectation, request3)).toBe(false);
+});
