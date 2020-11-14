@@ -1,10 +1,8 @@
 import { Expectation, Request } from "../types";
-import { expect } from "chai";
 
 export default (exp: Expectation, req: Request): boolean => {
-  let defaultPathRegex = new RegExp(exp.request.path);
-
-  const pathRegexes = Object.entries(exp.request.pathParams || {})
+  // create the path parameters
+  let regexPaths = Object.entries(exp.request.pathParams || {})
     .map(([key, values]) => {
       const paramsRegex = new RegExp(`{${key}}`);
       return values.map((value) => {
@@ -13,15 +11,23 @@ export default (exp: Expectation, req: Request): boolean => {
       });
     })
     .flat()
-    .concat([defaultPathRegex]);
+    .concat([new RegExp(exp.request.path)]);
 
-  const [matched] = pathRegexes.filter((regex) => {
-    try {
-      expect(req.path).match(regex);
-      return true;
-    } catch (error) {
-      return false;
-    }
+  if (Object.keys(exp.request.queryParams || {}).length) {
+    const queryParams = Object.entries(exp.request.queryParams)
+      .map(([key, values]) => {
+        return `${key}=(${values.join("|")})`;
+      })
+      .join(`&`);
+
+    regexPaths = regexPaths.map(
+      (path) => new RegExp(`${path.source}\\?${queryParams}`)
+    );
+  }
+
+  const [matched] = regexPaths.filter((regex) => {
+    const [matched] = req.path.match(regex) || [];
+    return matched;
   });
 
   return !!matched;

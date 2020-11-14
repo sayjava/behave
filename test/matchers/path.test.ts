@@ -134,3 +134,41 @@ test("matches regex path parameter", () => {
   expect(url(expectation, request2)).toBe(true);
   expect(url(expectation, request3)).toBe(false);
 });
+
+test("query string parameters", () => {
+  const expectation: Expectation = {
+    name: "simple path",
+    request: {
+      path: "/todo",
+      headers: {},
+      method: "GET",
+      queryParams: {
+        id: ["[a-z]+"],
+        done: ["true", "false"],
+      },
+    },
+    response: {},
+  };
+
+  const request1: Request = {
+    path: "/todo?id=take&done=true",
+    headers: {},
+    method: "GET",
+  };
+
+  const request2: Request = {
+    path: "/todo?id=pain&done=false",
+    headers: {},
+    method: "GET",
+  };
+
+  const request3: Request = {
+    path: "/todo?id=43&done=true",
+    headers: {},
+    method: "GET",
+  };
+
+  expect(url(expectation, request1)).toBe(true);
+  expect(url(expectation, request2)).toBe(true);
+  expect(url(expectation, request3)).toBe(false);
+});
