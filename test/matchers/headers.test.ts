@@ -12,7 +12,9 @@ test("matches a subset header keys", () => {
       },
       method: "GET",
     },
-    response: {},
+    response: {
+      body: "",
+    },
   };
 
   const request: Request = {
@@ -39,7 +41,9 @@ test("matches headers values", () => {
       },
       method: "GET",
     },
-    response: {},
+    response: {
+      body: "",
+    },
   };
 
   const request: Request = {
@@ -49,6 +53,28 @@ test("matches headers values", () => {
       HOST: "example.com",
       "x-flyt-version": "1",
     },
+    method: "GET",
+  };
+
+  expect(matcher(expectation, request)).toBe(true);
+});
+
+test("empty headers", () => {
+  const expectation: Expectation = {
+    name: "simple path",
+    request: {
+      path: "/todo/1",
+      headers: {},
+      method: "GET",
+    },
+    response: {
+      body: "",
+    },
+  };
+
+  const request: Request = {
+    path: "/todo/1",
+    headers: {},
     method: "GET",
   };
 

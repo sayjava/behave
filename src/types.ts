@@ -21,7 +21,7 @@ export interface Request {
 
 export interface Response {
   statusCode?: number;
-  body?: string | any;
+  body: string | any;
   headers?: {
     [key: string]: any;
   };

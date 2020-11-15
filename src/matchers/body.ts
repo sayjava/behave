@@ -3,6 +3,10 @@ import { assert } from "chai";
 import { AssertionError } from "assert";
 
 export default (exp: Expectation, req: Request): boolean | AssertionError => {
+  if (JSON.stringify(exp.request.body || {}).length === 0) {
+    return true;
+  }
+
   try {
     assert.match(
       JSON.stringify(req.body),
