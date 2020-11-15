@@ -1,4 +1,4 @@
-import url from "../../src/matchers/path";
+import matcher from "../../src/matchers/path";
 import { Expectation, Request } from "../../src/types";
 
 test("matches a direct path /todo/1", () => {
@@ -18,7 +18,7 @@ test("matches a direct path /todo/1", () => {
     method: "GET",
   };
 
-  expect(url(expectation, request)).toBe(true);
+  expect(matcher(expectation, request)).toBe(true);
 });
 
 test("matches a regex path: /todo/[0-9]", () => {
@@ -38,7 +38,7 @@ test("matches a regex path: /todo/[0-9]", () => {
     method: "GET",
   };
 
-  expect(url(expectation, request)).toBe(true);
+  expect(matcher(expectation, request)).toBe(true);
 });
 
 test.skip("negative path match: !/todo/[0-9", () => {
@@ -58,7 +58,7 @@ test.skip("negative path match: !/todo/[0-9", () => {
     method: "GET",
   };
 
-  expect(url(expectation, request)).toBe(true);
+  expect(matcher(expectation, request)).toBe(true);
 });
 
 test("matches path parameter", () => {
@@ -93,9 +93,9 @@ test("matches path parameter", () => {
     method: "GET",
   };
 
-  expect(url(expectation, request1)).toBe(true);
-  expect(url(expectation, request2)).toBe(true);
-  expect(url(expectation, request3)).toBe(false);
+  expect(matcher(expectation, request1)).toBe(true);
+  expect(matcher(expectation, request2)).toBe(true);
+  expect(matcher(expectation, request3)).toBe(false);
 });
 
 test("matches regex path parameter", () => {
@@ -130,9 +130,9 @@ test("matches regex path parameter", () => {
     method: "GET",
   };
 
-  expect(url(expectation, request1)).toBe(true);
-  expect(url(expectation, request2)).toBe(true);
-  expect(url(expectation, request3)).toBe(false);
+  expect(matcher(expectation, request1)).toBe(true);
+  expect(matcher(expectation, request2)).toBe(true);
+  expect(matcher(expectation, request3)).toBe(false);
 });
 
 test("query string parameters", () => {
@@ -168,9 +168,9 @@ test("query string parameters", () => {
     method: "GET",
   };
 
-  expect(url(expectation, request1)).toBe(true);
-  expect(url(expectation, request2)).toBe(true);
-  expect(url(expectation, request3)).toBe(false);
+  expect(matcher(expectation, request1)).toBe(true);
+  expect(matcher(expectation, request2)).toBe(true);
+  expect(matcher(expectation, request3)).toBe(false);
 });
 
 test("query string parameters and path parameters", () => {
@@ -208,7 +208,7 @@ test("query string parameters and path parameters", () => {
     method: "GET",
   };
 
-  expect(url(expectation, request1)).toBe(true);
-  expect(url(expectation, request2)).toBe(true);
-  expect(url(expectation, request3)).toBe(false);
+  expect(matcher(expectation, request1)).toBe(true);
+  expect(matcher(expectation, request2)).toBe(true);
+  expect(matcher(expectation, request3)).toBe(false);
 });

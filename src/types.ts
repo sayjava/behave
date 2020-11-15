@@ -9,7 +9,7 @@ export interface Request {
       };
 
   headers: {
-    [key: string]: any[];
+    [key: string]: string;
   };
   pathParams?: {
     [key: string]: any[];
