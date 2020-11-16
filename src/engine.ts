@@ -1,8 +1,9 @@
-import { Expectation, Request } from "./types";
 import { assert } from "chai";
+import shortId from "shortid";
+import bodyMatcher from "./matchers/body";
 import headerMatcher from "./matchers/headers";
 import pathMatcher from "./matchers/path";
-import bodyMatcher from "./matchers/body";
+import { Expectation, Record, Request } from "./types";
 
 interface EngineConfig {}
 
@@ -13,26 +14,55 @@ interface Props {
 
 class Engine {
   private $matches: Expectation[] = [];
-  private $requests: Request[] = [];
+  private $expectations: Expectation[];
+  private $records: Record[] = [];
 
-  constructor(private expectations: Expectation[]) {}
+  constructor(expectations: Expectation[]) {
+    this.$expectations = expectations.map((exp) => {
+      return Object.assign(this.basicExpectation(), exp);
+    });
+  }
 
-  match(req: Request): Expectation[] {
-    this.$requests.push(req);
+  private basicExpectation() {
+    return {
+      id: shortId(),
+      count: "unlimited",
+    };
+  }
 
-    return this.expectations
-      .filter((exp) => req.method === exp.request.method)
-      .filter((exp) => pathMatcher(exp, req))
-      .filter((exp) => headerMatcher(exp, req) === true)
-      .filter((exp) => bodyMatcher(exp, req) === true);
+  match(request: Request): Expectation[] {
+    const matches = this.$expectations
+      .filter((exp) => request.method === exp.request.method)
+      .filter((exp) => pathMatcher(exp, request))
+      .filter((exp) => headerMatcher(exp, request) === true)
+      .filter((exp) => bodyMatcher(exp, request) === true)
+      .filter((exp) => {
+        if (exp.count === "unlimited") {
+          return true;
+        }
+
+        const pastMatches = this.$records.filter((rec) => {
+          const exps = rec.matches.map((e) => e.id);
+          return exps.includes(exp.id);
+        });
+
+        return pastMatches.length <= Number(exp.count);
+      });
+
+    this.$records.push({
+      request,
+      matches,
+    });
+
+    return matches;
   }
 
   get matches() {
     return this.$matches;
   }
 
-  get requests() {
-    return this.$requests;
+  get records() {
+    return this.$records;
   }
 }
 
@@ -43,15 +73,12 @@ const minimumExpectation: Expectation = {
     method: "GET",
     path: "",
   },
-  response: {
-    body: "",
-  },
+  response: {},
 };
 
 const validateExpectation = (exp: Expectation): boolean => {
   assert.containsAllDeepKeys(exp, minimumExpectation);
   assert.containsAllDeepKeys(exp.request, minimumExpectation.request);
-  assert.containsAllDeepKeys(exp.response, minimumExpectation.response);
   return true;
 };
 

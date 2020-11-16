@@ -21,25 +21,26 @@ export interface Request {
 
 export interface Response {
   statusCode?: number;
-  body: string | any;
+  body?: string | any;
+  delay?: number;
   headers?: {
     [key: string]: any;
   };
 }
 
-export interface ExpectationTimes {
-  remainingTimes: number;
-  unlimited: boolean;
-}
-
 export interface Expectation {
+  id?: string;
   name: string;
   description?: string;
   request: Request;
   response: Response;
 
-  times?: ExpectationTimes;
-  delay?: number;
+  count?: "unlimited" | number;
   timeToLive?: number;
   priority?: number;
+}
+
+export interface Record {
+  request: Request;
+  matches: Expectation[];
 }
