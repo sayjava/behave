@@ -1,5 +1,5 @@
 import matcher from "../../src/matchers/path";
-import { Expectation, Request } from "../../src/types";
+import { Request } from "../../src/types";
 
 test("matches a direct path /todo/1", () => {
   const expRequest: Request = {

@@ -1,0 +1,23 @@
+{
+  "name": "flyt-server",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "repository": "git@github.com:sayjava/flyt.git",
+  "author": "Raymond Ottun <sayjava@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "build": "echo 'coming soon'"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.7",
+    "jest": "^26.6.3",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.4"
+  },
+  "dependencies": {
+    "shortid": "^2.2.16",
+    "typescript": "^4.0.5"
+  }
+}

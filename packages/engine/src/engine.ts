@@ -1,4 +1,3 @@
-import { AssertionError } from "assert";
 import { assert } from "chai";
 import shortId from "shortid";
 import bodyMatcher from "./matchers/body";
