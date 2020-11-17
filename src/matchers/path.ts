@@ -1,21 +1,21 @@
 import { Expectation, Request } from "../types";
 
-export default (exp: Expectation, req: Request): boolean => {
+export default (expRequest: Request, req: Request): boolean => {
   // create the path parameters
-  let regexPaths = Object.entries(exp.request.pathParams || {})
+  let regexPaths = Object.entries(expRequest.pathParams || {})
     .map(([key, values]) => {
       const paramsRegex = new RegExp(`{${key}}`);
       return values.map((value) => {
-        const newValue = String(exp.request.path).replace(paramsRegex, value);
+        const newValue = String(expRequest.path).replace(paramsRegex, value);
         return new RegExp(newValue);
       });
     })
     .flat()
-    .concat([new RegExp(exp.request.path)]);
+    .concat([new RegExp(expRequest.path)]);
 
   // include the query parameters in the generated paths
-  if (Object.keys(exp.request.queryParams || {}).length) {
-    const queryParams = Object.entries(exp.request.queryParams)
+  if (Object.keys(expRequest.queryParams || {}).length) {
+    const queryParams = Object.entries(expRequest.queryParams)
       .map(([key, values]) => `${key}=(${values.join("|")})`)
       .join(`&`);
 

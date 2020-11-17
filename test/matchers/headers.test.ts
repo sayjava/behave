@@ -2,19 +2,13 @@ import matcher from "../../src/matchers/headers";
 import { Expectation, Request } from "../../src/types";
 
 test("matches a subset header keys", () => {
-  const expectation: Expectation = {
-    name: "simple path",
-    request: {
-      path: "/todo/1",
-      headers: {
-        Accept: "application/json",
-        "Cache-Control": "no-cache",
-      },
-      method: "GET",
+  const expRequest: Request = {
+    path: "/todo/1",
+    headers: {
+      Accept: "application/json",
+      "Cache-Control": "no-cache",
     },
-    response: {
-      body: "",
-    },
+    method: "GET",
   };
 
   const request: Request = {
@@ -27,23 +21,17 @@ test("matches a subset header keys", () => {
     method: "GET",
   };
 
-  expect(matcher(expectation, request)).toBe(true);
+  expect(matcher(expRequest, request)).toBe(true);
 });
 
 test("matches headers values", () => {
-  const expectation: Expectation = {
-    name: "simple path",
-    request: {
-      path: "/todo/1",
-      headers: {
-        Accept: "application/json",
-        "x-flyt-version": "[0-9]+",
-      },
-      method: "GET",
+  const expRequest: Request = {
+    path: "/todo/1",
+    headers: {
+      Accept: "application/json",
+      "x-flyt-version": "[0-9]+",
     },
-    response: {
-      body: "",
-    },
+    method: "GET",
   };
 
   const request: Request = {
@@ -56,20 +44,14 @@ test("matches headers values", () => {
     method: "GET",
   };
 
-  expect(matcher(expectation, request)).toBe(true);
+  expect(matcher(expRequest, request)).toBe(true);
 });
 
 test("empty headers", () => {
-  const expectation: Expectation = {
-    name: "simple path",
-    request: {
-      path: "/todo/1",
-      headers: {},
-      method: "GET",
-    },
-    response: {
-      body: "",
-    },
+  const expRequest: Request = {
+    path: "/todo/1",
+    headers: {},
+    method: "GET",
   };
 
   const request: Request = {
@@ -78,5 +60,5 @@ test("empty headers", () => {
     method: "GET",
   };
 
-  expect(matcher(expectation, request)).toBe(true);
+  expect(matcher(expRequest, request)).toBe(true);
 });

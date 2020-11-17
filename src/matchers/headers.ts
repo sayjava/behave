@@ -1,18 +1,21 @@
-import { Expectation, Request } from "../types";
-import { assert } from "chai";
 import { AssertionError } from "assert";
+import { assert } from "chai";
+import { Request } from "../types";
 
-export default (exp: Expectation, req: Request): boolean | AssertionError => {
-  if (Object.keys(exp.request.headers).length === 0) {
+export default (
+  expRequest: Request,
+  req: Request
+): boolean | AssertionError => {
+  if (Object.keys(expRequest.headers).length === 0) {
     return true;
   }
 
   try {
     // check matching keys
-    assert.containsAllKeys(req.headers, exp.request.headers);
+    assert.containsAllKeys(req.headers, expRequest.headers);
 
     // check matching values
-    Object.entries(exp.request.headers).forEach(([key, expValue]) => {
+    Object.entries(expRequest.headers).forEach(([key, expValue]) => {
       assert.match(req.headers[key], new RegExp(expValue));
     });
 

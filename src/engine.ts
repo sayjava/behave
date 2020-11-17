@@ -13,7 +13,6 @@ interface Props {
 }
 
 class Engine {
-  private $matches: Expectation[] = [];
   private $expectations: Expectation[];
   private $records: Record[] = [];
 
@@ -33,9 +32,9 @@ class Engine {
   match(request: Request): Expectation[] {
     const matches = this.$expectations
       .filter((exp) => request.method === exp.request.method)
-      .filter((exp) => pathMatcher(exp, request))
-      .filter((exp) => headerMatcher(exp, request) === true)
-      .filter((exp) => bodyMatcher(exp, request) === true)
+      .filter((exp) => pathMatcher(exp.request, request))
+      .filter((exp) => headerMatcher(exp.request, request) === true)
+      .filter((exp) => bodyMatcher(exp.request, request) === true)
       .filter((exp) => {
         if (exp.count === "unlimited") {
           return true;
@@ -55,10 +54,6 @@ class Engine {
     });
 
     return matches;
-  }
-
-  get matches() {
-    return this.$matches;
   }
 
   get records() {

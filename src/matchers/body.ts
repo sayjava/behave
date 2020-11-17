@@ -1,16 +1,19 @@
-import { Expectation, Request } from "../types";
-import { assert } from "chai";
 import { AssertionError } from "assert";
+import { assert } from "chai";
+import { Request } from "../types";
 
-export default (exp: Expectation, req: Request): boolean | AssertionError => {
-  if (JSON.stringify(exp.request.body || {}).length === 0) {
+export default (
+  expRequest: Request,
+  req: Request
+): boolean | AssertionError => {
+  if (JSON.stringify(expRequest.body || {}).length === 0) {
     return true;
   }
 
   try {
     assert.match(
       JSON.stringify(req.body),
-      new RegExp(JSON.stringify(exp.request.body))
+      new RegExp(JSON.stringify(expRequest.body))
     );
 
     return true;
