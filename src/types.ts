@@ -19,6 +19,21 @@ export interface Request {
   };
 }
 
+export interface Verification {
+  request: Request;
+  count?: {
+    atLeast?: number;
+    atMost?: number | "unlimited";
+  };
+}
+
+export interface VerificationError {
+  message: string;
+  actual: any;
+  expected: any;
+  records: Record[];
+}
+
 export interface Response {
   statusCode?: number;
   body?: string | any;

@@ -1,5 +1,10 @@
 import { create } from "../src/engine";
-import { Expectation, Request } from "../src/types";
+import {
+  Expectation,
+  Request,
+  Verification,
+  VerificationError,
+} from "../src/types";
 
 test("validates expectation", () => {
   const exps: any[] = [
@@ -286,33 +291,9 @@ test("matched 2 times only", () => {
   const engine = create({ expectations, config: {} });
 
   engine.match(request);
-  const secondMatch = engine.match(request);
-  engine.match(request);
   engine.match(request);
   const lastMatch = engine.match(request);
 
-  expect(secondMatch).toMatchInlineSnapshot(`
-    Array [
-      Object {
-        "count": 2,
-        "id": "exp1",
-        "name": "sample1",
-        "request": Object {
-          "headers": Object {},
-          "method": "GET",
-          "path": "/todos",
-        },
-        "response": Object {
-          "body": Array [
-            Object {
-              "id": 2,
-              "text": "get request",
-            },
-          ],
-        },
-      },
-    ]
-  `);
   expect(lastMatch).toMatchInlineSnapshot(`Array []`);
 });
 
@@ -390,19 +371,6 @@ test("multiple expectation matches", () => {
   expect(failExp).toMatchInlineSnapshot(`
     Array [
       Object {
-        "count": 1,
-        "id": "exp1",
-        "name": "sample1",
-        "request": Object {
-          "headers": Object {},
-          "method": "GET",
-          "path": "/todos",
-        },
-        "response": Object {
-          "statusCode": 200,
-        },
-      },
-      Object {
         "count": "unlimited",
         "id": "exp2",
         "name": "sample2",
@@ -417,4 +385,272 @@ test("multiple expectation matches", () => {
       },
     ]
   `);
+});
+
+test("least matches at least once", () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos",
+        method: "GET",
+      },
+      response: {
+        statusCode: 200,
+      },
+      count: 1,
+    },
+  ];
+
+  const engine = create({ expectations, config: {} });
+
+  const request: Request = {
+    path: "/todos",
+    method: "GET",
+    headers: {},
+  };
+
+  const verification: Verification = {
+    request,
+  };
+
+  engine.match(request);
+  const verified = engine.verify(verification);
+
+  expect(verified).toMatchInlineSnapshot(`true`);
+});
+
+test("empty record matches", () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos",
+        method: "GET",
+      },
+      response: {
+        statusCode: 200,
+      },
+      count: 1,
+    },
+  ];
+
+  const engine = create({ expectations, config: {} });
+
+  const request: Request = {
+    path: "/todos",
+    method: "GET",
+    headers: {},
+  };
+
+  const verification: Verification = {
+    request,
+  };
+
+  const verified = engine.verify(verification);
+
+  expect(verified).toMatchInlineSnapshot(`
+    Object {
+      "actual": 0,
+      "expected": 1,
+      "message": "Expected to have received GET:/todos at least 1 times but was received 0",
+      "records": Array [],
+    }
+  `);
+});
+
+test("at least 3 times", () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos",
+        method: "GET",
+      },
+      response: {
+        statusCode: 200,
+      },
+    },
+  ];
+
+  const engine = create({ expectations, config: {} });
+
+  const request: Request = {
+    path: "/todos",
+    method: "GET",
+    headers: {},
+  };
+
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+
+  const verification: Verification = { request, count: { atLeast: 3 } };
+  const verified = engine.verify(verification);
+
+  expect(verified).toMatchInlineSnapshot(`true`);
+});
+
+test("at least 1 times with other records", () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos$",
+        method: "GET",
+      },
+      response: {
+        statusCode: 200,
+      },
+      count: 1,
+    },
+  ];
+
+  const engine = create({ expectations, config: {} });
+
+  const request: Request = {
+    path: "/todos/take-trash-out",
+    method: "GET",
+    headers: {},
+  };
+
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+
+  const verification: Verification = { request, count: { atLeast: 1 } };
+  const verified = engine.verify(verification) as VerificationError;
+
+  expect(verified.message).toMatchInlineSnapshot(
+    `"Expected to have received GET:/todos/take-trash-out at least 1 times but was received 0"`
+  );
+});
+
+test("at most 3 times", () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos",
+        method: "GET",
+      },
+      response: {
+        statusCode: 200,
+      },
+    },
+  ];
+
+  const engine = create({ expectations, config: {} });
+
+  const request: Request = {
+    path: "/todos",
+    method: "GET",
+    headers: {},
+  };
+
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+
+  const verification: Verification = { request, count: { atMost: 3 } };
+  const verified = engine.verify(verification) as VerificationError;
+
+  expect(verified.message).toMatchInlineSnapshot(
+    `"Expected to have received GET:/todos at most 3 times but was received 4"`
+  );
+});
+
+test("exactly 2 times", () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos",
+        method: "GET",
+      },
+      response: {
+        statusCode: 200,
+      },
+    },
+  ];
+
+  const engine = create({ expectations, config: {} });
+
+  const request: Request = {
+    path: "/todos",
+    method: "GET",
+    headers: {},
+  };
+
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+
+  const verification: Verification = {
+    request,
+    count: { atMost: 2, atLeast: 2 },
+  };
+  const verified = engine.verify(verification) as VerificationError;
+
+  expect(verified.message).toMatchInlineSnapshot(
+    `"Expected to have received GET:/todos at most 2 times but was received 4"`
+  );
+});
+
+test("match 2 counts and verify 3 times", () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos",
+        method: "GET",
+      },
+      response: {
+        statusCode: 200,
+      },
+      count: 2,
+    },
+  ];
+
+  const engine = create({ expectations, config: {} });
+
+  const request: Request = {
+    path: "/todos",
+    method: "GET",
+    headers: {},
+  };
+
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+  engine.match(request);
+
+  const verification: Verification = {
+    request,
+    count: { atLeast: 3 },
+  };
+  const verified = engine.verify(verification) as VerificationError;
+
+  expect(verified.message).toMatchInlineSnapshot(
+    `"Expected to have received GET:/todos at least 3 times but was received 2"`
+  );
 });
