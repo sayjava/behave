@@ -1,4 +1,4 @@
-import { Expectation, Request } from "../types";
+import { Request } from "../types";
 
 export default (expRequest: Request, req: Request): boolean => {
   // create the path parameters
