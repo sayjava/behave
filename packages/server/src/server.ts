@@ -1,16 +1,17 @@
 import express, { Express } from "express";
 import morgan from "morgan";
+import { Engine } from "flyt-engine";
 
 interface ServerConfig {
   port?: number;
   keepAlivePath?: string;
+  engine: Engine;
   debugLevel?: "none" | "verbose";
-  expectations: any[];
 }
 
 const defaultConfig: ServerConfig = {
   port: 8080,
-  expectations: [],
+  engine: new Engine([]),
   keepAlivePath: "/_alive",
   debugLevel: "none",
 };
@@ -38,11 +39,18 @@ const createKeepAliveRoute = (app: Express, path: string) => {
   });
 };
 
-const createExpectationRoute = (app: Express) => {
+const createExpectationRoute = (app: Express, config: ServerConfig) => {
   app.use((req, res) => {
-    res.send({
-      message: req.path,
-    });
+    const [matched] = config.engine.match(req);
+
+    if (matched) {
+      const { statusCode, body } = matched.response;
+      res.status(statusCode || 200).send(body);
+    } else {
+      res.status(404).send({
+        path: req.path,
+      });
+    }
   });
 };
 
@@ -65,7 +73,7 @@ export default (argConfig: ServerConfig) => {
       enableLogging(app, config);
       createKeepAliveRoute(app, config.keepAlivePath);
       createRestRoute(app);
-      createExpectationRoute(app);
+      createExpectationRoute(app, config);
 
       app.listen(config.port, () => {
         console.info(`Flyt Sever started on ${config.port}`);

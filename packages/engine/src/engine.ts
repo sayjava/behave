@@ -18,7 +18,7 @@ interface Props {
   config: EngineConfig;
 }
 
-class Engine {
+export class Engine {
   private $expectations: Expectation[];
   private $records: Record[] = [];
 
@@ -104,8 +104,6 @@ class Engine {
 const minimumExpectation: Expectation = {
   name: "sample",
   request: {
-    headers: {},
-    method: "GET",
     path: "",
   },
   response: {},

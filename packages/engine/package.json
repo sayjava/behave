@@ -1,7 +1,7 @@
 {
   "name": "flyt-engine",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "git@github.com:sayjava/flyt.git",
   "author": "Raymond Ottun <sayjava@gmail.com>",
   "license": "MIT",
