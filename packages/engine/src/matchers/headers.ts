@@ -6,18 +6,16 @@ export default (
   expRequest: Request,
   req: Request
 ): boolean | AssertionError => {
-  const reqHeaders = expRequest.headers || {};
-
-  if (Object.keys(reqHeaders).length === 0) {
+  if (Object.keys(expRequest.headers || {}).length === 0) {
     return true;
   }
 
   try {
     // check matching keys
-    assert.containsAllKeys(req.headers, reqHeaders);
+    assert.containsAllKeys(req.headers, expRequest.headers);
 
     // check matching values
-    Object.entries(reqHeaders).forEach(([key, expValue]) => {
+    Object.entries(expRequest.headers).forEach(([key, expValue]) => {
       assert.match(req.headers[key], new RegExp(expValue));
     });
 

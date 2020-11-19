@@ -387,14 +387,14 @@ test("multiple expectation matches", () => {
   `);
 });
 
-test("least matches at least once", () => {
+test("verify: least matches at least once", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
       name: "sample1",
       request: {
         headers: {},
-        path: "/todos",
+        path: "/todo/2",
         method: "GET",
       },
       response: {
@@ -407,7 +407,7 @@ test("least matches at least once", () => {
   const engine = create({ expectations, config: {} });
 
   const request: Request = {
-    path: "/todos",
+    path: "/todo/2",
     method: "GET",
     headers: {},
   };
@@ -422,7 +422,7 @@ test("least matches at least once", () => {
   expect(verified).toMatchInlineSnapshot(`true`);
 });
 
-test("empty record matches", () => {
+test("verify: empty record matches", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
@@ -457,13 +457,13 @@ test("empty record matches", () => {
     Object {
       "actual": 0,
       "expected": 1,
-      "message": "Expected to have received GET:/todos at least 1 times but was received 0",
+      "message": "Expected to have received GET:/todos at least 1 times but was received 0 times",
       "records": Array [],
     }
   `);
 });
 
-test("at least 3 times", () => {
+test("verify: at least 3 times", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
@@ -498,7 +498,7 @@ test("at least 3 times", () => {
   expect(verified).toMatchInlineSnapshot(`true`);
 });
 
-test("at least 1 times with other records", () => {
+test("verify: at least 1 times with other records", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
@@ -532,11 +532,11 @@ test("at least 1 times with other records", () => {
   const verified = engine.verify(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
-    `"Expected to have received GET:/todos/take-trash-out at least 1 times but was received 0"`
+    `"Expected to have received GET:/todos/take-trash-out at least 1 times but was received 0 times"`
   );
 });
 
-test("at most 3 times", () => {
+test("verify: at most 3 times", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
@@ -569,11 +569,11 @@ test("at most 3 times", () => {
   const verified = engine.verify(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
-    `"Expected to have received GET:/todos at most 3 times but was received 4"`
+    `"Expected to have received GET:/todos at most 3 times but was received 4 times"`
   );
 });
 
-test("exactly 2 times", () => {
+test("verify: exactly 2 times", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
@@ -609,11 +609,11 @@ test("exactly 2 times", () => {
   const verified = engine.verify(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
-    `"Expected to have received GET:/todos at most 2 times but was received 4"`
+    `"Expected to have received GET:/todos at most 2 times but was received 4 times"`
   );
 });
 
-test("match 2 counts and verify 3 times", () => {
+test("verify: match 2 counts and verify 3 times", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
@@ -651,6 +651,6 @@ test("match 2 counts and verify 3 times", () => {
   const verified = engine.verify(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
-    `"Expected to have received GET:/todos at least 3 times but was received 2"`
+    `"Expected to have received GET:/todos at least 3 times but was received 2 times"`
   );
 });

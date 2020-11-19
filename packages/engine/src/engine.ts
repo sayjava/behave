@@ -62,8 +62,12 @@ export class Engine {
     return matches;
   }
 
-  get records() {
+  get records(): Record[] {
     return this.$records;
+  }
+
+  get expectations(): Expectation[] {
+    return this.$expectations;
   }
 
   verify(verification: Verification): boolean | VerificationError {
@@ -75,15 +79,17 @@ export class Engine {
     const matches = this.$records
       .filter((rec) => rec.request.method === request.method)
       .filter((rec) => rec.request.path === request.path)
-      .filter((rec) => headerMatcher(rec.request, request) === true)
-      .filter((rec) => bodyMatcher(rec.request, request) === true)
+      .filter((rec) => headerMatcher(request, rec.request) === true)
+      .filter((rec) => bodyMatcher(request, rec.request) === true)
       .filter((rec) => rec.matches.length > 0);
 
     if (matches.length < least) {
       return {
         actual: matches.length,
         expected: least,
-        message: `Expected to have received ${request.method}:${request.path} at least ${least} times but was received ${matches.length}`,
+        message: `Expected to have received ${request.method || "GET"}:${
+          request.path
+        } at least ${least} times but was received ${matches.length} times`,
         records: matches,
       };
     }
@@ -92,7 +98,9 @@ export class Engine {
       return {
         actual: matches.length,
         expected: most,
-        message: `Expected to have received ${request.method}:${request.path} at most ${most} times but was received ${matches.length}`,
+        message: `Expected to have received ${request.method || "GET"}:${
+          request.path
+        } at most ${most} times but was received ${matches.length} times`,
         records: matches,
       };
     }

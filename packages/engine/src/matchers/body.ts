@@ -6,7 +6,7 @@ export default (
   expRequest: Request,
   req: Request
 ): boolean | AssertionError => {
-  if (JSON.stringify(expRequest.body || {}).length === 0) {
+  if (!expRequest.body) {
     return true;
   }
 

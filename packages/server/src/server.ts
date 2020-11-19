@@ -1,6 +1,7 @@
 import express, { Express } from "express";
+import bodyParser from "body-parser";
 import morgan from "morgan";
-import { Engine } from "flyt-engine";
+import { Engine, Verification } from "flyt-engine";
 
 interface ServerConfig {
   port?: number;
@@ -16,21 +17,36 @@ const defaultConfig: ServerConfig = {
   debugLevel: "none",
 };
 
-const createRestRoute = (app: Express) => {
-  app
-    .route("/_/api/expectations")
-    .get((req, res) => {
-      res.send([]);
-    })
-    .post((req, res) => {
-      res.send("created ok");
-    })
-    .delete((req, res) => {
-      res.send("deleted ok");
-    })
-    .put((req, res) => {
-      res.send("deleted ok");
-    });
+const createRestRoute = (app: Express, config: ServerConfig) => {
+  app.route("/_/api/expectations").get((req, res) => {
+    res.status(200).json(config.engine.expectations);
+  });
+
+  app.route("/_/api/records").get((req, res) => {
+    res.status(200).json(config.engine.records);
+  });
+};
+
+const createVerificationRoute = (app: Express, config: ServerConfig) => {
+  app.route("/_/api/verify").post((req, res) => {
+    try {
+      const { verifications } = req.body;
+
+      const verified = verifications.map((verify: Verification) =>
+        config.engine.verify(verify)
+      );
+      const pass = verified.filter((res) => typeof res !== "boolean");
+
+      if (pass.length !== 0) {
+        return res.status(406).send(pass);
+      }
+
+      return res.status(202).send({});
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error);
+    }
+  });
 };
 
 const createKeepAliveRoute = (app: Express, path: string) => {
@@ -41,7 +57,14 @@ const createKeepAliveRoute = (app: Express, path: string) => {
 
 const createExpectationRoute = (app: Express, config: ServerConfig) => {
   app.use((req, res) => {
-    const [matched] = config.engine.match(req);
+    const engineRequest = {
+      path: req.path,
+      method: req.method,
+      body: req.body,
+      headers: req.headers,
+    };
+
+    const [matched] = config.engine.match(engineRequest);
 
     if (matched) {
       const { statusCode, body } = matched.response;
@@ -66,13 +89,17 @@ const enableLogging = (app: Express, config: ServerConfig) => {
 
 export default (argConfig: ServerConfig) => {
   const app = express();
+  app.use(bodyParser.json());
+
   const config = Object.assign({}, defaultConfig, argConfig);
 
   return {
     start: () => {
       enableLogging(app, config);
+
       createKeepAliveRoute(app, config.keepAlivePath);
-      createRestRoute(app);
+      createRestRoute(app, config);
+      createVerificationRoute(app, config);
       createExpectationRoute(app, config);
 
       app.listen(config.port, () => {
