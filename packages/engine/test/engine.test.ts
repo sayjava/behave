@@ -1,4 +1,4 @@
-import { create } from "../src/engine";
+import { create, Engine } from "../src/engine";
 import {
   Expectation,
   Request,
@@ -653,4 +653,50 @@ test("verify: match 2 counts and verify 3 times", () => {
   expect(verified.message).toMatchInlineSnapshot(
     `"Expected to have received GET:/todos at least 3 times but was received 2 times"`
   );
+});
+
+test("Expectation: add results in error", () => {
+  const engine = new Engine([]);
+  const add = () => engine.addExpectation({} as any);
+  expect(add).toThrowError(
+    "expected {} to contain keys 'name', 'request', and 'response'"
+  );
+});
+
+test("Expectation: add", () => {
+  const engine = new Engine([]);
+  const add = () =>
+    engine.addExpectation({
+      id: "new",
+      name: "base expectation",
+      request: { path: "/hello" },
+      response: {},
+    });
+  expect(add).not.toThrow();
+  expect(engine.expectations).toMatchInlineSnapshot(`
+    Array [
+      Object {
+        "count": "unlimited",
+        "id": "new",
+        "name": "base expectation",
+        "request": Object {
+          "path": "/hello",
+        },
+        "response": Object {},
+      },
+    ]
+  `);
+});
+
+test("Expectation: remove", () => {
+  const engine = new Engine([]);
+  const add = () =>
+    engine.addExpectation({
+      id: "new",
+      name: "base expectation",
+      request: { path: "/hello" },
+      response: {},
+    });
+  engine.removeExpectation("new");
+  expect(engine.expectations).toMatchInlineSnapshot(`Array []`);
 });

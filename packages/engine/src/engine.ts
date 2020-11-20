@@ -18,6 +18,20 @@ interface Props {
   config: EngineConfig;
 }
 
+const minimumExpectation: Expectation = {
+  name: "sample",
+  request: {
+    path: "",
+  },
+  response: {},
+};
+
+export const validateExpectation = (exp: Expectation): boolean => {
+  assert.containsAllDeepKeys(exp, minimumExpectation);
+  assert.containsAllDeepKeys(exp.request, minimumExpectation.request);
+  return true;
+};
+
 export class Engine {
   private $expectations: Expectation[];
   private $records: Record[] = [];
@@ -62,14 +76,6 @@ export class Engine {
     return matches;
   }
 
-  get records(): Record[] {
-    return this.$records;
-  }
-
-  get expectations(): Expectation[] {
-    return this.$expectations;
-  }
-
   verify(verification: Verification): boolean | VerificationError {
     const { request, count = {} } = verification;
 
@@ -107,21 +113,25 @@ export class Engine {
 
     return true;
   }
+
+  addExpectation(exp: Expectation) {
+    validateExpectation(exp);
+    const newExp = Object.assign({}, this.basicExpectation(), exp);
+    this.$expectations.push(newExp);
+  }
+
+  removeExpectation(id: string) {
+    this.$expectations = this.$expectations.filter((exp) => exp.id === id);
+  }
+
+  get records(): Record[] {
+    return this.$records;
+  }
+
+  get expectations(): Expectation[] {
+    return this.$expectations;
+  }
 }
-
-const minimumExpectation: Expectation = {
-  name: "sample",
-  request: {
-    path: "",
-  },
-  response: {},
-};
-
-const validateExpectation = (exp: Expectation): boolean => {
-  assert.containsAllDeepKeys(exp, minimumExpectation);
-  assert.containsAllDeepKeys(exp.request, minimumExpectation.request);
-  return true;
-};
 
 export const create = ({ expectations }: Props) => {
   expectations.forEach(validateExpectation);
