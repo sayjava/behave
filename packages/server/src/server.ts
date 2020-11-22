@@ -3,6 +3,7 @@ import express, { Express } from "express";
 import { Engine } from "flyt-engine";
 import morgan from "morgan";
 import flyMiddleware from "./middlewares/express";
+import flyUIMiddleware from "./middlewares/ui";
 
 interface ServerConfig {
   port?: number;
@@ -42,10 +43,12 @@ export default (argConfig: ServerConfig) => {
 
   enableLogging(app, config);
   createKeepAliveRoute(app, config.keepAlivePath);
-  flyMiddleware(app, config.engine);
 
   return {
-    start: () => {
+    start: async () => {
+      await flyUIMiddleware(app);
+      flyMiddleware(app, config.engine);
+
       app.listen(config.port, () => {
         console.info(`Flyt Sever started on ${config.port}`);
       });

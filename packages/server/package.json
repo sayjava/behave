@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "tsc",
+    "build": "tsc && next build",
     "dev": "ts-node src/bin/index.ts",
     "watch": "nodemon",
     "start": "node --inspect=5858 lib/bin/index.js"
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.7",
+    "@types/react": "^17.0.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.6",
     "prettier": "^2.1.2",
@@ -23,11 +24,14 @@
     "ts-node": "^9.0.0"
   },
   "dependencies": {
-    "flyt-engine": "1.0.0",
     "@types/express": "^4.17.9",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "flyt-engine": "1.0.0",
     "morgan": "^1.10.0",
+    "next": "^10.0.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "shortid": "^2.2.16",
     "typescript": "^4.0.5"
   }
