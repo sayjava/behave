@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "tsc && next build",
+    "build": "tsc -p tsconfig.server.json && next build",
     "dev": "ts-node src/bin/index.ts",
     "watch": "nodemon",
     "start": "node --inspect=5858 lib/bin/index.js"

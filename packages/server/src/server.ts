@@ -30,7 +30,11 @@ const enableLogging = (app: Express, config: ServerConfig) => {
     case "none":
       break;
     case "verbose":
-      app.use(morgan("common"));
+      app.use(
+        morgan("common", {
+          skip: (req, _) => req.path.includes("/_next"),
+        })
+      );
       break;
   }
 };
