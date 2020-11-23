@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default () => {
   useEffect(() => {
@@ -9,7 +10,21 @@ export default () => {
   });
   return (
     <div>
-      <h1>FLYT engine UIx Next engine</h1>
+      <header>
+        <Link href="expectations/add">
+          <button>Add Expectation</button>
+        </Link>
+        <nav>
+          <ul>
+            <li>
+              <Link href="/expectations">Expectations</Link>
+            </li>
+            <li>
+              <Link href="/">Records</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
     </div>
   );
 };
