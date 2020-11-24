@@ -8,6 +8,7 @@ import flyUIMiddleware from "./middlewares/ui";
 interface ServerConfig {
   port?: number;
   keepAlivePath?: string;
+  readyPath?: string;
   engine: Engine;
   debugLevel?: "none" | "verbose";
 }
@@ -16,6 +17,7 @@ const defaultConfig: ServerConfig = {
   port: 8080,
   engine: new Engine([]),
   keepAlivePath: "/_alive",
+  readyPath: "/_ready",
   debugLevel: "none",
 };
 
@@ -47,6 +49,7 @@ export default async (argConfig: ServerConfig) => {
 
   enableLogging(app, config);
   createKeepAliveRoute(app, config.keepAlivePath);
+  createKeepAliveRoute(app, config.readyPath);
 
   await flyUIMiddleware(app);
   flyMiddleware(app, config.engine);

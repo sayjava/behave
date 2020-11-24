@@ -6,7 +6,7 @@
   "author": "Raymond Ottun <sayjava@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --timeout 200",
     "build": "tsc -p tsconfig.server.json && next build",
     "dev": "ts-node src/bin/index.ts",
     "watch": "nodemon",
