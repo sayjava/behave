@@ -1,6 +1,7 @@
 import { Engine } from "flyt-engine";
+import { Request, Response } from "express";
 
-export default (engine: Engine) => (req, res) => {
+export default (engine: Engine) => (req: Request, res: Response) => {
   const engineRequest = {
     path: req.path,
     method: req.method,
@@ -11,10 +12,15 @@ export default (engine: Engine) => (req, res) => {
   const [matched] = engine.match(engineRequest);
 
   if (matched) {
-    const { statusCode, body } = matched.response;
-    res.status(statusCode || 200).send(body);
+    const { statusCode, body = "", headers = {}, delay = 0 } = matched.response;
+
+    Object.entries(headers).forEach(([key, value]) => {
+      res.setHeader(key, value as any);
+    });
+
+    setTimeout(() => res.status(statusCode || 200).send(body), delay);
   } else {
-    res.status(404).send({
+    res.status(404).json({
       path: req.path,
     });
   }

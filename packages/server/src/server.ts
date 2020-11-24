@@ -39,7 +39,7 @@ const enableLogging = (app: Express, config: ServerConfig) => {
   }
 };
 
-export default (argConfig: ServerConfig) => {
+export default async (argConfig: ServerConfig) => {
   const config = Object.assign({}, defaultConfig, argConfig);
 
   const app = express();
@@ -48,11 +48,12 @@ export default (argConfig: ServerConfig) => {
   enableLogging(app, config);
   createKeepAliveRoute(app, config.keepAlivePath);
 
-  return {
-    start: async () => {
-      await flyUIMiddleware(app);
-      flyMiddleware(app, config.engine);
+  await flyUIMiddleware(app);
+  flyMiddleware(app, config.engine);
 
+  return {
+    app,
+    start: async () => {
       app.listen(config.port, () => {
         console.info(`Flyt Sever started on ${config.port}`);
       });

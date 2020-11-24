@@ -11,7 +11,7 @@ try {
   server({
     debugLevel: "verbose",
     engine: create({ expectations: todos.expectations }),
-  }).start();
+  }).then((app) => app.start());
 } catch (error) {
   console.error(error);
 }
