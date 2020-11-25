@@ -1,7 +1,9 @@
 import { assert } from "chai";
+import { abort } from "process";
 import shortId from "shortid";
 import bodyMatcher from "./matchers/body";
 import headerMatcher from "./matchers/headers";
+import path from "./matchers/path";
 import pathMatcher from "./matchers/path";
 import {
   Expectation,
@@ -49,6 +51,16 @@ export class Engine {
     };
   }
 
+  private verifyRequest(request: Request): Record[] {
+    return this.$records
+      .filter((rec) => rec.request.method === request.method)
+      .filter((rec) => rec.request.path === request.path)
+      .filter((rec) => headerMatcher(request, rec.request) === true)
+      .filter((rec) => bodyMatcher(request, rec.request) === true)
+      .filter((rec) => rec.matches.length > 0)
+      .sort((a, b) => a.timestamp - b.timestamp);
+  }
+
   match(request: Request): Expectation[] {
     const matches = this.$expectations
       .filter((exp) => request.method === exp.request.method)
@@ -71,6 +83,7 @@ export class Engine {
     this.$records.push({
       request,
       matches,
+      timestamp: Date.now(),
     });
 
     return matches;
@@ -81,13 +94,7 @@ export class Engine {
 
     const least = count.atLeast ?? 1;
     const most = count.atMost ?? "unlimited";
-
-    const matches = this.$records
-      .filter((rec) => rec.request.method === request.method)
-      .filter((rec) => rec.request.path === request.path)
-      .filter((rec) => headerMatcher(request, rec.request) === true)
-      .filter((rec) => bodyMatcher(request, rec.request) === true)
-      .filter((rec) => rec.matches.length > 0);
+    const matches = this.verifyRequest(request);
 
     if (matches.length < least) {
       return {
@@ -108,6 +115,49 @@ export class Engine {
           request.path
         } at most ${most} times but was received ${matches.length} times`,
         records: matches,
+      };
+    }
+
+    return true;
+  }
+
+  verifySequence(requests: Request[]): boolean | VerificationError {
+    if (requests.length < 2) {
+      return {
+        actual: `Received ${requests.length} requests(2)`,
+        expected: `At least 2 requests`,
+        message: `At least 2 requests is needed for verifyin a sequence`,
+        records: [],
+      };
+    }
+
+    const allRecords = requests.map((req) => this.verifyRequest(req));
+    const firstRecords = allRecords.map((records) => records[0]);
+
+    const allInSequence = firstRecords.reduce((current, record, index) => {
+      if (index === 0) {
+        return true;
+      }
+      const prevRecord = firstRecords[index - 1];
+
+      return current && record && prevRecord.timestamp <= record.timestamp;
+    }, true);
+
+    if (!allInSequence) {
+      const records = allRecords
+        .flat()
+        .sort((a, b) => a.timestamp - b.timestamp);
+
+      const actual = records.map(
+        (rec) => `${rec.request.method || "GET"}:${rec.request.path}`
+      );
+      const expected = requests.map((r) => `${r.method || "GET"}:${r.path}`);
+
+      return {
+        expected,
+        actual,
+        message: `Requests matched are not matched`,
+        records: allRecords.flat().sort((a, b) => a.timestamp - b.timestamp),
       };
     }
 

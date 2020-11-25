@@ -7,6 +7,7 @@ export default (engine: Engine) => (req: Request, res: Response) => {
     method: req.method,
     body: req.body,
     headers: req.headers,
+    time: Date.now(),
   };
 
   const [matched] = engine.match(engineRequest);

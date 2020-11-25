@@ -17,6 +17,7 @@ export interface Request {
   queryParams?: {
     [key: string]: any[];
   };
+  time?: number;
 }
 
 export interface Verification {
@@ -58,4 +59,5 @@ export interface Expectation {
 export interface Record {
   request: Request;
   matches: Expectation[];
+  timestamp: number;
 }
