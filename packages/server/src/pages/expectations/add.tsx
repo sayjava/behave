@@ -65,7 +65,7 @@ export default () => {
             </div>
             <div>
               <label htmlFor="description">Description</label>
-              <textarea id="description" name="description" rows="10" />
+              <textarea id="description" name="description" rows={10} />
             </div>
             <div>
               <label htmlFor="count">Count</label>

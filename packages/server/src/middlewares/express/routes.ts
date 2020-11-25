@@ -1,12 +1,12 @@
-import { Engine } from "flyt-engine";
+import { Engine, Request as EngineRequest } from "flyt-engine";
 import { Request, Response } from "express";
 
 export default (engine: Engine) => (req: Request, res: Response) => {
-  const engineRequest = {
+  const engineRequest: EngineRequest = {
     path: req.path,
-    method: req.method,
+    method: req.method as any,
+    headers: req.headers as any,
     body: req.body,
-    headers: req.headers,
     time: Date.now(),
   };
 

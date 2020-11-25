@@ -1,9 +1,7 @@
 import { assert } from "chai";
-import { abort } from "process";
 import shortId from "shortid";
 import bodyMatcher from "./matchers/body";
 import headerMatcher from "./matchers/headers";
-import path from "./matchers/path";
 import pathMatcher from "./matchers/path";
 import {
   Expectation,
@@ -124,9 +122,9 @@ export class Engine {
   verifySequence(requests: Request[]): boolean | VerificationError {
     if (requests.length < 2) {
       return {
-        actual: `Received ${requests.length} requests(2)`,
+        actual: `Received ${requests.length} requests`,
         expected: `At least 2 requests`,
-        message: `At least 2 requests is needed for verifyin a sequence`,
+        message: `At least 2 requests is needed for verifying a sequence`,
         records: [],
       };
     }
@@ -140,7 +138,12 @@ export class Engine {
       }
       const prevRecord = firstRecords[index - 1];
 
-      return current && record && prevRecord.timestamp <= record.timestamp;
+      return (
+        current &&
+        record &&
+        prevRecord &&
+        prevRecord.timestamp <= record.timestamp
+      );
     }, true);
 
     if (!allInSequence) {

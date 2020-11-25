@@ -65,9 +65,9 @@ test("at least 2 requests are needed", () => {
 
   expect(engine.verifySequence(requests.slice(0, 1))).toMatchInlineSnapshot(`
     Object {
-      "actual": "Received 1 requests(2)",
+      "actual": "Received 1 requests",
       "expected": "At least 2 requests",
-      "message": "At least 2 requests is needed for verifyin a sequence",
+      "message": "At least 2 requests is needed for verifying a sequence",
       "records": Array [],
     }
   `);
@@ -208,4 +208,47 @@ test("confirm fails on empty requests", async () => {
   `);
 
   expect(actual).toMatchInlineSnapshot(`Array []`);
+});
+
+test("confirm fails on different header types", async () => {
+  const engine = create({
+    expectations: [
+      {
+        name: "expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+      {
+        name: "expectations",
+        request: { path: "/tasks", method: "POST" },
+        response: {},
+      },
+    ],
+    config: {},
+  });
+
+  engine.match({ path: "/tasks", method: "POST" });
+  await delayFor(100);
+
+  engine.match({ path: "/tasks", method: "GET" });
+  await delayFor(100);
+
+  const { actual, expected } = engine.verifySequence([
+    { path: "/tasks", method: "GET" },
+    { path: "/tasks", method: "POST" },
+  ]) as VerificationError;
+
+  expect(expected).toMatchInlineSnapshot(`
+    Array [
+      "GET:/tasks",
+      "POST:/tasks",
+    ]
+  `);
+
+  expect(actual).toMatchInlineSnapshot(`
+    Array [
+      "POST:/tasks",
+      "GET:/tasks",
+    ]
+  `);
 });
