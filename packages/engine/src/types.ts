@@ -54,6 +54,7 @@ export interface Expectation {
   limit?: "unlimited" | number;
   timeToLive?: number;
   priority?: number;
+  delay?: number;
 }
 
 export interface Record {
