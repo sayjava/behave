@@ -6,6 +6,7 @@
     "bootstrap": "lerna bootstrap"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.15",
     "lerna": "^3.22.1"
   }
 }

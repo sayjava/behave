@@ -22,7 +22,7 @@ export interface Request {
 
 export interface Verification {
   request: Request;
-  count?: {
+  limit?: {
     atLeast?: number;
     atMost?: number | "unlimited";
   };
@@ -51,7 +51,7 @@ export interface Expectation {
   request: Request;
   response: Response;
 
-  count?: "unlimited" | number;
+  limit?: "unlimited" | number;
   timeToLive?: number;
   priority?: number;
 }

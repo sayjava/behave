@@ -45,7 +45,7 @@ export class Engine {
   private basicExpectation() {
     return {
       id: shortId(),
-      count: "unlimited",
+      limit: "unlimited",
     };
   }
 
@@ -66,7 +66,7 @@ export class Engine {
       .filter((exp) => headerMatcher(exp.request, request) === true)
       .filter((exp) => bodyMatcher(exp.request, request) === true)
       .filter((exp) => {
-        if (exp.count === "unlimited" || exp.count === undefined) {
+        if (exp.limit === "unlimited" || exp.limit === undefined) {
           return true;
         }
 
@@ -75,7 +75,7 @@ export class Engine {
           return exps.includes(exp.id);
         }).length;
 
-        return pastMatches < exp.count;
+        return pastMatches < exp.limit;
       });
 
     this.$records.push({
@@ -88,30 +88,50 @@ export class Engine {
   }
 
   verify(verification: Verification): boolean | VerificationError {
-    const { request, count = {} } = verification;
-
-    const least = count.atLeast ?? 1;
-    const most = count.atMost ?? "unlimited";
+    const { request, limit = {} } = verification;
     const matches = this.verifyRequest(request);
 
-    if (matches.length < least) {
+    // set the lower and upper limits
+    const verifyLimit = Object.assign(
+      { atMost: "unlimited", atLeast: limit.atMost ? 0 : 1 },
+      limit
+    );
+
+    // lower limit check with an unlimited upper limit
+    if (
+      verifyLimit.atMost === "unlimited" &&
+      matches.length >= verifyLimit.atLeast
+    ) {
+      return true;
+    }
+
+    // upper limit check
+    if (
+      verifyLimit.atMost !== "unlimited" &&
+      matches.length > verifyLimit.atMost
+    ) {
       return {
         actual: matches.length,
-        expected: least,
+        expected: verifyLimit.atLeast,
         message: `Expected to have received ${request.method || "GET"}:${
           request.path
-        } at least ${least} times but was received ${matches.length} times`,
+        } at most ${verifyLimit.atMost} times but was received ${
+          matches.length
+        } times`,
         records: matches,
       };
     }
 
-    if (most !== "unlimited" && matches.length > most) {
+    // lower limit check
+    if (matches.length < verifyLimit.atLeast) {
       return {
         actual: matches.length,
-        expected: most,
+        expected: verifyLimit.atLeast,
         message: `Expected to have received ${request.method || "GET"}:${
           request.path
-        } at most ${most} times but was received ${matches.length} times`,
+        } at least ${verifyLimit.atLeast} times but was received ${
+          matches.length
+        } times`,
         records: matches,
       };
     }

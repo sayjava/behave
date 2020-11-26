@@ -9,7 +9,8 @@ test("return a 406  for empty requests", async () => {
   app.use(bodyParser.json());
   routes(app, new Engine([]));
 
-  const res = await request(app).post("/_/api/sequence");
+  // @ts-ignore
+  const res = await request(app).put("/_/api/verify/sequence");
   expect(res.status).toBe(406);
   expect(res.body).toMatchInlineSnapshot(`
     Object {
@@ -27,7 +28,8 @@ test("return the error from a failed verification", async () => {
   routes(app, new Engine([]));
 
   const res = await request(app)
-    .post("/_/api/sequence")
+    // @ts-ignore
+    .put("/_/api/verify/sequence")
     .send({
       requests: [
         {
@@ -77,7 +79,8 @@ test("return accepted http 202", async () => {
   engine.match({ path: "/tasks", method: "GET" });
 
   const res = await request(app)
-    .post("/_/api/sequence")
+    // @ts-ignore
+    .put("/_/api/verify/sequence")
     .send({
       requests: [
         {
@@ -116,7 +119,8 @@ test("return error for unmatched sequence", async () => {
   routes(app, engine);
 
   const res = await request(app)
-    .post("/_/api/sequence")
+    // @ts-ignore
+    .put("/_/api/verify/sequence")
     .send({
       requests: [
         {
