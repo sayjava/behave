@@ -417,6 +417,45 @@ test("Expectation: add", () => {
 
 test("Expectation: remove", () => {
   const engine = new Engine([]);
+  engine.addExpectation({
+    id: "new",
+    name: "base expectation",
+    request: { path: "/hello" },
+    response: {},
+  });
   engine.removeExpectation("new");
+  expect(engine.expectations).toMatchInlineSnapshot(`Array []`);
+});
+
+test(`Clear all records`, () => {
+  const expectations: Expectation[] = [
+    {
+      id: "exp1",
+      name: "sample1",
+      request: {
+        headers: {},
+        path: "/todos",
+        method: "GET",
+      },
+      response: {
+        body: [{ id: 2, text: "get request" }],
+      },
+      limit: 2,
+    },
+  ];
+
+  const request: Request = {
+    path: "/todos",
+    method: "GET",
+    headers: {},
+  };
+
+  const engine = create({ expectations, config: {} });
+
+  engine.match(request);
+  engine.match(request);
+  engine.clearAll();
+
+  expect(engine.records).toMatchInlineSnapshot(`Array []`);
   expect(engine.expectations).toMatchInlineSnapshot(`Array []`);
 });

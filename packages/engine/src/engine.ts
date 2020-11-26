@@ -194,7 +194,20 @@ export class Engine {
   }
 
   removeExpectation(id: string) {
-    this.$expectations = this.$expectations.filter((exp) => exp.id === id);
+    this.$expectations = this.$expectations.filter((exp) => exp.id !== id);
+  }
+
+  clearAllExpectation() {
+    this.$expectations = [];
+  }
+
+  clearAllRecords() {
+    this.$records = [];
+  }
+
+  clearAll() {
+    this.clearAllExpectation();
+    this.clearAllRecords();
   }
 
   get records(): Record[] {
