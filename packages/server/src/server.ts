@@ -3,7 +3,6 @@ import express, { Express } from "express";
 import { Engine } from "flyt-engine";
 import morgan from "morgan";
 import flyMiddleware from "./middlewares/express";
-import flyUIMiddleware from "./middlewares/ui";
 
 interface ServerConfig {
   port?: number;
@@ -46,19 +45,21 @@ export default async (argConfig: ServerConfig) => {
 
   const app = express();
   app.use(bodyParser.json());
+  app.use("/_ui/", express.static("node_modules/flyt-ui/.next/server/pages"));
+  app.use("/_next/", express.static("node_modules/flyt-ui/.next"));
+  app.use("/service-worker.js", express.static("node_modules/flyt-ui/.next"));
 
   enableLogging(app, config);
   createKeepAliveRoute(app, config.keepAlivePath);
   createKeepAliveRoute(app, config.readyPath);
 
-  await flyUIMiddleware(app);
   flyMiddleware(app, config.engine);
 
   return {
     app,
     start: async () => {
       app.listen(config.port, () => {
-        console.info(`Flyt Sever started on ${config.port}`);
+        console.info(`Flyt Server started on ${config.port}`);
       });
     },
     stop: () => {},
