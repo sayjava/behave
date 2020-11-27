@@ -41,14 +41,24 @@ const Records = () => {
 };
 
 const ExpectationView = ({ exp }: { exp: Expectation }) => {
+  const [selected, setSelected] = useState(false);
   return (
     <div>
-      <div>Name: {exp.name}</div>
-      <div>Description: {exp.description}</div>
-      <div>Request: {JSON.stringify(exp.request)}</div>
-      <div>Response: {JSON.stringify(exp.response)}</div>
-      <div>Limit: {exp.limit}</div>
-      <div>Delay: {exp.delay}</div>
+      <div onClick={() => setSelected(!selected)}>
+        <div>
+          Name: {exp.name} : {exp.request.path}
+        </div>
+      </div>
+
+      {selected && (
+        <div>
+          <div>Request: {JSON.stringify(exp.request)}</div>
+          <div>Description: {exp.description}</div>
+          <div>Response: {JSON.stringify(exp.response)}</div>
+          <div>Limit: {exp.limit}</div>
+          <div>Delay: {exp.delay}</div>
+        </div>
+      )}
     </div>
   );
 };
@@ -74,12 +84,10 @@ const Expectations = () => {
 export default () => {
   return (
     <div>
-      <header>
-        <Link href="expectations/add">
-          <button>Add Expectation</button>
-        </Link>
-      </header>
-      <main style={{ display: "flex" }}>
+      <Link href="expectations/add">
+        <button>Add Expectation</button>
+      </Link>
+      <div style={{ display: "flex" }}>
         <section>
           <h2>Records</h2>
           <Records />
@@ -88,7 +96,7 @@ export default () => {
           <h2>Expectations</h2>
           <Expectations />
         </section>
-      </main>
+      </div>
     </div>
   );
 };

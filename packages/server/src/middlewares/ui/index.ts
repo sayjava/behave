@@ -1,4 +1,4 @@
-import { Express } from "express";
+import express, { Express } from "express";
 import next from "next";
 
 export default async (server: Express) => {
@@ -6,6 +6,7 @@ export default async (server: Express) => {
   const app = next({ dev });
   const handler = app.getRequestHandler();
 
+  server.use(express.static("../../.next"));
   server.get("/service-worker.js", (req, res) => {
     res.status(404).end();
   });
