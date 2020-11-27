@@ -33,7 +33,7 @@ const enableLogging = (app: Express, config: ServerConfig) => {
     case "verbose":
       app.use(
         morgan("common", {
-          skip: (req, _) => req.path.includes("/_next"),
+          skip: (req, _) => req.path.includes("/_ui"),
         })
       );
       break;
@@ -45,9 +45,8 @@ export default async (argConfig: ServerConfig) => {
 
   const app = express();
   app.use(bodyParser.json());
-  app.use("/_ui/", express.static("node_modules/flyt-ui/.next/server/pages"));
-  app.use("/_next/", express.static("node_modules/flyt-ui/.next"));
-  app.use("/service-worker.js", express.static("node_modules/flyt-ui/.next"));
+  app.use("/_ui/", express.static("node_modules/flyt-ui/build"));
+  app.use("/service-worker.js", express.static("node_modules/flyt-ui/build"));
 
   enableLogging(app, config);
   createKeepAliveRoute(app, config.keepAlivePath);

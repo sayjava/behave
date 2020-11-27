@@ -5,6 +5,9 @@
   "repository": "git@github.com:sayjava/flyt.git",
   "author": "Raymond Ottun <sayjava@gmail.com>",
   "license": "MIT",
+  "files": [
+    "build/**"
+  ],
   "scripts": {
     "test": "jest",
     "build": "tsc -p tsconfig.server.json",

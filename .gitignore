@@ -108,3 +108,5 @@ yarn.lock
 lib
 
 .next
+
+build
