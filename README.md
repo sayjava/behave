@@ -125,6 +125,8 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
 '
 ```
 
+[see more examples](website/docs/endpoints.md)
+
 ## Features (HTTP Test Server)
 
 - Validate received requests. e.g
