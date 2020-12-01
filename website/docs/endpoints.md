@@ -1,19 +1,17 @@
 ---
 id: endpoints
-title: Configure Endpoint Behavior
+title: Configure Endpoint
 sidebar_label: Endpoints
 slug: /endpoints
 ---
 
-The primary functionality of `behavior-server` is to mock endpoints that can then be invoked by clients to respond with the configured response.
+The `behavior-server` uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
 
-If the `behavior-server` receives a request with no configured behavior, it will return an HTTP `404` response with the requested path.
+## Server Behavior
 
-## Behavior
+A Behavior is a JSON document describing how the `behavior-server` should respond to http requests it receives.
 
-A behavior is a JSON document describing how the `behavior-server` respond to requests
-
-The server will receive behavior documents on `http://localhost:8080/_api/behaviors` with a `PUT` method. e.g
+Behaviors can be created on the server by sending an http request to the behavior endpoint of the server. e.g
 
 ```shell
 curl -v -X PUT "http://localhost:8080/_/api/behaviors" -d '[
@@ -35,39 +33,42 @@ curl -v -X PUT "http://localhost:8080/_/api/behaviors" -d '[
 
 ```
 
-Here is a full sample behavior
+The server can also be initialized with a set of behaviors at start up as described [here](server.md#configure)
+
+Here is a full sample of a Behavior document.
 
 ```json
 {
-  "name": "Name of this behavior",
+  "name": "Optional name of this behavior",
 
-  "description": "A description for this behavior",
+  "description": "Optional description for this behavior",
 
   "request": {
     "path": "a/path/to/match",
     "headers": {
-      "x-some-custom-header": "any value",
-      "x-some-custom-regex-header": "a regex value"
+      "x-some-custom-header": "any value"
     },
     "body": "json/text"
   },
 
   "response": {
     "statusCode": "any http status code",
-    "body": "json/text",
+    "body": "json object/text",
     "headers": {},
-    "delay": 0
+    "delay": "seconds to delay the response. defaults to 0"
   },
 
-  "limit": "unlimited"
+  "limit": "how many times this behavior should be used. defaults to unlimited"
 }
 ```
 
 ## Request
 
-### Default Request and Response values
+To be able to match a Behavior and respond appropriately, a Behavior document needs a request property that describes how the server should match the http requests it receives.
 
-`behavior-sever` will default to `GET` method and `Http 200` response code for matched behaviors
+### Simple Path
+
+The `behavior-sever` will default to `HTTP GET` method and `HTTP 200` response code for matched Behaviors if they are omitted from the Behavior document.
 
 ```json
 {
@@ -83,12 +84,16 @@ Here is a full sample behavior
 ```
 
 ```shell
+# Responds with a 200 Ok "A sample task"
 curl -X GET http://localhost:8080/tasks/a_simple_task
+
+# Responds with a 404 Not Found
+curl -X GET http://localhost:8080/tasks/another_task
 ```
 
 ### Regex Paths
 
-Behaviors can use regex paths for matching a request
+Behaviors can use regex paths for matching a request to a configured Behavior. e.g
 
 ```json
 {
@@ -104,16 +109,25 @@ Behaviors can use regex paths for matching a request
 ```
 
 ```shell
+# Responds with a 200 Ok
 curl -X GET http://localhost:8080/tasks/123
+
+# Responds with a 200 Ok
+curl -X GET http://localhost:8080/tasks/2
+
+# Responds with a 404 Not Found
+curl -X GET http://localhost:8080/tasks/a_simple_taks
 ```
 
 ### Path Parameters
+
+The server can match http requests using dynamic path parameters e.g
 
 ```json
 {
   "request": {
     "path": "/tasks/{id}/docs/{docId}",
-    "queryParameters": {
+    "pathParams": {
       "id": "[0-9]+",
       "docId": "[a-z]+.jpg"
     }
@@ -127,10 +141,16 @@ curl -X GET http://localhost:8080/tasks/123
 ```
 
 ```shell
+# Responds with a 200
 curl -X GET http://localhost:8080/tasks/123/doc/image.jpg
+
+# Responds with a 404
+curl -X GET http://localhost:8080/tasks/123/doc/cat.png
 ```
 
 ### Query Parameters
+
+The server can also match dynamic query parameters. e.g
 
 ```json
 {
@@ -149,19 +169,19 @@ curl -X GET http://localhost:8080/tasks/123/doc/image.jpg
 ```
 
 ```shell
+# Responds with a 200
 curl -X GET http://localhost:8080/tasks/123?isCompleted=true
 ```
 
 ### Headers
 
-`behavior-server` can match requests based on header values. The configured header values will matched as a subset of the received request headers.
+The server can match requests based on http request header values. The configured request header values will matched as a subset of the received request headers.
 
 ```json
 {
   "request": {
-    "path": "/tasks/[0-9]+/",
+    "path": "/tasks/[0-9]+",
     "headers": {
-      "Accept": "application/json",
       "X-Behavior-Id": "behave-[a-z]+"
     }
   },
@@ -173,12 +193,20 @@ curl -X GET http://localhost:8080/tasks/123?isCompleted=true
 }
 ```
 
-### Match Request Methods
+```shell
+# Responds with a 200
+curl -X GET http://localhost:8080/tasks/123 -H "X-Behavior-Id: behave-abcde"
+
+# Responds with a 404
+curl -X GET http://localhost:8080/tasks/123
+```
+
+### Request Methods
 
 ```json
 {
   "request": {
-    "path": "/tasks/[0-9]+/",
+    "path": "/tasks/[0-9]+",
     "method": "DELETE"
   },
   "response": {
@@ -190,10 +218,20 @@ curl -X GET http://localhost:8080/tasks/123?isCompleted=true
 ```
 
 ```shell
+# Respond with a 200
 curl -X DELETE http://localhost:8080/tasks/123
+
+# Respond with a 404
+curl http://localhost:8080/tasks/123
 ```
 
-### Simple Request Body
+### Request Body
+
+Behaviors can also be matched using the request body. The server will inspect the content-type of the request method to determine how to handle the request body.
+
+#### JSON Body
+
+Http requests with a `Content-Type: application/json` header will have its body treated like a json object. The request body will be matched as a superset of the Behavior body. e.g
 
 ```json
 {
@@ -205,7 +243,7 @@ curl -X DELETE http://localhost:8080/tasks/123
     }
   },
   "response": {
-    "statusCode": 201,
+    "statusCode": 200,
     "body": {
       "name": "Task has been deleted"
     }
@@ -214,10 +252,41 @@ curl -X DELETE http://localhost:8080/tasks/123
 ```
 
 ```shell
-curl -X POST http://localhost:8080/tasks -d '{ "name": "simple-task", "user": "john_doe" }'
+# Responds with a 200
+curl -X POST http://localhost:8080/tasks -d '{ "name": "simple-task", "user": "john_doe" }' -H "Content-Type: application/json"
+
+# Responds with a 404
+curl -X POST http://localhost:8080/tasks -d '{ "name": "simple-task" }' -H "Content-Type: application/json"
 ```
 
-### Regex Based Body
+#### Plain Text Body
+
+Requests without a specified `Content-Type` will default to string
+
+```json
+{
+  "request": {
+    "path": "/tasks",
+    "body": "john_doe"
+  },
+  "response": {
+    "statusCode": 200,
+    "body": "no tasks for this person"
+  }
+}
+```
+
+```shell
+# Responds with a 200
+curl -X GET http://localhost:8080/tasks -d '"john_doe"'
+
+# Responds with a 404
+curl -X POST http://localhost:8080/tasks -d 'someone_else'
+```
+
+#### Regex Body
+
+Behaviors can also be matched using a regex body either as a json document or plain text. e.g
 
 ```json
 {
@@ -237,16 +306,24 @@ curl -X POST http://localhost:8080/tasks -d '{ "name": "simple-task", "user": "j
 ```
 
 ```shell
-curl -X POST http://localhost:8080/tasks -d '{ "name": "task-123" }'
+# Responds with a 200
+curl -X POST http://localhost:8080/tasks -d '{ "name": "task-123", id: 2 }' -H "Content-Type: application/json"
+
+# Responds with a 404
+curl -X POST http://localhost:8080/tasks -d '{ "name": "other_tasks", id: 2 }' -H "Content-Type: application/json"
 ```
 
 ## Response
 
-### Limit
+The server response can also be tailored using the Behavior document.
 
-Limit the amount of instance this behavior is used to respond to a request. Any requests received after a second request will result in a `404` response. The default response limit is `unlimited`
+### Limited
 
-```json
+The server can limit the amount of instance a Behavior is used to respond to the http requests it matches. Http requests received after the response limit has been reached will result in a `404` response.
+
+The default response limit is `unlimited`. e.g
+
+```json{10}
 {
   "request": {
     "path": "/tasks/123"
@@ -256,17 +333,42 @@ Limit the amount of instance this behavior is used to respond to a request. Any 
     "statusCode": 200,
     "body": "Task 123"
   },
+
   "limit": 2
 }
 ```
 
 ```shell
-curl -X GET http://localhost:8080/tasks/123 # 200 ok
-curl -X GET http://localhost:8080/tasks/123 # 200 ok
-curl -X GET http://localhost:8080/tasks/123 # 404 Not Found
+# Responds with a 200
+curl -X GET http://localhost:8080/tasks/123
+
+# Responds with a 200
+curl -X GET http://localhost:8080/tasks/123
+
+# Responds with a 404
+curl -X GET http://localhost:8080/tasks/123
 ```
 
-This can be combined to create some interesting scenarios, e.g first respond then fail after wards
+Response limits can be combined to create some interesting scenarios, e.g first respond with 200s and then fail afterwards
+
+The first 2 requests will be successful
+
+```json{10}
+{
+  "request": {
+    "path": "/tasks/123"
+  },
+
+  "response": {
+    "statusCode": 200,
+    "body": "Task 123"
+  },
+
+  "limit": 2
+}
+```
+
+Subsequent requests should fail
 
 ```json
 {
@@ -282,26 +384,37 @@ This can be combined to create some interesting scenarios, e.g first respond the
 ```
 
 ```shell
-curl -X GET http://localhost:8080/tasks/123 # 200 ok
-curl -X GET http://localhost:8080/tasks/123 # 200 ok
-curl -X GET http://localhost:8080/tasks/123 # 500 Server Error
+
+# Responds with a 200
+curl -X GET http://localhost:8080/tasks/123
+
+# Responds with a 200
+curl -X GET http://localhost:8080/tasks/123
+
+# Responds with a 500
+curl -X GET http://localhost:8080/tasks/123
 ```
 
-### Delay
+### Delayed
 
-Delay the response by a configured amount of seconds. This is useful for simulating timeouts. This response will be delayed for 120 seconds.
+By default, responses are sent immediately to the client when matched but the server can be instructed to delay in seconds when the server should send the response. e.g
 
 ```json
 {
   "request": {
-    "path": "a/path/to/match"
+    "path": "/tasks/123"
   },
 
   "response": {
-    "statusCode": "any http status code",
-    "body": "json/text",
-    "headers": {},
+    "body": "some tasks",
     "delay": 120
   }
 }
+```
+
+```shell
+
+# Responds with a 200 after 120 seconds
+curl -X GET http://localhost:8080/tasks/123
+
 ```
