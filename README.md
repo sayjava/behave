@@ -15,7 +15,7 @@ The easiest and quikest way to mock HTTP endpoints for development and tests pur
 ## Quick Start
 
 ```shell
-npx behavior-server -b '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
+npx @sayjava/behave -b '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
 ```
 
 ```shell
