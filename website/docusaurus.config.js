@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'Behavior',
-  tagline: 'A simple HTTP mocking and testing server',
+  title: 'Behavior Server',
+  tagline: 'A Simple HTTP mocking and testing server',
   url: 'https://sayjava.github.io',
   baseUrl: '/behavior/',
   onBrokenLinks: 'throw',
@@ -10,7 +10,7 @@ module.exports = {
   projectName: 'behavior', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'Behavior',
+      title: 'Behavior Server',
       logo: {
         alt: 'Behavior Logo',
         src: 'img/logo.svg',
@@ -18,8 +18,20 @@ module.exports = {
       items: [
         {
           to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
+          activeBasePath: 'docs/server',
+          label: 'Server',
+          position: 'left',
+        },
+        {
+          to: 'docs/endpoints',
+          activeBasePath: 'docs/endpoints',
+          label: 'Endpoints',
+          position: 'left',
+        },
+        {
+          to: 'docs/testing',
+          activeBasePath: 'docs/testing',
+          label: 'Testing',
           position: 'left',
         },
         {
@@ -27,42 +39,16 @@ module.exports = {
           label: 'GitHub',
           position: 'right',
         },
+        {
+          href: 'https://twitter.com/sayjava',
+          label: 'Twitter',
+          position: 'right',
+        }
       ],
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/sayjava',
-            },
-          ],
-        },
-      ],
+      links: [],
       copyright: `Copyright © ${new Date().getFullYear()} Behavior, Inc. Built with Docusaurus.`,
     },
   },
@@ -74,7 +60,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/sayjava/behavior/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
