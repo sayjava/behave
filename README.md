@@ -1,6 +1,6 @@
- <h1 align="center">Behavior</h1>
+ <h1 align="center">Behave</h1>
  <p align="center">
-The easiest way to mock HTTP endpoints for development and tests purposes
+The easiest and quikest way to mock HTTP endpoints for development and tests purposes
  </p>
  <p align="center">
     <a href="https://behavior.dev"><strong>Explore Behave docs »</strong></a>
