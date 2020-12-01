@@ -1,4 +1,4 @@
-import { Engine, Request as EngineRequest } from "flyt-engine";
+import { Engine, Request as EngineRequest } from "behave-engine";
 import { Request, Response } from "express";
 
 export default (engine: Engine) => (req: Request, res: Response) => {

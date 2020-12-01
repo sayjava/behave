@@ -1,5 +1,5 @@
 import express from "express";
-import { Engine } from "flyt-engine";
+import { Engine } from "behave-engine";
 import bodyParser from "body-parser";
 import routes from "../src/middlewares/express";
 import request from "supertest";

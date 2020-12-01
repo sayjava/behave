@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express, { Express } from "express";
-import { Engine } from "flyt-engine";
+import { Engine } from "behave-engine";
 import morgan from "morgan";
 import flyMiddleware from "./middlewares/express";
 
@@ -45,8 +45,8 @@ export default async (argConfig: ServerConfig) => {
 
   const app = express();
   app.use(bodyParser.json());
-  app.use("/_ui/", express.static("node_modules/flyt-ui/build"));
-  app.use("/service-worker.js", express.static("node_modules/flyt-ui/build"));
+  app.use("/_ui/", express.static("node_modules/behave-ui/build"));
+  app.use("/service-worker.js", express.static("node_modules/behave-ui/build"));
 
   enableLogging(app, config);
   createKeepAliveRoute(app, config.keepAlivePath);
@@ -58,7 +58,7 @@ export default async (argConfig: ServerConfig) => {
     app,
     start: async () => {
       app.listen(config.port, () => {
-        console.info(`Flyt Server started on ${config.port}`);
+        console.info(`behave Server started on ${config.port}`);
       });
     },
     stop: () => {},

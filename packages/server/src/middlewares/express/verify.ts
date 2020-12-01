@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Engine, Verification } from "flyt-engine";
+import { Engine, Verification } from "behave-engine";
 
 const sequence = (engine: Engine, router) => {
   router.put("/sequence", (req, res) => {

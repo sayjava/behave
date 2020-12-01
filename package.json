@@ -1,5 +1,5 @@
 {
-  "name": "flyt",
+  "name": "behave",
   "scripts": {
     "build": "lerna run build",
     "test": "lerna run test",

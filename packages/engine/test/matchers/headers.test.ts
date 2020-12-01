@@ -29,7 +29,7 @@ test("matches headers values", () => {
     path: "/todo/1",
     headers: {
       Accept: "application/json",
-      "x-flyt-version": "[0-9]+",
+      "x-behave-version": "[0-9]+",
     },
     method: "GET",
   };
@@ -39,7 +39,7 @@ test("matches headers values", () => {
     headers: {
       Accept: "application/json",
       HOST: "example.com",
-      "x-flyt-version": "1",
+      "x-behave-version": "1",
     },
     method: "GET",
   };

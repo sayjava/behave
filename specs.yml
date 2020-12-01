@@ -17,8 +17,8 @@ expectations:
         entity:
           desc: "Worked well"
       headers:
-        X-Flyt-Special: "Super Header"
-        X-Flyt-Session: "Flyt Session"
+        X-behave-Special: "Super Header"
+        X-behave-Session: "behave Session"
 
     times:
       remainingTimes: 2

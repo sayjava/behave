@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Engine } from "flyt-engine";
+import { Engine } from "behave-engine";
 
 export default (engine: Engine) => {
   const router = Router();
