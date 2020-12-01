@@ -1,5 +1,5 @@
 {
-  "name": "behave",
+  "name": "behave-repo",
   "scripts": {
     "build": "lerna run build",
     "test": "lerna run test",

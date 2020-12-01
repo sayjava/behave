@@ -1,6 +1,6 @@
  <h1 align="center">Behave</h1>
  <p align="center">
-The easiest and quikest way to mock HTTP endpoints for development and tests purposes
+The easiest and quickest way to mock HTTP endpoints for development and tests purposes
  </p>
  <p align="center">
     <a href="https://behavior.dev"><strong>Explore Behave docs »</strong></a>
@@ -192,7 +192,7 @@ curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `[
 
 - HTTP based API configuration
 - Simple UI log and behavior viewer
-- Embed server library in an End-to-End test
+- Express middleware
 
 ### Full Documentation
 
