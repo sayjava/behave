@@ -5,11 +5,11 @@ The easiest way to mock http endpoints for development and tests purposes
 ## Quick Start
 
 ```shell
-behavior-server '[{"request": {"path":"/hello"}, "response": {"message": "Hello World"}}]'
+npx behavior-server -b '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
 ```
 
 ```shell
-curl -X GET http://localhost:8080/hello
+curl -X GET http://localhost:8080/hi
 ```
 
 ## Uses Cases
