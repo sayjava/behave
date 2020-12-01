@@ -1,8 +1,8 @@
 ---
-id: testing
-title: Request Validation
-sidebar_label: Request Validation
-slug: /testing
+id: assertions
+title: Assertions
+sidebar_label: Assertions
+slug: /assertions
 ---
 
 The `behavior-server` includes a feature to valid requests tha it received and matched successfully by the server. Requests that are not matched by any Behavior on the server will result in validation fail.
@@ -21,12 +21,12 @@ Check if the requests have been received and matched at least once
 
 ```shell
 # Responds with 201
-curl -X PUT http://localhost:8080/_/api/requests/exists -d '[
+curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
  {
-    "path": "/tasks/123"
+   "path": "/tasks/123"
  },
  {
-    "path": "/tasks/12"
+   "path": "/tasks/12"
  }
 ]'
 ```
@@ -37,12 +37,12 @@ Check if the requests have been received and matched `at most` twice
 
 ```shell
 # Responds with 201 if it were matched
-curl -X PUT http://localhost:8080/_/api/requests/exists -d '[
+curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
  {
-    "path": "/tasks/123",
-    "count": {
-        "atMost": 2,
-    }
+   "path": "/tasks/123",
+   "count": {
+      "atMost": 2,
+   }
  }
 ]'
 ```
@@ -53,12 +53,12 @@ Check if the requests have been received and matched `at least` twice
 
 ```shell
 # Responds with 201 if it were matched
-curl -X PUT http://localhost:8080/_/api/requests/exists -d '[
+curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
  {
-    "path": "/tasks/123",
-    "count": {
-        "atLeast": 2,
-    }
+   "path": "/tasks/123",
+   "count": {
+      "atLeast": 2,
+   }
  }
 ]'
 ```
@@ -69,13 +69,13 @@ Check if the requests have been received exactly twice
 
 ```shell
 # Responds with 201 if it were matched
-curl -X PUT http://localhost:8080/_/api/requests/exists -d '[
+curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
  {
-    "path": "/tasks/123",
-    "count": {
-        "atMost": 2,
-        "atLeast": 2
-    }
+   "path": "/tasks/123",
+   "count": {
+   "atMost": 2,
+      "atLeast": 2
+   }
  }
 ]'
 ```
@@ -86,12 +86,46 @@ Check if the requests was never matched
 
 ```shell
 # Responds with 201 if it were matched
-curl -X PUT http://localhost:8080/_/api/requests/exists -d '[
+curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
  {
-    "path": "/tasks/123",
-    "count": {
-        "atMost": 0,
-    }
+   "path": "/tasks/123",
+   "count": {
+      "atMost": 0,
+   }
+ }
+]'
+```
+
+### Requests were received at least at an interval
+
+Check if this request was received more than once and at least `time` in seconds apart. This will implicitly require that at least 2 requests was received and matched
+
+```shell
+# Check that requests were received at least 10 seconds apart
+# Responds with 201 if it were matched
+curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
+ {
+   "path": "/tasks/123",
+   "interval": {
+      "atLeast": 10,
+   }
+ }
+]'
+```
+
+### Requests were received at most at an interval
+
+Check if this request was received more than once and at least `time` in seconds apart. This will implicitly require that at most 2 requests was received and matched
+
+```shell
+# Check that requests were received at most 10 seconds apart
+# Responds with 201 if it were matched
+curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
+ {
+   "path": "/tasks/123",
+   "interval": {
+      "atMost": 10,
+   }
  }
 ]'
 ```
@@ -108,10 +142,11 @@ Check if the requests were received in the specific order
 # Responds with 201 if it were matched
 curl -X PUT http://localhost:8080/_/api/requests/sequence -d '[
  {
-    "path": "/tasks/123"
+   "path": "/tasks/123"
  },
  {
-    "path": "/tasks/123/docs/icon.png"
+   "path": "/tasks/123/docs/icon.png"
  }
 ]'
 ```
+

@@ -10,7 +10,7 @@ module.exports = {
   projectName: 'behavior', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'Behavior Server',
+      title: 'Start',
       logo: {
         alt: 'Behavior Logo',
         src: 'img/logo.svg',
@@ -18,20 +18,20 @@ module.exports = {
       items: [
         {
           to: 'docs/',
-          activeBasePath: 'docs/server',
-          label: 'Server',
+          activeBasePath: 'docs/start',
+          label: 'Start',
           position: 'left',
         },
         {
-          to: 'docs/endpoints',
-          activeBasePath: 'docs/endpoints',
-          label: 'Endpoints',
+          to: 'docs/guide',
+          activeBasePath: 'docs/guide',
+          label: 'Guide',
           position: 'left',
         },
         {
-          to: 'docs/testing',
-          activeBasePath: 'docs/testing',
-          label: 'Testing',
+          to: 'docs/assertions',
+          activeBasePath: 'docs/assertions',
+          label: 'Assertions',
           position: 'left',
         },
         {

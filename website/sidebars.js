@@ -1,5 +1,5 @@
 module.exports = {
   someSidebar: {
-    "Docs": ['server', 'endpoints', 'testing'],
+    "Docs": ['start', 'api' ,'guide', 'assertions'],
   },
 };

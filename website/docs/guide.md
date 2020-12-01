@@ -1,15 +1,15 @@
 ---
-id: endpoints
-title: Configure Endpoint
-sidebar_label: Endpoints
-slug: /endpoints
+id: guide
+title: Behavior Guide
+sidebar_label: Guide
+slug: /guide
 ---
 
 The `behavior-server` uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
 
-## Server Behavior
+## Behavior Document
 
-A Behavior is a JSON document describing how the `behavior-server` should respond to http requests it receives.
+A Behavior is a JSON document that describes how the `behavior-server` should respond to http requests it receives.
 
 Behaviors can be created on the server by sending an http request to the behavior endpoint of the server. e.g
 
