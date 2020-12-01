@@ -1,6 +1,16 @@
-# Behavior
-
-The easiest way to mock http endpoints for development and tests purposes
+ <h1 align="center">Behavior</h1>
+ <p align="center">
+The easiest way to mock HTTP endpoints for development and tests purposes
+ </p>
+ <p align="center">
+    <a href="https://behavior.dev"><strong>Explore Behave docs »</strong></a>
+ </p>
+ <p align="center">
+  <a href="website/docs/start">Start »</a>
+  <a href="website/docs/guide">Guide »</a>
+  <a href="website/docs/api">API »</a>
+  <a href="website/docs/assertions">Assertions</a>
+ </p>
 
 ## Quick Start
 
@@ -11,12 +21,6 @@ npx behavior-server -b '[{"request": {"path":"/hi"}, "response": {"body": "Hello
 ```shell
 curl -X GET http://localhost:8080/hi
 ```
-
-## Uses Cases
-
-- Rapid UI/App Development using `behavior-server` as a backend
-- Test lambda@edge logic by using `behavior-server` as an origin
-- End-to-End tests using simulating all possible server responses
 
 ## Features (Mocking Endpoints)
 
@@ -33,7 +37,7 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
 '
 ```
 
-to match e.g
+to match requests like:
 
 ```shell
 curl -v -X GET http://localhost:8080/task/2
@@ -62,7 +66,7 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
 '
 ```
 
-to match e.g
+to match requests like:
 
 ```shell
 curl -v -X GET http://localhost:8080/task/2 -H 'user-agent: Chrome'
@@ -90,13 +94,26 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[{
 '
 ```
 
-to match e.g
+to match requests like:
 
 ```shell
 curl -v -X POST http://localhost:8080/tasks -d '{ "user": "john_doe", "name": "pay up" }'
 ```
 
 - Simulate network delays and failures
+
+```shell
+curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
+  {
+    "name": "Match any task with id",
+    "request": {
+      "path": "/tasks/[0-9]+",
+      "delay": 100
+    }
+  }
+]
+'
+```
 
 - Alternate responses for the same request. e.g succeed twice then fail afterwards
 
@@ -127,11 +144,12 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
 
 [see more examples](website/docs/endpoints.md)
 
-## Features (HTTP Test Server)
+## Features (HTTP Assertion Server)
 
 - Validate received requests. e.g
 
 ```shell
+# Assert that this request was received at most 2 times
 curl -v -X PUT http://localhost:8080/_/api/requests/exists -d `[
     {
         "path": "/hello/world",
@@ -142,9 +160,24 @@ curl -v -X PUT http://localhost:8080/_/api/requests/exists -d `[
 ]`
 ```
 
+- Validate the interval between requests
+
+```shell
+# Assert that these requests were received at most 10 seconds apart
+curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `
+  {
+    "path": "/hello/world",
+    "interval": {
+      "atMost": 10
+    }
+  }
+`
+```
+
 - Validate the order in which requests are received
 
 ```shell
+# Assert that these requests were received in this order
 curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `[
     {
         "path": "/hello/world",
@@ -159,8 +192,8 @@ curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `[
 
 - HTTP based API configuration
 - Simple UI log and behavior viewer
-- Embed server library in an end-to-end test
+- Embed server library in an End-to-End test
 
-### Documentation Website
+### Full Documentation
 
 [Full Documentation](https://behaviour.dev)

@@ -9,7 +9,7 @@ The `behavior-server` includes a feature to valid requests tha it received and m
 
 There are two types of validations that the `behavior-server` supports, count validation and sequence validation.
 
-## Request Counts
+## Counts
 
 The server can validate how many times a request is received and matched if at all.
 
@@ -130,7 +130,7 @@ curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
 ]'
 ```
 
-## Request Sequence
+## Sequence
 
 The `behavior-server` can also match the order in which requests are received by the server.
 
@@ -149,4 +149,3 @@ curl -X PUT http://localhost:8080/_/api/requests/sequence -d '[
  }
 ]'
 ```
-
