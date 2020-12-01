@@ -110,3 +110,5 @@ lib
 .next
 
 build
+
+tailwind.output.css
