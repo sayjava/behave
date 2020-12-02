@@ -28,5 +28,3 @@ curl http://localhost:8080/hi
 ## Initialize Behaviors
 
 When started, the server will look for a folder called `behaviors` in the current working directory and will attempt to load any json or yml files in that directory as a [Behavior Document](guide.md#Server-Behavior).
-
-See the [Examples](/examples/README.md)

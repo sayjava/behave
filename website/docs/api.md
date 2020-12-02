@@ -33,7 +33,7 @@ curl -X PUT http://localhost:8080/_/api/behaviors -d '[
 ]'
 ```
 
-see more about [Behaviors](endpoints.md#Server-Behavior) here
+see more about [Behaviors](start.md#Server-Behavior) here
 
 ### Delete
 
@@ -47,7 +47,6 @@ curl -X DELETE http://localhost:8080/_/api/behaviors/:id
 ```
 
 see more about [Behaviors](guide.md#Server-Behavior) here
-
 
 ### Retrieve Configured Behaviors
 
@@ -63,6 +62,7 @@ curl -X GET http://localhost:8080/_/api/behaviors
 ```
 
 ## Records
+
 The server stores all the received requests alongside the matched Behaviors.
 
 ### Retrieve Records
@@ -77,6 +77,7 @@ curl -X GET http://localhost:8080/_/api/records
 ```
 
 ## Reset Server
+
 DELETE `http://localhost:8080/_/api/records`
 
 ```shell

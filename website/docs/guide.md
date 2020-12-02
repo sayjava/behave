@@ -33,7 +33,7 @@ curl -v -X PUT "http://localhost:8080/_/api/behaviors" -d '[
 
 ```
 
-The server can also be initialized with a set of behaviors at start up as described [here](server.md#configure)
+The server can also be initialized with a set of behaviors at start up as described [here](guide.md#configure)
 
 Here is a full sample of a Behavior document.
 
