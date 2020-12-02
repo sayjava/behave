@@ -5,9 +5,9 @@ sidebar_label: Assertions
 slug: /assertions
 ---
 
-The `behavior-server` includes a feature to valid requests tha it received and matched successfully by the server. Requests that are not matched by any Behavior on the server will result in validation fail.
+The `behave` includes a feature to valid requests tha it received and matched successfully by the server. Requests that are not matched by any Behavior on the server will result in validation fail.
 
-There are two types of validations that the `behavior-server` supports, count validation and sequence validation.
+There are two types of validations that the `behave` supports, count validation and sequence validation.
 
 ## Counts
 
@@ -132,7 +132,7 @@ curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
 
 ## Sequence
 
-The `behavior-server` can also match the order in which requests are received by the server.
+The `behave` can also match the order in which requests are received by the server.
 
 ### Requests were received in a particular order
 

@@ -5,11 +5,11 @@ sidebar_label: Guide
 slug: /guide
 ---
 
-The `behavior-server` uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
+The `behave` server uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
 
 ## Behavior Document
 
-A Behavior is a JSON document that describes how the `behavior-server` should respond to http requests it receives.
+A Behavior is a JSON document that describes how the `behave` server should respond to http requests it receives.
 
 Behaviors can be created on the server by sending an http request to the behavior endpoint of the server. e.g
 
@@ -68,7 +68,7 @@ To be able to match a Behavior and respond appropriately, a Behavior document ne
 
 ### Simple Path
 
-The `behavior-sever` will default to `HTTP GET` method and `HTTP 200` response code for matched Behaviors if they are omitted from the Behavior document.
+The `behave` server will default to `HTTP GET` method and `HTTP 200` response code for matched Behaviors if they are omitted from the Behavior document.
 
 ```json
 {
@@ -182,7 +182,7 @@ The server can match requests based on http request header values. The configure
   "request": {
     "path": "/tasks/[0-9]+",
     "headers": {
-      "X-Behavior-Id": "behave-[a-z]+"
+      "X-Behave-Id": "behave-[a-z]+"
     }
   },
   "response": {
@@ -195,7 +195,7 @@ The server can match requests based on http request header values. The configure
 
 ```shell
 # Responds with a 200
-curl -X GET http://localhost:8080/tasks/123 -H "X-Behavior-Id: behave-abcde"
+curl -X GET http://localhost:8080/tasks/123 -H "X-Behave-Id: behave-abcde"
 
 # Responds with a 404
 curl -X GET http://localhost:8080/tasks/123

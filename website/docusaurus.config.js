@@ -1,18 +1,18 @@
 module.exports = {
-  title: 'Behavior Server',
+  title: 'Behave Server',
   tagline: 'A Simple HTTP mocking and testing server',
   url: 'https://sayjava.github.io',
-  baseUrl: '/behavior/',
+  baseUrl: '/behave/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'sayjava', // Usually your GitHub org/user name.
-  projectName: 'behavior', // Usually your repo name.
+  projectName: 'behave', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'Start',
       logo: {
-        alt: 'Behavior Logo',
+        alt: 'Behave Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -35,7 +35,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://github.com/sayjava/behavior',
+          href: 'https://github.com/sayjava/behave',
           label: 'GitHub',
           position: 'right',
         },
@@ -49,7 +49,7 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [],
-      copyright: `Copyright © ${new Date().getFullYear()} Behavior, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Behave, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -60,7 +60,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/sayjava/behavior/edit/master/website/',
+            'https://github.com/sayjava/behave/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

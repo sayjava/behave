@@ -3,7 +3,7 @@
 The easiest and quickest way to mock HTTP endpoints for development and tests purposes
  </p>
  <p align="center">
-    <a href="https://behavior.dev"><strong>Explore Behave docs »</strong></a>
+    <a href="https://behave.dev"><strong>Explore Behave docs »</strong></a>
  </p>
  <p align="center">
   <a href="website/docs/start">Start »</a>
