@@ -1,5 +1,5 @@
 {
-  "name": "behave-repo",
+  "name": "@sayjava/behave-repo",
   "scripts": {
     "build": "lerna run build",
     "test": "lerna run test",
