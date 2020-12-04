@@ -52,7 +52,7 @@ export interface Response {
   };
 }
 
-export interface Expectation {
+export interface Behavior {
   id?: string;
   name: string;
   description?: string;
@@ -67,6 +67,6 @@ export interface Expectation {
 
 export interface Record {
   request: Request;
-  matches: Expectation[];
+  matches: Behavior[];
   timestamp: number;
 }

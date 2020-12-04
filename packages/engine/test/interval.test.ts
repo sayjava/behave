@@ -1,7 +1,7 @@
 import { create } from "../src/engine";
-import { Expectation, Request, VerificationError } from "../src/types";
+import { Behavior, Request, VerificationError } from "../src/types";
 
-const expectations: Expectation[] = [
+const behaviors: Behavior[] = [
   {
     id: "addProduct",
     name: "addProduct",
@@ -59,7 +59,7 @@ const delayFor = (duration = 0) => {
 };
 
 test("at least 2 requests are needed to have been matched", () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
   engine.match(requests[0]);
 
   const error = engine.assertInterval({
@@ -73,7 +73,7 @@ test("at least 2 requests are needed to have been matched", () => {
 });
 
 test("all asserted records must match at least once", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
   engine.match(requests[0]);
   await delayFor(100);
   engine.match(requests[1]);
@@ -89,7 +89,7 @@ test("all asserted records must match at least once", async () => {
 });
 
 test("confirm request are called apart at least 50 seconds apart", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[0]);
   await delayFor(100);
@@ -103,7 +103,7 @@ test("confirm request are called apart at least 50 seconds apart", async () => {
 });
 
 test("confirm request are NOT called apart at least 50 seconds apart", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[0]);
   await delayFor(100);
@@ -119,7 +119,7 @@ test("confirm request are NOT called apart at least 50 seconds apart", async () 
 });
 
 test("confirm request are called apart at most 50 seconds apart", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[0]);
   await delayFor(40);
@@ -133,7 +133,7 @@ test("confirm request are called apart at most 50 seconds apart", async () => {
 });
 
 test("confirm request are called apart at most 50 seconds apart", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[0]);
   await delayFor(40);

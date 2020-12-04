@@ -4,7 +4,7 @@ import bodyMatcher from "./matchers/body";
 import headerMatcher from "./matchers/headers";
 import pathMatcher from "./matchers/path";
 import {
-  Expectation,
+  Behavior,
   IntervalVerification,
   Record,
   Request,
@@ -15,11 +15,11 @@ import {
 interface EngineConfig {}
 
 interface Props {
-  expectations: Expectation[];
+  behaviors: Behavior[];
   config: EngineConfig;
 }
 
-const minimumExpectation: Expectation = {
+const minimumBehavior: Behavior = {
   name: "sample",
   request: {
     path: "",
@@ -27,23 +27,23 @@ const minimumExpectation: Expectation = {
   response: {},
 };
 
-export const validateExpectation = (exp: Expectation): boolean => {
-  assert.containsAllDeepKeys(exp, minimumExpectation);
-  assert.containsAllDeepKeys(exp.request, minimumExpectation.request);
+export const validateBehavior = (behave: Behavior): boolean => {
+  assert.containsAllDeepKeys(behave, minimumBehavior);
+  assert.containsAllDeepKeys(behave.request, minimumBehavior.request);
   return true;
 };
 
 export class Engine {
-  private $expectations: Expectation[];
+  private $behaviors: Behavior[];
   private $records: Record[] = [];
 
-  constructor(expectations: Expectation[]) {
-    this.$expectations = expectations.map((exp) => {
-      return Object.assign(this.basicExpectation(), exp);
+  constructor(behaviors: Behavior[]) {
+    this.$behaviors = behaviors.map((behave) => {
+      return Object.assign(this.baseBehavior(), behave);
     });
   }
 
-  private basicExpectation() {
+  private baseBehavior() {
     return {
       id: shortId(),
       limit: "unlimited",
@@ -60,8 +60,8 @@ export class Engine {
       .sort((a, b) => a.timestamp - b.timestamp);
   }
 
-  match(request: Request): Expectation[] {
-    const matches = this.$expectations
+  match(request: Request): Behavior[] {
+    const matches = this.$behaviors
       .filter((exp) => request.method === exp.request.method)
       .filter((exp) => pathMatcher(exp.request, request))
       .filter((exp) => headerMatcher(exp.request, request) === true)
@@ -266,18 +266,18 @@ export class Engine {
     return true;
   }
 
-  addExpectation(exp: Expectation) {
-    validateExpectation(exp);
-    const newExp = Object.assign({}, this.basicExpectation(), exp);
-    this.$expectations.push(newExp);
+  addBehavior(behavior: Behavior) {
+    validateBehavior(behavior);
+    const newExp = Object.assign({}, this.baseBehavior(), behavior);
+    this.$behaviors.push(newExp);
   }
 
-  removeExpectation(id: string) {
-    this.$expectations = this.$expectations.filter((exp) => exp.id !== id);
+  removeBehavior(id: string) {
+    this.$behaviors = this.$behaviors.filter((exp) => exp.id !== id);
   }
 
-  clearAllExpectation() {
-    this.$expectations = [];
+  clearAllBehavior() {
+    this.$behaviors = [];
   }
 
   clearAllRecords() {
@@ -285,7 +285,7 @@ export class Engine {
   }
 
   clearAll() {
-    this.clearAllExpectation();
+    this.clearAllBehavior();
     this.clearAllRecords();
   }
 
@@ -293,12 +293,12 @@ export class Engine {
     return this.$records;
   }
 
-  get expectations(): Expectation[] {
-    return this.$expectations;
+  get behaviors(): Behavior[] {
+    return this.$behaviors;
   }
 }
 
-export const create = ({ expectations }: Props) => {
-  expectations.forEach(validateExpectation);
-  return new Engine(expectations);
+export const create = ({ behaviors }: Props) => {
+  behaviors.forEach(validateBehavior);
+  return new Engine(behaviors);
 };

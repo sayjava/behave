@@ -1,7 +1,7 @@
 import { create } from "../src/engine";
-import { Expectation, Request, VerificationError } from "../src/types";
+import { Behavior, Request, VerificationError } from "../src/types";
 
-const expectations: Expectation[] = [
+const behaviors: Behavior[] = [
   {
     id: "addProduct",
     name: "addProduct",
@@ -59,7 +59,7 @@ const delayFor = (duration = 0) => {
 };
 
 test("at least 2 requests are needed", () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
   engine.match(requests[0]);
   engine.match(requests[1]);
 
@@ -74,7 +74,7 @@ test("at least 2 requests are needed", () => {
 });
 
 test("confirm request sequences", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[0]);
   await delayFor(100);
@@ -86,7 +86,7 @@ test("confirm request sequences", async () => {
 });
 
 test("confirm various combination of requests", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[0]);
   await delayFor(100);
@@ -106,7 +106,7 @@ test("confirm various combination of requests", async () => {
 });
 
 test("confirm missing requests in sequence fails", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[0]);
   await delayFor(100);
@@ -130,7 +130,7 @@ test("confirm missing requests in sequence fails", async () => {
 });
 
 test("confirm missing requests in sequence fails", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[2]);
   await delayFor(100);
@@ -162,7 +162,7 @@ test("confirm missing requests in sequence fails", async () => {
 });
 
 test("confirm missing requests in sequence verification fails", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(requests[2]);
   await delayFor(100);
@@ -193,7 +193,7 @@ test("confirm missing requests in sequence verification fails", async () => {
 });
 
 test("confirm fails on empty requests", async () => {
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const { actual, expected } = engine.assertSequence(
     requests
@@ -212,14 +212,14 @@ test("confirm fails on empty requests", async () => {
 
 test("confirm fails on different header types", async () => {
   const engine = create({
-    expectations: [
+    behaviors: [
       {
-        name: "expectations",
+        name: "behaviors",
         request: { path: "/tasks", method: "GET" },
         response: {},
       },
       {
-        name: "expectations",
+        name: "behaviors",
         request: { path: "/tasks", method: "POST" },
         response: {},
       },

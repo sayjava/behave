@@ -1,2 +1,2 @@
-export { create, validateExpectation, Engine } from "./engine";
+export { create, validateBehavior, Engine } from "./engine";
 export * from "./types";

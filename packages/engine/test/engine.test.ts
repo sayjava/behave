@@ -1,5 +1,5 @@
 import { create, Engine } from "../src/engine";
-import { Expectation, Request } from "../src/types";
+import { Behavior, Request } from "../src/types";
 
 test("validates expectation", () => {
   const exps: any[] = [
@@ -10,13 +10,13 @@ test("validates expectation", () => {
     },
   ];
 
-  const doCreate = () => create({ expectations: exps, config: {} });
+  const doCreate = () => create({ behaviors: exps, config: {} });
 
   expect(doCreate).toThrowError();
 });
 
 test("match simple method request", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -42,7 +42,7 @@ test("match simple method request", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const matched = engine.match({
     path: "/todos",
@@ -75,7 +75,7 @@ test("match simple method request", () => {
 });
 
 test("match headers request", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -104,7 +104,7 @@ test("match headers request", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const matched = engine.match({
     path: "/todos",
@@ -139,7 +139,7 @@ test("match headers request", () => {
 });
 
 test("match json body request", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -170,7 +170,7 @@ test("match json body request", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const matched = engine.match({
     path: "/todos",
@@ -203,7 +203,7 @@ test("match json body request", () => {
 });
 
 test("match string body request", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -231,7 +231,7 @@ test("match string body request", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const matched = engine.match({
     path: "/todos",
@@ -261,7 +261,7 @@ test("match string body request", () => {
 });
 
 test("matched 2 times only", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -283,7 +283,7 @@ test("matched 2 times only", () => {
     headers: {},
   };
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(request);
   engine.match(request);
@@ -293,7 +293,7 @@ test("matched 2 times only", () => {
 });
 
 test("multiple expectation matches", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -322,7 +322,7 @@ test("multiple expectation matches", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/todos",
@@ -382,25 +382,25 @@ test("multiple expectation matches", () => {
   `);
 });
 
-test("Expectation: add results in error", () => {
+test("Behavior: add results in error", () => {
   const engine = new Engine([]);
-  const add = () => engine.addExpectation({} as any);
+  const add = () => engine.addBehavior({} as any);
   expect(add).toThrowError(
     "expected {} to contain keys 'name', 'request', and 'response'"
   );
 });
 
-test("Expectation: add", () => {
+test("Behavior: add", () => {
   const engine = new Engine([]);
   const add = () =>
-    engine.addExpectation({
+    engine.addBehavior({
       id: "new",
       name: "base expectation",
       request: { path: "/hello" },
       response: {},
     });
   expect(add).not.toThrow();
-  expect(engine.expectations).toMatchInlineSnapshot(`
+  expect(engine.behaviors).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "new",
@@ -415,20 +415,20 @@ test("Expectation: add", () => {
   `);
 });
 
-test("Expectation: remove", () => {
+test("Behavior: remove", () => {
   const engine = new Engine([]);
-  engine.addExpectation({
+  engine.addBehavior({
     id: "new",
     name: "base expectation",
     request: { path: "/hello" },
     response: {},
   });
-  engine.removeExpectation("new");
-  expect(engine.expectations).toMatchInlineSnapshot(`Array []`);
+  engine.removeBehavior("new");
+  expect(engine.behaviors).toMatchInlineSnapshot(`Array []`);
 });
 
 test(`Clear all records`, () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -450,12 +450,12 @@ test(`Clear all records`, () => {
     headers: {},
   };
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   engine.match(request);
   engine.match(request);
   engine.clearAll();
 
   expect(engine.records).toMatchInlineSnapshot(`Array []`);
-  expect(engine.expectations).toMatchInlineSnapshot(`Array []`);
+  expect(engine.behaviors).toMatchInlineSnapshot(`Array []`);
 });
