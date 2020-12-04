@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { Engine, Verification } from "behave-engine";
+import { Engine, Verification } from "@sayjava/behave-engine";
 
 const sequence = (engine: Engine, router) => {
   router.put("/sequence", (req, res) => {
     try {
       const { requests = [] } = req.body || {};
-      const result = engine.verifySequence(requests);
+      const result = engine.assertSequence(requests);
 
       if (result === true) {
         return res.status(202).send({});
@@ -22,18 +22,18 @@ const sequence = (engine: Engine, router) => {
 };
 
 const exists = (engine: Engine, router) => {
-  router.put("/exists", (req, res) => {
+  router.put("/assert", (req, res) => {
     try {
       const { verifications = [] } = req.body;
 
       if (verifications.length === 0) {
         return res.status(406).send({
-          message: "Verifications are empty",
+          message: "Assertions are empty",
         });
       }
 
       const verified = verifications.map((verify: Verification) =>
-        engine.verify(verify)
+        engine.assert(verify)
       );
       const pass = verified.filter((res) => typeof res !== "boolean");
 

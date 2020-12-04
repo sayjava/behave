@@ -1,13 +1,13 @@
 import { create } from "../src/engine";
 import {
-  Expectation,
+  Behavior,
   Request,
   Verification,
   VerificationError,
 } from "../src/types";
 
 test("at most 1 time and at least 1 time", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -34,7 +34,7 @@ test("at most 1 time and at least 1 time", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const post: Request = {
     path: "/todos",
@@ -67,7 +67,7 @@ test("at most 1 time and at least 1 time", () => {
 });
 
 test("exactly 2 times", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -82,7 +82,7 @@ test("exactly 2 times", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/todos",
@@ -107,7 +107,7 @@ test("exactly 2 times", () => {
 });
 
 test("matches at least once", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -123,7 +123,7 @@ test("matches at least once", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/todo/2",
@@ -142,7 +142,7 @@ test("matches at least once", () => {
 });
 
 test("at least 1 times with other records", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -157,7 +157,7 @@ test("at least 1 times with other records", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/todos/take-trash-out",
@@ -178,7 +178,7 @@ test("at least 1 times with other records", () => {
 });
 
 test("assert 3 counts on a 2 limit response", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -194,7 +194,7 @@ test("assert 3 counts on a 2 limit response", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/happy_feet",
@@ -220,7 +220,7 @@ test("assert 3 counts on a 2 limit response", () => {
 });
 
 test("at most 3 times", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -235,7 +235,7 @@ test("at most 3 times", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/todos",
@@ -257,7 +257,7 @@ test("at most 3 times", () => {
 });
 
 test("at least 3 times", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -272,7 +272,7 @@ test("at least 3 times", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/todos",
@@ -292,7 +292,7 @@ test("at least 3 times", () => {
 });
 
 test("empty record matches", () => {
-  const expectations: Expectation[] = [
+  const behaviors: Behavior[] = [
     {
       id: "exp1",
       name: "sample1",
@@ -308,7 +308,7 @@ test("empty record matches", () => {
     },
   ];
 
-  const engine = create({ expectations, config: {} });
+  const engine = create({ behaviors, config: {} });
 
   const request: Request = {
     path: "/todos",

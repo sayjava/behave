@@ -103,14 +103,17 @@ Check if this request was received more than once and at least `time` in seconds
 ```shell
 # Check that requests were received at least 10 seconds apart
 # Responds with 201 if it were matched
-curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
- {
-   "path": "/tasks/123",
-   "interval": {
-      "atLeast": 10,
-   }
- }
-]'
+curl -X PUT http://localhost:8080/_/api/requests/interval -d '{
+ "requests": [{
+    "path": "/users/123"
+  },
+  {
+    "path": "/tasks/123"
+  }],
+ "interval": {
+    "atLeast": 10
+  }
+}'
 ```
 
 ### Requests were received at most at an interval

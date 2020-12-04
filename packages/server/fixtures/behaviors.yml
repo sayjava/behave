@@ -1,4 +1,4 @@
-expectations:
+behaviors:
   - name: "Todo Expectations"
     description: "A simple todo"
 

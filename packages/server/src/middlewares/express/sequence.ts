@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Engine } from "behave-engine";
+import { Engine } from "@sayjava/behave-engine";
 
 export default (engine: Engine) => {
   const router = Router();
@@ -7,7 +7,7 @@ export default (engine: Engine) => {
   router.post("/", (req, res) => {
     try {
       const { requests = [] } = req.body || {};
-      const result = engine.verifySequence(requests);
+      const result = engine.assertSequence(requests);
 
       if (result === true) {
         return res.status(202).send({});

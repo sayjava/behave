@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express, { Express } from "express";
-import { Engine } from "behave-engine";
+import { Engine } from "@sayjava/behave-engine";
 import morgan from "morgan";
 import flyMiddleware from "./middlewares/express";
 

@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { Engine } from "behave-engine";
+import { Engine } from "@sayjava/behave-engine";
 
 export default (engine: Engine) => {
   const router = Router();
   router.get("/", (_, res) => {
-    res.status(200).json(engine.expectations);
+    res.status(200).json(engine.behaviors);
   });
 
   router.delete("/:id", (req, res) => {
     const { id = "" } = req.params;
-    engine.removeExpectation(id);
+    engine.removeBehavior(id);
     res.status(201).json({ message: "ok" });
   });
 
@@ -19,12 +19,12 @@ export default (engine: Engine) => {
 
       if (!Array.isArray(expectations)) {
         return res.status(400).json({
-          message: `Expectations must be an array`,
+          message: `Behaviors must be an array`,
         });
       }
 
       for (const exp of expectations) {
-        engine.addExpectation(exp);
+        engine.removeBehavior(exp);
       }
       res.status(201).json({ message: "ok" });
     } catch (error) {

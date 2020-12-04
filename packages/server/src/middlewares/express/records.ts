@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Engine } from "behave-engine";
+import { Engine } from "@sayjava/behave-engine";
 
 export default (engine: Engine) => {
   const router = Router();

@@ -1,4 +1,4 @@
-import { Engine, Request as EngineRequest } from "behave-engine";
+import { Engine, Request as EngineRequest } from "@sayjava/behave-engine";
 import { Request, Response } from "express";
 
 export default (engine: Engine) => (req: Request, res: Response) => {

@@ -1,8 +1,8 @@
-import express from "express";
-import { Engine } from "behave-engine";
+import { Engine } from "@sayjava/behave-engine";
 import bodyParser from "body-parser";
-import routes from "../src/middlewares/express";
+import express from "express";
 import request from "supertest";
+import routes from "../src/middlewares/express";
 
 test("return a 406  for empty requests", async () => {
   const app = express();
@@ -10,7 +10,7 @@ test("return a 406  for empty requests", async () => {
   routes(app, new Engine([]));
 
   // @ts-ignore
-  const res = await request(app).put("/_/api/verify/sequence");
+  const res = await request(app).put("/_/api/requests/sequence");
   expect(res.status).toBe(406);
   expect(res.body).toMatchInlineSnapshot(`
     Object {
@@ -29,7 +29,7 @@ test("return the error from a failed verification", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .put("/_/api/verify/sequence")
+    .put("/_/api/requests/sequence")
     .send({
       requests: [
         {
@@ -62,12 +62,12 @@ test("return accepted http 202", async () => {
   app.use(bodyParser.json());
   const engine = new Engine([
     {
-      name: "test expetations",
+      name: "test expectations",
       request: { path: "/tasks", method: "GET" },
       response: {},
     },
     {
-      name: "test expetations",
+      name: "test expectations",
       request: { path: "/tasks", method: "POST" },
       response: {},
     },
@@ -80,7 +80,7 @@ test("return accepted http 202", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .put("/_/api/verify/sequence")
+    .put("/_/api/requests/sequence")
     .send({
       requests: [
         {
@@ -120,7 +120,7 @@ test("return error for unmatched sequence", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .put("/_/api/verify/sequence")
+    .put("/_/api/requests/sequence")
     .send({
       requests: [
         {
