@@ -24,15 +24,21 @@ const sequence = (engine: Engine, router) => {
 const exists = (engine: Engine, router) => {
   router.put("/assert", (req, res) => {
     try {
-      const { verifications = [] } = req.body;
+      const behaviors: any[] = req.body;
 
-      if (verifications.length === 0) {
+      if (!Array.isArray(behaviors)) {
         return res.status(406).send({
-          message: "Assertions are empty",
+          message: "Behaviors must be an array",
         });
       }
 
-      const verified = verifications.map((verify: Verification) =>
+      if (behaviors.length === 0) {
+        return res.status(406).send({
+          message: "Behaviors can not be be empty",
+        });
+      }
+
+      const verified = behaviors.map((verify: Verification) =>
         engine.assert(verify)
       );
       const pass = verified.filter((res) => typeof res !== "boolean");

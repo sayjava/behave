@@ -4,17 +4,17 @@ import express from "express";
 import request from "supertest";
 import routes from "../src/middlewares/express";
 
-test("return a 202  for empty requests", async () => {
+test("return a 406  for empty requests", async () => {
   const app = express();
   app.use(bodyParser.json());
   routes(app, new Engine([]));
 
   // @ts-ignore
-  const res = await request(app).put("/_/api/verify/exists");
+  const res = await request(app).put("/_/api/requests/assert");
   expect(res.status).toBe(406);
   expect(res.body).toMatchInlineSnapshot(`
     Object {
-      "message": "Verifications are empty",
+      "message": "Behaviors must be an array",
     }
   `);
 });
@@ -26,23 +26,21 @@ test("return the error from a failed existence verification", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .put("/_/api/verify/exists")
-    .send({
-      verifications: [
-        {
-          request: {
-            path: "/tasks",
-            method: "POST",
-          },
+    .put("/_/api/requests/assert")
+    .send([
+      {
+        request: {
+          path: "/tasks",
+          method: "POST",
         },
-        {
-          request: {
-            path: "/tasks",
-            method: "GET",
-          },
+      },
+      {
+        request: {
+          path: "/tasks",
+          method: "GET",
         },
-      ],
-    });
+      },
+    ]);
 
   expect(res.status).toBe(406);
   expect(res.body).toMatchInlineSnapshot(`
@@ -86,23 +84,21 @@ test("return accepted http 202", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .put("/_/api/verify/exists")
-    .send({
-      verifications: [
-        {
-          request: {
-            path: "/tasks",
-            method: "POST",
-          },
+    .put("/_/api/requests/assert")
+    .send([
+      {
+        request: {
+          path: "/tasks",
+          method: "POST",
         },
-        {
-          request: {
-            path: "/tasks",
-            method: "GET",
-          },
+      },
+      {
+        request: {
+          path: "/tasks",
+          method: "GET",
         },
-      ],
-    });
+      },
+    ]);
 
   expect(res.status).toBe(202);
 });
@@ -130,29 +126,27 @@ test("return error for unmatched existence", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .put("/_/api/verify/exists")
-    .send({
-      verifications: [
-        {
-          request: {
-            path: "/tasks",
-            method: "POST",
-          },
-          count: {
-            atMost: 0,
-          },
+    .put("/_/api/requests/assert")
+    .send([
+      {
+        request: {
+          path: "/tasks",
+          method: "POST",
         },
-        {
-          request: {
-            path: "/tasks",
-            method: "GET",
-          },
-          count: {
-            atLeast: 1,
-          },
+        count: {
+          atMost: 0,
         },
-      ],
-    });
+      },
+      {
+        request: {
+          path: "/tasks",
+          method: "GET",
+        },
+        count: {
+          atLeast: 1,
+        },
+      },
+    ]);
 
   expect(res.status).toBe(406);
   expect(res.body).toMatchInlineSnapshot(`
