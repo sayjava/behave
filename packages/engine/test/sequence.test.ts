@@ -63,7 +63,7 @@ test("at least 2 requests are needed", () => {
   engine.match(requests[0]);
   engine.match(requests[1]);
 
-  expect(engine.verifySequence(requests.slice(0, 1))).toMatchInlineSnapshot(`
+  expect(engine.assertSequence(requests.slice(0, 1))).toMatchInlineSnapshot(`
     Object {
       "actual": "Received 1 requests",
       "expected": "At least 2 requests",
@@ -82,7 +82,7 @@ test("confirm request sequences", async () => {
   await delayFor(100);
   engine.match(requests[2]);
 
-  expect(engine.verifySequence(requests)).toMatchInlineSnapshot(`true`);
+  expect(engine.assertSequence(requests)).toMatchInlineSnapshot(`true`);
 });
 
 test("confirm various combination of requests", async () => {
@@ -102,7 +102,7 @@ test("confirm various combination of requests", async () => {
   await delayFor(100);
   engine.match(requests[1]);
 
-  expect(engine.verifySequence(requests)).toMatchInlineSnapshot(`true`);
+  expect(engine.assertSequence(requests)).toMatchInlineSnapshot(`true`);
 });
 
 test("confirm missing requests in sequence fails", async () => {
@@ -116,7 +116,7 @@ test("confirm missing requests in sequence fails", async () => {
   await delayFor(100);
   engine.match(requests[2]);
 
-  const urls = (engine.verifySequence(
+  const urls = (engine.assertSequence(
     requests
   ) as VerificationError).records.map((r) => r.request.path);
 
@@ -140,7 +140,7 @@ test("confirm missing requests in sequence fails", async () => {
 
   engine.match(requests[1]);
 
-  const { actual, expected } = (engine.verifySequence(
+  const { actual, expected } = (engine.assertSequence(
     requests
   ) as VerificationError) as VerificationError;
 
@@ -172,7 +172,7 @@ test("confirm missing requests in sequence verification fails", async () => {
 
   engine.match(requests[1]);
 
-  const { actual, expected } = engine.verifySequence([
+  const { actual, expected } = engine.assertSequence([
     requests[0],
     requests[2],
   ]) as VerificationError;
@@ -195,7 +195,7 @@ test("confirm missing requests in sequence verification fails", async () => {
 test("confirm fails on empty requests", async () => {
   const engine = create({ expectations, config: {} });
 
-  const { actual, expected } = engine.verifySequence(
+  const { actual, expected } = engine.assertSequence(
     requests
   ) as VerificationError;
 
@@ -233,7 +233,7 @@ test("confirm fails on different header types", async () => {
   engine.match({ path: "/tasks", method: "GET" });
   await delayFor(100);
 
-  const { actual, expected } = engine.verifySequence([
+  const { actual, expected } = engine.assertSequence([
     { path: "/tasks", method: "GET" },
     { path: "/tasks", method: "POST" },
   ]) as VerificationError;

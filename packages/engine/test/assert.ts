@@ -55,14 +55,14 @@ test("at most 1 time and at least 1 time", () => {
     request: post,
     limit: { atMost: 1 },
   };
-  const verifiedPost = engine.verify(verificationPost);
+  const verifiedPost = engine.assert(verificationPost);
   expect(verifiedPost).toMatchInlineSnapshot(`true`);
 
   const verificationGet: Verification = {
     request: get,
     limit: { atLeast: 1 },
   };
-  const verifiedGet = engine.verify(verificationGet);
+  const verifiedGet = engine.assert(verificationGet);
   expect(verifiedGet).toMatchInlineSnapshot(`true`);
 });
 
@@ -99,7 +99,7 @@ test("exactly 2 times", () => {
     request,
     limit: { atMost: 2, atLeast: 2 },
   };
-  const verified = engine.verify(verification) as VerificationError;
+  const verified = engine.assert(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
     `"Expected to have received GET:/todos at most 2 times but was received 4 times"`
@@ -136,7 +136,7 @@ test("matches at least once", () => {
   };
 
   engine.match(request);
-  const verified = engine.verify(verification);
+  const verified = engine.assert(verification);
 
   expect(verified).toMatchInlineSnapshot(`true`);
 });
@@ -170,14 +170,14 @@ test("at least 1 times with other records", () => {
   engine.match(request);
 
   const verification: Verification = { request, limit: { atLeast: 1 } };
-  const verified = engine.verify(verification) as VerificationError;
+  const verified = engine.assert(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
     `"Expected to have received GET:/todos/take-trash-out at least 1 times but was received 0 times"`
   );
 });
 
-test("verify 3 counts on a 2 limit response", () => {
+test("assert 3 counts on a 2 limit response", () => {
   const expectations: Expectation[] = [
     {
       id: "exp1",
@@ -212,7 +212,7 @@ test("verify 3 counts on a 2 limit response", () => {
     request,
     limit: { atLeast: 3 },
   };
-  const verified = engine.verify(verification) as VerificationError;
+  const verified = engine.assert(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
     `"Expected to have received GET:/happy_feet at least 3 times but was received 2 times"`
@@ -249,7 +249,7 @@ test("at most 3 times", () => {
   engine.match(request);
 
   const verification: Verification = { request, limit: { atMost: 3 } };
-  const verified = engine.verify(verification) as VerificationError;
+  const verified = engine.assert(verification) as VerificationError;
 
   expect(verified.message).toMatchInlineSnapshot(
     `"Expected to have received GET:/todos at most 3 times but was received 4 times"`
@@ -286,7 +286,7 @@ test("at least 3 times", () => {
   engine.match(request);
 
   const verification: Verification = { request, limit: { atLeast: 3 } };
-  const verified = engine.verify(verification);
+  const verified = engine.assert(verification);
 
   expect(verified).toMatchInlineSnapshot(`true`);
 });
@@ -320,7 +320,7 @@ test("empty record matches", () => {
     request,
   };
 
-  const verified = engine.verify(verification);
+  const verified = engine.assert(verification);
 
   expect(verified).toMatchInlineSnapshot(`
     Object {

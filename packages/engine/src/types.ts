@@ -28,6 +28,14 @@ export interface Verification {
   };
 }
 
+export interface IntervalVerification {
+  requests: Request[];
+  interval: {
+    atLeast?: number;
+    atMost?: number;
+  };
+}
+
 export interface VerificationError {
   message: string;
   actual: any;

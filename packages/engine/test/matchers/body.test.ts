@@ -35,3 +35,29 @@ test("matches an empty body", () => {
 
   expect(matcher(expRequest, request)).toBe(true);
 });
+
+test("matches a json object", () => {
+  const expRequest: Request = {
+    path: "/todo/1",
+    headers: {},
+    method: "POST",
+    body: {
+      name: "Doe",
+    },
+  };
+
+  const request: Request = {
+    path: "/todo/1",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: {
+      name: "john doe",
+    },
+  };
+
+  expect(matcher(expRequest, request)).toMatchInlineSnapshot(
+    `[AssertionError: key: name, does not match, Doe did not match john doe: expected 'john doe' to match /Doe/]`
+  );
+});

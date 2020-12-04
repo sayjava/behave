@@ -5,6 +5,7 @@ import headerMatcher from "./matchers/headers";
 import pathMatcher from "./matchers/path";
 import {
   Expectation,
+  IntervalVerification,
   Record,
   Request,
   Verification,
@@ -87,7 +88,7 @@ export class Engine {
     return matches;
   }
 
-  verify(verification: Verification): boolean | VerificationError {
+  assert(verification: Verification): boolean | VerificationError {
     const { request, limit = {} } = verification;
     const matches = this.verifyRequest(request);
 
@@ -139,7 +140,7 @@ export class Engine {
     return true;
   }
 
-  verifySequence(requests: Request[]): boolean | VerificationError {
+  assertSequence(requests: Request[]): boolean | VerificationError {
     if (requests.length < 2) {
       return {
         actual: `Received ${requests.length} requests`,
@@ -182,6 +183,84 @@ export class Engine {
         message: `Requests matched are not matched`,
         records: allRecords.flat().sort((a, b) => a.timestamp - b.timestamp),
       };
+    }
+
+    return true;
+  }
+
+  assertInterval(verify: IntervalVerification): boolean | VerificationError {
+    const {
+      interval: { atLeast, atMost },
+    } = verify;
+
+    const requestRecords = verify.requests.map((req) => {
+      return { path: req.path, records: this.verifyRequest(req) };
+    });
+    const records = requestRecords.map((r) => r.records).flat();
+
+    // check for requests with no records
+    const [missing] = requestRecords.filter(
+      (recs) => recs.records.length === 0
+    );
+    if (missing) {
+      return {
+        actual: `${missing.path} has no records`,
+        expected: `All asserted requests must have matched records`,
+        message: "All request must have at least on record",
+        records,
+      };
+    }
+
+    if (records.flat().length < 2) {
+      return {
+        actual: `Total record for request is ${records.length}`,
+        expected:
+          "At least two request records are required for interval assertions",
+        message: "Request must have at least one record",
+        records,
+      };
+    }
+
+    if (atLeast) {
+      const matched = records.reduce((acc, curr, index) => {
+        if (index === 0) {
+          return true;
+        }
+        const prev = records[index - 1];
+        return acc && curr.timestamp - prev.timestamp >= atLeast;
+      }, true);
+
+      if (!matched) {
+        return {
+          actual: `Request was not called apart in ${atLeast} seconds`,
+          expected: `Requests are called ${atLeast} seconds apart`,
+          message: "",
+          records,
+        };
+      }
+
+      return matched;
+    }
+
+    if (atMost) {
+      const matched = records.reduce((acc, curr, index) => {
+        if (index === 0) {
+          return true;
+        }
+        const prev = records[index - 1];
+        return acc && curr.timestamp - prev.timestamp <= atMost;
+      }, true);
+
+      if (!matched) {
+        return {
+          actual: `Request was not called apart in ${atMost} seconds`,
+          expected: `Requests are called ${atMost} seconds apart`,
+          message: "",
+          records,
+        };
+      }
+
+      return matched;
     }
 
     return true;

@@ -1,2 +1,2 @@
-export { create, Engine } from "./engine";
+export { create, validateExpectation, Engine } from "./engine";
 export * from "./types";
