@@ -19,16 +19,14 @@ test("add a successful expectation", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .post("/_/api/expectations")
-    .send({
-      expectations: [
-        {
-          name: "test expectations",
-          request: { path: "/tasks", method: "POST" },
-          response: {},
-        },
-      ],
-    });
+    .post("/_/api/behaviors")
+    .send([
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "POST" },
+        response: {},
+      },
+    ]);
 
   expect(res.status).toBe(201);
 });
@@ -48,19 +46,17 @@ test("fail adding expectation not an array", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .post("/_/api/expectations")
+    .post("/_/api/behaviors")
     .send({
-      expectations: {
-        name: "test expectations",
-        request: { path: "/tasks", method: "POST" },
-        response: {},
-      },
+      name: "test expectations",
+      request: { path: "/tasks", method: "POST" },
+      response: {},
     });
 
   expect(res.status).toBe(400);
   expect(res.body).toMatchInlineSnapshot(`
     Object {
-      "message": "Expectations must be an array",
+      "message": "Behaviors must be an array",
     }
   `);
 });
@@ -80,16 +76,14 @@ test("fail adding a non valid expectation", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .post("/_/api/expectations")
-    .send({
-      expectations: [
-        {
-          name: "test expectations",
-          request: { method: "POST" },
-          response: {},
-        },
-      ],
-    });
+    .post("/_/api/behaviors")
+    .send([
+      {
+        name: "test expectations",
+        request: { method: "POST" },
+        response: {},
+      },
+    ]);
 
   expect(res.status).toBe(400);
   expect(res.body).toMatchInlineSnapshot(`
@@ -121,7 +115,7 @@ test("remove an expectation", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .delete("/_/api/expectations/sample-expectation");
+    .delete("/_/api/behaviors/sample-expectation");
 
   expect(res.status).toBe(201);
   expect(res.body).toMatchInlineSnapshot(`
@@ -147,7 +141,7 @@ test("retrieve all expectations", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .get("/_/api/expectations");
+    .get("/_/api/behaviors");
 
   expect(res.status).toBe(200);
   expect(res.body).toMatchInlineSnapshot(`

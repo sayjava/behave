@@ -3,7 +3,8 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import { existsSync, readFileSync } from "fs";
-import { create, validateBehavior } from "@sayjava/behave-engine";
+import { create } from "@sayjava/behave-engine";
+import { parseBehaviors } from "../utils";
 
 import server from "../server";
 
@@ -28,28 +29,6 @@ const args = yargs(hideBin(process.argv))
     describe: "Debug level info, verbose",
     default: "info",
   }).argv;
-
-const parseBehaviors = (behaviors: string): any[] => {
-  try {
-    const strBehaviors: any[] = JSON.parse(behaviors);
-    if (!Array.isArray(strBehaviors)) {
-      console.error(
-        `Behaviors must be an array. see the docs at https://behave.dev`
-      );
-      console.warn(`No behaviors was loaded`);
-      return [];
-    }
-
-    for (const be of strBehaviors) {
-      validateBehavior(be);
-    }
-
-    return strBehaviors;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
 
 const loadBehaviors = (args: any): any[] => {
   const { behaviors, fromFile } = args;

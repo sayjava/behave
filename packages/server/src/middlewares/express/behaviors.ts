@@ -15,16 +15,16 @@ export default (engine: Engine) => {
 
   router.post("/", (req, res) => {
     try {
-      const { expectations = [] } = req.body;
+      const behaviors = req.body;
 
-      if (!Array.isArray(expectations)) {
+      if (!Array.isArray(behaviors)) {
         return res.status(400).json({
           message: `Behaviors must be an array`,
         });
       }
 
-      for (const exp of expectations) {
-        engine.removeBehavior(exp);
+      for (const behave of behaviors) {
+        engine.addBehavior(behave);
       }
       res.status(201).json({ message: "ok" });
     } catch (error) {
