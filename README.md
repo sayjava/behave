@@ -6,10 +6,10 @@ The easiest and quickest way to mock HTTP endpoints for development and tests pu
     <a href="https://behave.dev"><strong>Explore Behave docs »</strong></a>
  </p>
  <p align="center">
-  <a href="website/docs/start">Start »</a>
-  <a href="website/docs/guide">Guide »</a>
-  <a href="website/docs/api">API »</a>
-  <a href="website/docs/assertions">Assertions</a>
+  <a href="docs/start">Start »</a>
+  <a href="docs/guide">Guide »</a>
+  <a href="docs/api">API »</a>
+  <a href="docs/assertions">Assertions</a>
  </p>
 
 ## Quick Start
@@ -142,7 +142,7 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
 '
 ```
 
-[see more examples](website/docs/endpoints.md)
+[see more examples](docs/endpoints.md)
 
 ## Features (HTTP Assertion Server)
 
