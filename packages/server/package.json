@@ -9,7 +9,7 @@
     "build/**"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "jest --no-cache --collectCoverage",
     "build": "tsc -p tsconfig.server.json",
     "dev": "ts-node src/bin/index.ts",
     "watch": "nodemon",

@@ -7,7 +7,7 @@ test("default keep alive path", async () => {
   });
 
   // @ts-ignore
-  const res = await request(app).get("/_alive");
+  const res = await request(app).get("/_/healthz");
   expect(res.status).toBe(200);
   expect(res.text).toMatchInlineSnapshot(`"Ok"`);
 });
@@ -15,7 +15,7 @@ test("default keep alive path", async () => {
 test("configured keep alive path", async () => {
   const { app } = await server({
     engine: { match: () => [] } as any,
-    keepAlivePath: "/i_am_alive",
+    healthCheck: "/i_am_alive",
   });
 
   // @ts-ignore
@@ -30,7 +30,7 @@ test("default keep ready path", async () => {
   });
 
   // @ts-ignore
-  const res = await request(app).get("/_ready");
+  const res = await request(app).get("/_/readyz");
   expect(res.status).toBe(200);
   expect(res.text).toMatchInlineSnapshot(`"Ok"`);
 });
@@ -38,7 +38,7 @@ test("default keep ready path", async () => {
 test("configured keep ready path", async () => {
   const { app } = await server({
     engine: { match: () => [] } as any,
-    readyPath: "/i_am_ready",
+    readyCheck: "/i_am_ready",
   });
 
   // @ts-ignore

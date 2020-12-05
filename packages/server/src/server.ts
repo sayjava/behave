@@ -6,8 +6,8 @@ import flyMiddleware from "./middlewares/express";
 
 interface ServerConfig {
   port?: number;
-  keepAlivePath?: string;
-  readyPath?: string;
+  healthCheck?: string;
+  readyCheck?: string;
   engine: Engine;
   debugLevel?: "none" | "verbose";
 }
@@ -15,8 +15,8 @@ interface ServerConfig {
 const defaultConfig: ServerConfig = {
   port: 8080,
   engine: new Engine([]),
-  keepAlivePath: "/_alive",
-  readyPath: "/_ready",
+  healthCheck: "/_/healthz",
+  readyCheck: "/_/readyz",
   debugLevel: "none",
 };
 
@@ -49,8 +49,8 @@ export default async (argConfig: ServerConfig) => {
   app.use("/service-worker.js", express.static("node_modules/behave-ui/build"));
 
   enableLogging(app, config);
-  createKeepAliveRoute(app, config.keepAlivePath);
-  createKeepAliveRoute(app, config.readyPath);
+  createKeepAliveRoute(app, config.healthCheck);
+  createKeepAliveRoute(app, config.readyCheck);
 
   flyMiddleware(app, config.engine);
 

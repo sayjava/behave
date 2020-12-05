@@ -19,6 +19,16 @@ const args = yargs(hideBin(process.argv))
     describe: "server port",
     default: 8080,
   })
+  .option("healthCheck", {
+    alias: "he",
+    describe: "Health check path",
+    default: "/_/healthz",
+  })
+  .option("readyCheck", {
+    alias: "re",
+    describe: "Ready check path",
+    default: "/_/readyz",
+  })
   .option("from-file", {
     alias: "f",
     describe: "JSON file containing array of behaviors",
@@ -30,7 +40,7 @@ const args = yargs(hideBin(process.argv))
     default: "info",
   }).argv;
 
-const loadBehaviors = (args: any): any[] => {
+export const loadBehaviors = (args: any): any[] => {
   const { behaviors, fromFile } = args;
   const fileExists = existsSync(fromFile as string);
   if (!behaviors && !fileExists) {
@@ -50,7 +60,6 @@ const loadBehaviors = (args: any): any[] => {
 
 try {
   const behaviors = loadBehaviors(args);
-
   // Load config and expectations
   server({
     debugLevel: "verbose",
@@ -58,4 +67,5 @@ try {
   }).then((app) => app.start());
 } catch (error) {
   console.error(error);
+  process.exit(-1);
 }
