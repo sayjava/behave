@@ -1,1 +1,14 @@
-theme: jekyll-theme-hacker
+remote_theme: hydecorp/hydejack@v9.0.5
+
+plugins:
+  - jekyll-include-cache
+
+menu:
+  - title: Start
+    url: /start
+  - title: API
+    url: /api
+  - title: Guide
+    url: /guide
+  - title: Assertions
+    url: /assertions
