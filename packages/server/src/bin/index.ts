@@ -60,10 +60,11 @@ export const loadBehaviors = (args: any): any[] => {
 
 try {
   const behaviors = loadBehaviors(args);
+  console.info(`Loaded a total of ${behaviors.length}`);
   // Load config and expectations
   server({
-    debugLevel: "verbose",
-    engine: create({ behaviors, config: { ...args } }),
+    ...(args as any),
+    engine: create({ behaviors, config: {} }),
   }).then((app) => app.start());
 } catch (error) {
   console.error(error);

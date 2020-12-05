@@ -15,7 +15,10 @@
     "watch": "nodemon",
     "start": "node --inspect=5858 lib/bin/index.js"
   },
-  "bin": "lib/bin/index.js",
+  "bin": {
+    "name": "behave",
+    "bin": "lib/bin/index.js"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.7",

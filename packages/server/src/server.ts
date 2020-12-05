@@ -9,7 +9,7 @@ interface ServerConfig {
   healthCheck?: string;
   readyCheck?: string;
   engine: Engine;
-  debugLevel?: "none" | "verbose";
+  debug?: "none" | "verbose";
 }
 
 const defaultConfig: ServerConfig = {
@@ -17,7 +17,7 @@ const defaultConfig: ServerConfig = {
   engine: new Engine([]),
   healthCheck: "/_/healthz",
   readyCheck: "/_/readyz",
-  debugLevel: "none",
+  debug: "none",
 };
 
 const createKeepAliveRoute = (app: Express, path: string) => {
@@ -27,7 +27,7 @@ const createKeepAliveRoute = (app: Express, path: string) => {
 };
 
 const enableLogging = (app: Express, config: ServerConfig) => {
-  switch (config.debugLevel) {
+  switch (config.debug) {
     case "none":
       break;
     case "verbose":
