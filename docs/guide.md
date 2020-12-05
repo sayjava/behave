@@ -123,7 +123,7 @@ curl -X GET http://localhost:8080/tasks/a_simple_taks
 
 The server can match http requests using dynamic path parameters e.g
 
-```json {3,5,6}
+```json
 {
   "request": {
     "path": "/tasks/{id}/docs/{docId}",
@@ -152,7 +152,7 @@ curl -X GET http://localhost:8080/tasks/123/doc/cat.png
 
 The server can also match dynamic query parameters. e.g
 
-```json {3,5}
+```json
 {
   "request": {
     "path": "/tasks/[0-9]+/?completed={isCompleted}",
@@ -177,7 +177,7 @@ curl -X GET http://localhost:8080/tasks/123?isCompleted=true
 
 The server can match requests based on http request header values. The configured request header values will matched as a subset of the received request headers.
 
-```json {5}
+```json
 {
   "request": {
     "path": "/tasks/[0-9]+",
@@ -203,7 +203,7 @@ curl -X GET http://localhost:8080/tasks/123
 
 ### Request Methods
 
-```json {4}
+```json
 {
   "request": {
     "path": "/tasks/[0-9]+",
@@ -323,7 +323,7 @@ The server can limit the amount of instance a Behavior is used to respond to the
 
 The default response limit is `unlimited`. e.g
 
-```json {11}
+```json
 {
   "request": {
     "path": "/tasks/123"
@@ -353,7 +353,7 @@ Response limits can be combined to create some interesting scenarios, e.g first 
 
 The first 2 requests will be successful
 
-```json {7}
+```json
 {
   "request": {
     "path": "/tasks/123"
@@ -399,7 +399,7 @@ curl -X GET http://localhost:8080/tasks/123
 
 By default, responses are sent immediately to the client when matched but the server can be instructed to delay in seconds when the server should send the response. e.g
 
-```json {8}
+```json
 {
   "request": {
     "path": "/tasks/123"

@@ -4,11 +4,11 @@ plugins:
   - jekyll-include-cache
 
 menu:
-  - title: Start
-    url: /start
-  - title: API
-    url: /api
+  - title: Quick Start
+    url: /index
   - title: Guide
     url: /guide
+  - title: Server API
+    url: /api
   - title: Assertions
     url: /assertions
