@@ -288,7 +288,7 @@ curl -X POST http://localhost:8080/tasks -d 'someone_else'
 
 Behaviors can also be matched using a regex body either as a json document or plain text. e.g
 
-```json json {6}
+```json
 {
   "request": {
     "path": "/tasks",
@@ -370,7 +370,7 @@ The first 2 requests will be successful
 
 Subsequent requests should fail
 
-```json {7}
+```json
 {
   "request": {
     "path": "/tasks/123"

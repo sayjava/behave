@@ -5,6 +5,8 @@ sidebar_label: Start
 slug: /
 ---
 
+Behave is a robust HTTP mocking and test server that can be used in development to easily mock out HTTP endpoints for other clients to rely on.
+
 ## Start the server
 
 ```shell

@@ -3,26 +3,30 @@
 The easiest and quickest way to mock HTTP endpoints for development and tests purposes
  </p>
  <p align="center">
-    <a href="https://behave.dev"><strong>Explore Behave docs »</strong></a>
+    <a href="https://sayjava.github.io/behave/"><strong>Explore Behave docs »</strong></a>
  </p>
  <p align="center">
-  <a href="docs/start">Start »</a>
-  <a href="docs/guide">Guide »</a>
-  <a href="docs/api">API »</a>
-  <a href="docs/assertions">Assertions</a>
+  <a href="https://sayjava.github.io/behave/">Quick Start »</a>
+  <a href="https://sayjava.github.io/behave/guide">Guide »</a>
+  <a href="https://sayjava.github.io/behave/api">API »</a>
+  <a href="https://sayjava.github.io/behave/assertions">Assertions</a>
  </p>
 
 ## Quick Start
+
+Start the sever with a simple [behavior](https://sayjava.github.io/behave/guide)
 
 ```shell
 npx @sayjava/behave -b '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
 ```
 
+Run a sample request against the server to see the response
+
 ```shell
 curl -X GET http://localhost:8080/hi
 ```
 
-## Features (Mocking Endpoints)
+## Mocking Endpoints
 
 - Regex based URL matchers e.g
 
@@ -144,13 +148,13 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
 
 [see more examples](docs/endpoints.md)
 
-## Features (HTTP Assertion Server)
+## HTTP Test Endpoints
 
 - Validate received requests. e.g
 
 ```shell
 # Assert that this request was received at most 2 times
-curl -v -X PUT http://localhost:8080/_/api/requests/exists -d `[
+curl -v -X PUT http://localhost:8080/_/api/requests/assert -d `[
     {
         "path": "/hello/world",
         "count": {
@@ -164,7 +168,7 @@ curl -v -X PUT http://localhost:8080/_/api/requests/exists -d `[
 
 ```shell
 # Assert that these requests were received at most 10 seconds apart
-curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `
+curl -v -X PUT http://localhost:8080/_/api/requests/intervarl -d `
   {
     "path": "/hello/world",
     "interval": {
@@ -181,9 +185,6 @@ curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `
 curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `[
     {
         "path": "/hello/world",
-    },
-    {
-        "path": "/hello/earth",
     }
 ]`
 ```
