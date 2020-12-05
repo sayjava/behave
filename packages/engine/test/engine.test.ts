@@ -384,9 +384,9 @@ test("multiple expectation matches", () => {
 
 test("Behavior: add results in error", () => {
   const engine = new Engine([]);
-  const add = () => engine.addBehavior({} as any);
+  const add = () => engine.addBehavior({ request: {} } as any);
   expect(add).toThrowError(
-    "expected {} to contain keys 'name', 'request', and 'response'"
+    "Request requires a path: expected {} to contain key 'path'"
   );
 });
 

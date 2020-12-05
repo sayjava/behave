@@ -94,7 +94,7 @@ test("fail adding a non valid expectation", async () => {
       "expected": Array [
         "path",
       ],
-      "message": "expected { method: 'POST' } to contain key 'path'",
+      "message": "Request requires a path: expected { method: 'POST' } to contain key 'path'",
     }
   `);
 });

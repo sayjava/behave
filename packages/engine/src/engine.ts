@@ -27,10 +27,22 @@ const minimumBehavior: Behavior = {
   response: {},
 };
 
-export const validateBehavior = (behave: Behavior): boolean => {
-  assert.containsAllDeepKeys(behave, minimumBehavior);
-  assert.containsAllDeepKeys(behave.request, minimumBehavior.request);
-  return true;
+export const validateBehavior = (behave: Behavior): Behavior => {
+  const newBehavior = Object.assign(
+    {
+      name: "Behavior",
+      request: {},
+      response: { statusCode: 200 },
+    },
+    behave
+  );
+  assert.containsAllDeepKeys(newBehavior, minimumBehavior);
+  assert.containsAllDeepKeys(
+    newBehavior.request,
+    minimumBehavior.request,
+    "Request requires a path"
+  );
+  return newBehavior;
 };
 
 export class Engine {
@@ -46,7 +58,9 @@ export class Engine {
   private baseBehavior() {
     return {
       id: shortId(),
+      name: "Behavior",
       limit: "unlimited",
+      response: { statusCode: 200 },
     };
   }
 
@@ -267,9 +281,9 @@ export class Engine {
   }
 
   addBehavior(behavior: Behavior) {
-    validateBehavior(behavior);
-    const newExp = Object.assign({}, this.baseBehavior(), behavior);
-    this.$behaviors.push(newExp);
+    const newBehavior = Object.assign(this.baseBehavior(), behavior);
+    const validated = validateBehavior(newBehavior);
+    this.$behaviors.push(validated);
   }
 
   removeBehavior(id: string) {
@@ -299,6 +313,6 @@ export class Engine {
 }
 
 export const create = ({ behaviors }: Props) => {
-  behaviors.forEach(validateBehavior);
-  return new Engine(behaviors);
+  const validateBehaviors = behaviors.map(validateBehavior);
+  return new Engine(validateBehaviors);
 };
