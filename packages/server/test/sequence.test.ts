@@ -1,4 +1,3 @@
-import { Engine } from "@sayjava/behave-engine";
 import bodyParser from "body-parser";
 import express from "express";
 import request from "supertest";
@@ -7,7 +6,7 @@ import routes from "../src/middlewares/express";
 test("return a 406  for empty requests", async () => {
   const app = express();
   app.use(bodyParser.json());
-  routes(app, new Engine([]));
+  routes(app, { behaviors: [] });
 
   // @ts-ignore
   const res = await request(app).put("/_/api/requests/sequence");
@@ -25,7 +24,7 @@ test("return a 406  for empty requests", async () => {
 test("return the error from a failed verification", async () => {
   const app = express();
   app.use(bodyParser.json());
-  routes(app, new Engine([]));
+  routes(app, { behaviors: [] });
 
   const res = await request(app)
     // @ts-ignore
@@ -60,20 +59,21 @@ test("return the error from a failed verification", async () => {
 test("return accepted http 202", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "POST" },
-      response: {},
-    },
-  ]);
 
-  routes(app, engine);
+  const engine = routes(app, {
+    behaviors: [
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "POST" },
+        response: {},
+      },
+    ],
+  });
 
   engine.match({ path: "/tasks", method: "POST" });
   engine.match({ path: "/tasks", method: "GET" });
@@ -100,18 +100,21 @@ test("return accepted http 202", async () => {
 test("return error for unmatched sequence", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      name: "expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-    {
-      name: "expectations",
-      request: { path: "/tasks", method: "POST" },
-      response: {},
-    },
-  ]);
+
+  const engine = routes(app, {
+    behaviors: [
+      {
+        name: "expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+      {
+        name: "expectations",
+        request: { path: "/tasks", method: "POST" },
+        response: {},
+      },
+    ],
+  });
 
   engine.match({ path: "/tasks", method: "GET" });
   engine.match({ path: "/tasks", method: "GET" });

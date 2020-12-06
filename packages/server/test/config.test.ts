@@ -3,7 +3,7 @@ import server from "../src/server";
 
 test("default keep alive path", async () => {
   const { app } = await server({
-    engine: { match: () => [] } as any,
+    behaviors: [],
   });
 
   // @ts-ignore
@@ -14,7 +14,7 @@ test("default keep alive path", async () => {
 
 test("configured keep alive path", async () => {
   const { app } = await server({
-    engine: { match: () => [] } as any,
+    behaviors: [],
     healthCheck: "/i_am_alive",
   });
 
@@ -26,7 +26,7 @@ test("configured keep alive path", async () => {
 
 test("default keep ready path", async () => {
   const { app } = await server({
-    engine: { match: () => [] } as any,
+    behaviors: [],
   });
 
   // @ts-ignore
@@ -37,7 +37,7 @@ test("default keep ready path", async () => {
 
 test("configured keep ready path", async () => {
   const { app } = await server({
-    engine: { match: () => [] } as any,
+    behaviors: [],
     readyCheck: "/i_am_ready",
   });
 
@@ -45,4 +45,18 @@ test("configured keep ready path", async () => {
   const res = await request(app).get("/i_am_ready");
   expect(res.status).toBe(200);
   expect(res.text).toMatchInlineSnapshot(`"Ok"`);
+});
+
+test("load behaviors from a file", async () => {
+  const { app } = await server({
+    fromFile: "./fixtures/behaviors.json",
+    readyCheck: "/i_am_ready",
+  });
+
+  // @ts-ignore
+  const res = await request(app).get("/todo/2");
+  expect(res.status).toBe(200);
+  expect(res.text).toMatchInlineSnapshot(
+    `"{\\"id\\":2,\\"text\\":\\"The todo body\\"}"`
+  );
 });

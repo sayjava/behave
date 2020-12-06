@@ -1,20 +1,20 @@
+import { Engine } from "@sayjava/behave-engine";
 import bodyParser from "body-parser";
 import express, { Express } from "express";
-import { Engine } from "@sayjava/behave-engine";
 import morgan from "morgan";
-import flyMiddleware from "./middlewares/express";
+import behaveMiddleware from "./middlewares/express";
 
 interface ServerConfig {
   port?: number;
+  fromFile?: string;
+  behaviors?: any[];
   healthCheck?: string;
   readyCheck?: string;
-  engine: Engine;
   debug?: "none" | "verbose";
 }
 
 const defaultConfig: ServerConfig = {
   port: 8080,
-  engine: new Engine([]),
   healthCheck: "/_/healthz",
   readyCheck: "/_/readyz",
   debug: "none",
@@ -52,7 +52,7 @@ export default async (argConfig: ServerConfig) => {
   createKeepAliveRoute(app, config.healthCheck);
   createKeepAliveRoute(app, config.readyCheck);
 
-  flyMiddleware(app, config.engine);
+  behaveMiddleware(app, argConfig);
 
   return {
     app,

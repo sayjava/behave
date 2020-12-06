@@ -15,7 +15,7 @@ test("add a successful expectation", async () => {
     },
   ]);
 
-  routes(app, engine);
+  routes(app, { behaviors: [] });
 
   const res = await request(app)
     // @ts-ignore
@@ -34,15 +34,16 @@ test("add a successful expectation", async () => {
 test("fail adding expectation not an array", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-  ]);
 
-  routes(app, engine);
+  routes(app, {
+    behaviors: [
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+    ],
+  });
 
   const res = await request(app)
     // @ts-ignore
@@ -64,15 +65,16 @@ test("fail adding expectation not an array", async () => {
 test("fail adding a non valid expectation", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-  ]);
 
-  routes(app, engine);
+  routes(app, {
+    behaviors: [
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+    ],
+  });
 
   const res = await request(app)
     // @ts-ignore
@@ -102,16 +104,17 @@ test("fail adding a non valid expectation", async () => {
 test("remove an expectation", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      id: "sample-expectation",
-      name: "test expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-  ]);
 
-  routes(app, engine);
+  routes(app, {
+    behaviors: [
+      {
+        id: "sample-expectation",
+        name: "test expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+    ],
+  });
 
   const res = await request(app)
     // @ts-ignore
@@ -128,16 +131,17 @@ test("remove an expectation", async () => {
 test("retrieve all expectations", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      id: "sample-expectation",
-      name: "test expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-  ]);
 
-  routes(app, engine);
+  routes(app, {
+    behaviors: [
+      {
+        id: "sample-expectation",
+        name: "test expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+    ],
+  });
 
   const res = await request(app)
     // @ts-ignore

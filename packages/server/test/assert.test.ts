@@ -7,7 +7,7 @@ import routes from "../src/middlewares/express";
 test("return a 406  for empty requests", async () => {
   const app = express();
   app.use(bodyParser.json());
-  routes(app, new Engine([]));
+  routes(app, { behaviors: [] });
 
   // @ts-ignore
   const res = await request(app).put("/_/api/requests/assert");
@@ -22,7 +22,7 @@ test("return a 406  for empty requests", async () => {
 test("return the error from a failed existence verification", async () => {
   const app = express();
   app.use(bodyParser.json());
-  routes(app, new Engine([]));
+  routes(app, { behaviors: [] });
 
   const res = await request(app)
     // @ts-ignore
@@ -64,18 +64,20 @@ test("return the error from a failed existence verification", async () => {
 test("return accepted http 202", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "POST" },
-      response: {},
-    },
-  ]);
+  const engine = routes(app, {
+    behaviors: [
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "POST" },
+        response: {},
+      },
+    ],
+  });
 
   routes(app, engine);
 
@@ -106,18 +108,21 @@ test("return accepted http 202", async () => {
 test("return error for unmatched existence", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-    {
-      name: "test expectations",
-      request: { path: "/tasks", method: "POST" },
-      response: {},
-    },
-  ]);
+
+  const engine = routes(app, {
+    behaviors: [
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "GET" },
+        response: {},
+      },
+      {
+        name: "test expectations",
+        request: { path: "/tasks", method: "POST" },
+        response: {},
+      },
+    ],
+  });
 
   routes(app, engine);
 
