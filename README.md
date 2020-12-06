@@ -26,6 +26,26 @@ Run a sample request against the server to see the response
 curl -X GET http://localhost:8080/hi
 ```
 
+## Scenarios
+
+### As a standalone mock server
+
+<p align="center">
+<img src="docs/media/standalone_mock _server.png">
+</p>
+
+### As a middleware on an existing server
+
+<p align="center">
+<img src="docs/media/server_mock_middleware.png">
+</p>
+
+### As a test server
+
+<p align="center">
+<img src="docs/media/assert_requests.png">
+</p>
+
 ## Mocking Endpoints
 
 - Regex based URL matchers e.g
