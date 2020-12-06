@@ -4,6 +4,7 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
+      "access": "public",
       "ignoreChanges": ["**/*.md", "**/*.json", "**/test/**", "examples/**/.*"],
       "conventionalCommits": true,
       "allowBranch": "master",
