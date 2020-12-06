@@ -1,14 +1,5 @@
-remote_theme: hydecorp/hydejack@v9.0.5
+remove_theme: pmarsceill/just-the-docs
 
-plugins:
-  - jekyll-include-cache
-
-menu:
-  - title: Quick Start
-    url: /index
-  - title: Guide
-    url: /guide
-  - title: Server API
-    url: /api
-  - title: Assertions
-    url: /assertions
+aux_links:
+  "Github":
+    - "//github.com/sayjava/behave"

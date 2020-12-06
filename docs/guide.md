@@ -7,6 +7,17 @@ slug: /guide
 
 The `behave` server uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
 
+# Navigation Structure
+
+{: .no_toc }
+
+## Table of contents
+
+{: .no_toc .text-delta }
+
+- TOC
+  {:toc}
+
 ## Behavior Document
 
 A Behavior is a JSON document that describes how the `behave` server should respond to http requests it receives.

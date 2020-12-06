@@ -34,7 +34,7 @@ curl http://localhost:8080/hi
 
 ## Initialize Behaviors
 
-When started, the server will look for a filed called `behaviors.json` in the current working directory and will load all the behaviors defined in the file see the [Behavior Document](guide.md#Server-Behavior).
+When started, the server will look for a filed called `behaviors.json` in the current working directory and will load all the behaviors defined in the file see the [Behavior Document](/guide#Server-Behavior).
 
 an example `behaviors.json` file looks like:
 
@@ -59,4 +59,4 @@ npx @sayjava/behave
 
 The server will auto load the behaviors in the file.
 
-[Learn more about behaviors](guide.md)
+[Learn more about behaviors](/guide)
