@@ -112,3 +112,5 @@ lib
 build
 
 tailwind.output.css
+
+.npmrc
