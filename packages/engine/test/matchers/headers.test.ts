@@ -1,12 +1,11 @@
 import matcher from "../../src/matchers/headers";
-import { Expectation, Request } from "../../src/types";
+import { Request } from "../../src/types";
 
 test("matches a subset header keys", () => {
   const expRequest: Request = {
     path: "/todo/1",
     headers: {
       Accept: "application/json",
-      "Cache-Control": "no-cache",
     },
     method: "GET",
   };

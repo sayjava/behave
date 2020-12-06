@@ -1,0 +1,23 @@
+{
+  "name": "@sayjava/behave-standalone-example",
+  "version": "1.0.0",
+  "description": "A standalone behave example",
+  "author": "Raymond Ottun <sayjava@gmail.com>",
+  "homepage": "https://github.com/sayjava/behave#readme",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sayjava/behave.git"
+  },
+  "dependencies": {
+    "@sayjava/behave": "1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "echo 'No build needed'",
+    "start": "yarn behave"
+  },
+  "bugs": {
+    "url": "https://github.com/sayjava/behave/issues"
+  }
+}

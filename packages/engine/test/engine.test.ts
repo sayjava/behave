@@ -23,7 +23,6 @@ test("match simple method request", () => {
       request: {
         headers: {},
         path: "/todos",
-        method: "GET",
       },
       response: {
         body: [{ id: 2, text: "get request" }],
@@ -58,7 +57,6 @@ test("match simple method request", () => {
         "name": "sample1",
         "request": Object {
           "headers": Object {},
-          "method": "GET",
           "path": "/todos",
         },
         "response": Object {

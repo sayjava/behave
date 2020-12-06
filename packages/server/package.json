@@ -6,7 +6,7 @@
   "author": "Raymond Ottun <sayjava@gmail.com>",
   "license": "MIT",
   "files": [
-    "build/**"
+    "lib/**"
   ],
   "scripts": {
     "test": "jest --no-cache --collectCoverage",
@@ -16,8 +16,7 @@
     "start": "node --inspect=5858 lib/bin/index.js"
   },
   "bin": {
-    "name": "behave",
-    "bin": "lib/bin/index.js"
+    "behave": "lib/bin/index.js"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",

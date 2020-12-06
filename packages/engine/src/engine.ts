@@ -66,7 +66,10 @@ export class Engine {
 
   private verifyRequest(request: Request): Record[] {
     return this.$records
-      .filter((rec) => rec.request.method === request.method)
+      .filter((rec) => {
+        const method = rec.request.method || "GET";
+        return method === request.method;
+      })
       .filter((rec) => rec.request.path === request.path)
       .filter((rec) => headerMatcher(request, rec.request) === true)
       .filter((rec) => bodyMatcher(request, rec.request) === true)
@@ -76,7 +79,10 @@ export class Engine {
 
   match(request: Request): Behavior[] {
     const matches = this.$behaviors
-      .filter((exp) => request.method === exp.request.method)
+      .filter((rec) => {
+        const method = rec.request.method || "GET";
+        return method === request.method;
+      })
       .filter((exp) => pathMatcher(exp.request, request))
       .filter((exp) => headerMatcher(exp.request, request) === true)
       .filter((exp) => bodyMatcher(exp.request, request) === true)

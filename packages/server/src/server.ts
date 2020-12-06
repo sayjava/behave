@@ -51,8 +51,10 @@ export default async (argConfig: ServerConfig) => {
   createKeepAliveRoute(app, config.healthCheck);
   createKeepAliveRoute(app, config.readyCheck);
 
-  behaveMiddleware(app, argConfig);
-
+  const engine = behaveMiddleware(app, argConfig);
+  console.info(
+    `Successfully loaded a total of ${engine.behaviors.length} behaviors`
+  );
   return {
     app,
     start: async () => {
