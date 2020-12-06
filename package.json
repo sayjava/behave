@@ -1,12 +1,26 @@
 {
-  "name": "@sayjava/behave-repo",
+  "name": "@sayjava/behave",
+  "private": "true",
+  "keywords": [
+    "mock server",
+    "express middleware",
+    "mock http"
+  ],
+  "description": "An HTTP mock server",
+  "repository": "git@gitlab.com:sayjava/behave.git",
   "scripts": {
     "build": "lerna run build",
     "test": "lerna run test",
-    "bootstrap": "lerna bootstrap"
+    "bootstrap": "lerna bootstrap",
+    "prepublish": "yarn build",
+    "lerna-publish": "lerna publish"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "lerna": "^3.22.1"
-  }
+  },
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*"
+  ]
 }

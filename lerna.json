@@ -1,5 +1,22 @@
 {
   "packages": ["packages/*"],
   "npmClient": "yarn",
-  "version": "independent"
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "ignoreChanges": ["**/*.md", "**/*.json", "**/test/**", "examples/**/.*"],
+      "conventionalCommits": true,
+      "allowBranch": "master",
+      "registry": "https://registry.npmjs.org",
+      "message": "chore(release): released"
+    },
+    "bootstrap": {
+      "npmClientArgs": ["--no-package-lock"]
+    }
+  },
+  "version": "independent",
+  "publishConfig": {
+    "directory": "lib",
+    "access": "public"
+  }
 }
