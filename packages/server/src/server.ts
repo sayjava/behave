@@ -1,10 +1,9 @@
-import { Engine } from "@sayjava/behave-engine";
 import bodyParser from "body-parser";
 import express, { Express } from "express";
 import morgan from "morgan";
 import behaveMiddleware from "./middlewares/express";
 
-interface ServerConfig {
+export interface ServerConfig {
   port?: number;
   fromFile?: string;
   behaviors?: any[];
