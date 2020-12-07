@@ -1,1 +1,3 @@
-theme: tactile
+theme: jekyll-theme-tactile
+title: Behave
+description: An HTTP Mocking server with brains
