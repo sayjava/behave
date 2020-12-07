@@ -1,5 +1,1 @@
-remove_theme: pmarsceill/just-the-docs
-
-aux_links:
-  "Github":
-    - "//github.com/sayjava/behave"
+theme: tactile
