@@ -1,4 +1,3 @@
-import { Engine } from "@sayjava/behave-engine";
 import bodyParser from "body-parser";
 import express from "express";
 import request from "supertest";
@@ -7,13 +6,6 @@ import routes from "../src/middlewares/express";
 test("add a successful behavior", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = new Engine([
-    {
-      name: "test behaviors",
-      request: { path: "/tasks", method: "GET" },
-      response: {},
-    },
-  ]);
 
   routes(app, { behaviors: [] });
 
@@ -159,6 +151,45 @@ test("retrieve all behaviors", async () => {
           "path": "/tasks",
         },
         "response": Object {},
+      },
+    ]
+  `);
+});
+
+test("uses files as response", async () => {
+  const app = express();
+  app.use(bodyParser.json());
+
+  routes(app, {
+    behaviors: [
+      {
+        name: "test",
+        request: {
+          path: "/todos",
+        },
+        response: {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          file: "fixtures/todos.json",
+        },
+      },
+    ],
+  });
+
+  const res = await request(app)
+    // @ts-ignore
+    .get("/todos");
+
+  expect(res.body).toMatchInlineSnapshot(`
+    Array [
+      Object {
+        "id": 2,
+        "text": "read from file",
+      },
+      Object {
+        "id": 3,
+        "text": "from todos.json",
       },
     ]
   `);

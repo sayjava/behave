@@ -44,9 +44,34 @@ export interface VerificationError {
 }
 
 export interface Response {
+  /**
+   * HTTP Status code
+   */
   statusCode?: number;
+
+  /**
+   * Response body
+   */
   body?: string | any;
+
+  /**
+   * Use local file as the response body
+   */
+  file?: string;
+
+  /**
+   * Attachment to stream back to client
+   */
+  attachment?: string;
+
+  /**
+   * how long the response should be delayed in seconds
+   */
   delay?: number;
+
+  /**
+   * HTTP response headers
+   */
   headers?: {
     [key: string]: any;
   };

@@ -1,0 +1,10 @@
+[
+  {
+    "id": 2,
+    "text": "read from file"
+  },
+  {
+    "id": 3,
+    "text": "from todos.json"
+  }
+]
