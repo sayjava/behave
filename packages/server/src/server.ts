@@ -41,14 +41,7 @@ const enableLogging = (app: Express, config: ServerConfig) => {
 };
 
 const enableUI = (app: Express) => {
-  app.use(
-    "/_ui/",
-    express.static("../../node_modules/@sayjava/behave-ui/build")
-  );
-  app.use(
-    "/service-worker.js",
-    express.static("node_modules/@sayjava/behave-ui/build")
-  );
+  app.use("/_ui/", express.static("public"));
 };
 
 export default async (argConfig: ServerConfig) => {
