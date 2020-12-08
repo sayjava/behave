@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { Engine, Verification } from "@sayjava/behave-engine";
 
 const sequence = (engine: Engine, router) => {
-  router.put("/sequence", (req, res) => {
+  router.put("/sequence", (req: Request, res: Response) => {
     try {
       const { requests = [] } = req.body || {};
       const result = engine.assertSequence(requests);

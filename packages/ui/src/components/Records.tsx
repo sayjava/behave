@@ -5,6 +5,9 @@ const Records = () => {
   const [records, setRecords] = useState([]);
   const [selected, selectRecord] = useState({} as any);
 
+  const terminalKlass = `coding inverse-toggle shadow-lg text-gray-100 text-sm font-mono subpixel-antialiased 
+              pb-6 pt-4 rounded-sm leading-normal overflow-hidden`;
+
   useEffect(() => {
     fetch("/_/api/records").then(async (res) => {
       const records = await res.json();
@@ -12,24 +15,25 @@ const Records = () => {
     });
   }, []);
 
-  const recordKlass = (rec) => {
-    const klass =
-      "hover:bg-gray-100 text-gray-400 cursor-pointer border-b-2 border-gray-100 text-sm py-2";
-    if (selected.timestamp === rec.timestamp) {
-      return `${klass} bg-gray-200`;
+  const toggle = (e, record) => {
+    if (selected.timestamp === record.timestamp) {
+      return selectRecord({});
     }
 
-    return klass;
+    return selectRecord(record);
   };
 
   return (
-    <div className="bg-white rounded-sm border border-gray-200">
+    <div
+      className={terminalKlass}
+      style={{ backgroundColor: "rgb(16, 16, 16)" }}
+    >
       {records.map((record: any) => {
         return (
           <div
             key={record.timestamp}
-            className={recordKlass(record)}
-            onClick={() => selectRecord(record)}
+            className="cursor-pointer"
+            onClick={(e) => toggle(e, record)}
           >
             <RecordView
               record={record}

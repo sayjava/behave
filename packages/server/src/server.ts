@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import express, { Express } from "express";
 import morgan from "morgan";
+import cors from "cors";
 import behaveMiddleware from "./middlewares/express";
 
 export interface ServerConfig {
@@ -39,15 +40,27 @@ const enableLogging = (app: Express, config: ServerConfig) => {
   }
 };
 
+const enableUI = (app: Express) => {
+  app.use(
+    "/_ui/",
+    express.static("../../node_modules/@sayjava/behave-ui/build")
+  );
+  app.use(
+    "/service-worker.js",
+    express.static("node_modules/@sayjava/behave-ui/build")
+  );
+};
+
 export default async (argConfig: ServerConfig) => {
   const config = Object.assign({}, defaultConfig, argConfig);
 
   const app = express();
   app.use(bodyParser.json());
-  app.use("/_ui/", express.static("node_modules/behave-ui/build"));
-  app.use("/service-worker.js", express.static("node_modules/behave-ui/build"));
+  app.use(cors());
 
+  enableUI(app);
   enableLogging(app, config);
+
   createKeepAliveRoute(app, config.healthCheck);
   createKeepAliveRoute(app, config.readyCheck);
 

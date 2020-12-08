@@ -1,4 +1,3 @@
-import { FiXCircle } from "react-icons/fi";
 import JsonView from "react-json-view";
 
 const RecordView = ({
@@ -16,33 +15,25 @@ const RecordView = ({
   const showBody = (request.method || "GET") === "GET" ? false : true;
 
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-12 flex-nowrap overflow-hidden py-px items-center whitespace-no-wrap w-full">
-        <div className="col-span-3">
-          <div className="grid grid-flow-col gap-1 place-items-center">
-            {selected && <div></div>}
+    <div className="h-full w-full">
+      <div className="h-full flex text-sm text-gray-400 flex-nowrap overflow-hidden items-center whitespace-no-wrap w-full py-1">
+        <span className="inline-block truncate pl-4 min-w-min">
+          {date.toDateString()} {date.toLocaleTimeString()}
+        </span>
 
-            {!hasMatches && (
-              <div className="text-red-400">
-                <FiXCircle />
-              </div>
-            )}
+        {!hasMatches && (
+          <span className="text-red-400 inline-block pl-4 w-12">
+            {request.method}
+          </span>
+        )}
 
-            {hasMatches && (
-              <div>
-                <FiXCircle />
-              </div>
-            )}
+        {hasMatches && (
+          <span className="inline-block pl-4 w-12">{request.method}</span>
+        )}
 
-            <div>
-              {date.toDateString()} {date.toLocaleTimeString()}
-            </div>
-          </div>
-        </div>
-        <div className="col-span-1">{request.method}</div>
-        <div className="col-span-3 truncate">{request.path}</div>
+        <span className="inline-block truncate pl-4">{request.path}</span>
 
-        <div className="col-span-5 truncate px-2">
+        <div className="truncate px-2">
           {!showBody && JSON.stringify(record.request.headers)}
           {showBody && JSON.stringify(record.request.body)}
         </div>
@@ -52,6 +43,7 @@ const RecordView = ({
         <div className="px-8 py-6 grid grid-cols-2">
           <JsonView
             name="request"
+            theme="grayscale"
             enableClipboard={false}
             displayObjectSize={false}
             displayDataTypes={false}
@@ -60,6 +52,7 @@ const RecordView = ({
           {matched && (
             <JsonView
               name="behavior"
+              theme="grayscale"
               enableClipboard={false}
               displayObjectSize={false}
               displayDataTypes={false}
@@ -69,6 +62,7 @@ const RecordView = ({
           {!matched && (
             <JsonView
               name="behavior"
+              theme="grayscale"
               src={{ message: "No matched behavior" }}
             />
           )}

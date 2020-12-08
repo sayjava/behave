@@ -19,6 +19,9 @@
     "uikit": "^3.5.10",
     "web-vitals": "^0.2.4"
   },
+  "files": [
+    "build/*"
+  ],
   "scripts": {
     "build:tailwind": "tailwindcss build src/index.css -o src/tailwind.output.css",
     "prestart": "npm run build:tailwind",
