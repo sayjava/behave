@@ -4,6 +4,7 @@
   "description": "A standalone behave example",
   "author": "Raymond Ottun <sayjava@gmail.com>",
   "homepage": "https://github.com/sayjava/behave#readme",
+  "private": "true",
   "dependencies": {
     "@sayjava/behave": "1.0.0",
     "express": "^4.17.1"
