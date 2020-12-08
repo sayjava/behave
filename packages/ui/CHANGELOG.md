@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/sayjava/flyt/compare/@sayjava/behave-ui@1.1.0...@sayjava/behave-ui@1.2.0) (2020-12-08)
+
+
+### Bug Fixes
+
+* ready ui for release ([e4f68be](https://github.com/sayjava/flyt/commit/e4f68be6a101d4f62f020429cc1dfa342940e75a))
+
+
+### Features
+
+* a basic console ui ([4c77666](https://github.com/sayjava/flyt/commit/4c776666a446ffdd0ddf82bdbc23f17ffb578524))
+
+
+
+
+
 # 1.1.0 (2020-12-08)
 
 
