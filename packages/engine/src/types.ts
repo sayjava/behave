@@ -12,10 +12,10 @@ export interface Request {
     [key: string]: string;
   };
   pathParams?: {
-    [key: string]: any[];
+    [key: string]: any;
   };
   queryParams?: {
-    [key: string]: any[];
+    [key: string]: any;
   };
   time?: number;
 }

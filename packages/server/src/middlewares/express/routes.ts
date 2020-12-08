@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 export default (engine: Engine) => (req: Request, res: Response) => {
   const engineRequest: EngineRequest = {
-    path: req.path,
+    path: req.url,
     method: req.method as any,
     headers: req.headers as any,
     body: req.body,

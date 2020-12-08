@@ -4,12 +4,12 @@ import express from "express";
 import request from "supertest";
 import routes from "../src/middlewares/express";
 
-test("add a successful expectation", async () => {
+test("add a successful behavior", async () => {
   const app = express();
   app.use(bodyParser.json());
   const engine = new Engine([
     {
-      name: "test expectations",
+      name: "test behaviors",
       request: { path: "/tasks", method: "GET" },
       response: {},
     },
@@ -22,7 +22,7 @@ test("add a successful expectation", async () => {
     .post("/_/api/behaviors")
     .send([
       {
-        name: "test expectations",
+        name: "test behaviors",
         request: { path: "/tasks", method: "POST" },
         response: {},
       },
@@ -31,14 +31,14 @@ test("add a successful expectation", async () => {
   expect(res.status).toBe(201);
 });
 
-test("fail adding expectation not an array", async () => {
+test("fail adding behavior not an array", async () => {
   const app = express();
   app.use(bodyParser.json());
 
   routes(app, {
     behaviors: [
       {
-        name: "test expectations",
+        name: "test behaviors",
         request: { path: "/tasks", method: "GET" },
         response: {},
       },
@@ -49,7 +49,7 @@ test("fail adding expectation not an array", async () => {
     // @ts-ignore
     .post("/_/api/behaviors")
     .send({
-      name: "test expectations",
+      name: "test behaviors",
       request: { path: "/tasks", method: "POST" },
       response: {},
     });
@@ -62,14 +62,14 @@ test("fail adding expectation not an array", async () => {
   `);
 });
 
-test("fail adding a non valid expectation", async () => {
+test("fail adding a non valid behavior", async () => {
   const app = express();
   app.use(bodyParser.json());
 
   routes(app, {
     behaviors: [
       {
-        name: "test expectations",
+        name: "test behaviors",
         request: { path: "/tasks", method: "GET" },
         response: {},
       },
@@ -81,7 +81,7 @@ test("fail adding a non valid expectation", async () => {
     .post("/_/api/behaviors")
     .send([
       {
-        name: "test expectations",
+        name: "test behaviors",
         request: { method: "POST" },
         response: {},
       },
@@ -101,15 +101,15 @@ test("fail adding a non valid expectation", async () => {
   `);
 });
 
-test("remove an expectation", async () => {
+test("remove an behavior", async () => {
   const app = express();
   app.use(bodyParser.json());
 
   routes(app, {
     behaviors: [
       {
-        id: "sample-expectation",
-        name: "test expectations",
+        id: "sample-behavior",
+        name: "test behaviors",
         request: { path: "/tasks", method: "GET" },
         response: {},
       },
@@ -118,7 +118,7 @@ test("remove an expectation", async () => {
 
   const res = await request(app)
     // @ts-ignore
-    .delete("/_/api/behaviors/sample-expectation");
+    .delete("/_/api/behaviors/sample-behavior");
 
   expect(res.status).toBe(201);
   expect(res.body).toMatchInlineSnapshot(`
@@ -128,15 +128,15 @@ test("remove an expectation", async () => {
   `);
 });
 
-test("retrieve all expectations", async () => {
+test("retrieve all behaviors", async () => {
   const app = express();
   app.use(bodyParser.json());
 
   routes(app, {
     behaviors: [
       {
-        id: "sample-expectation",
-        name: "test expectations",
+        id: "sample-behavior",
+        name: "test behaviors",
         request: { path: "/tasks", method: "GET" },
         response: {},
       },
@@ -151,9 +151,9 @@ test("retrieve all expectations", async () => {
   expect(res.body).toMatchInlineSnapshot(`
     Array [
       Object {
-        "id": "sample-expectation",
+        "id": "sample-behavior",
         "limit": "unlimited",
-        "name": "test expectations",
+        "name": "test behaviors",
         "request": Object {
           "method": "GET",
           "path": "/tasks",

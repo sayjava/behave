@@ -12,10 +12,14 @@
   "dependencies": {
     "@sayjava/behave": "1.0.0"
   },
+  "devDependencies": {
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build": "echo 'No build needed'",
-    "start": "yarn behave"
+    "start": "ts-node server.ts"
   },
   "bugs": {
     "url": "https://github.com/sayjava/behave/issues"
