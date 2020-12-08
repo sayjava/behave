@@ -7,7 +7,7 @@
       "access": "public",
       "ignoreChanges": ["**/*.md", "**/*.json", "**/test/**", "examples/**/.*"],
       "conventionalCommits": true,
-      "allowBranch": "master",
+      "allowBranch": "main",
       "registry": "https://registry.npmjs.org",
       "message": "chore(release): released"
     },

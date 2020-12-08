@@ -13,7 +13,7 @@
     "test": "lerna run test",
     "bootstrap": "lerna bootstrap",
     "prepublish": "yarn build",
-    "lerna-publish": "lerna publish"
+    "release": "lerna publish"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
