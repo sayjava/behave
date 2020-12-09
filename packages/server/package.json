@@ -38,6 +38,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
+    "prettyoutput": "^1.2.0",
     "shortid": "^2.2.16",
     "yargs": "^16.1.1"
   }

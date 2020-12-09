@@ -3,6 +3,7 @@ import express, { Express } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import behaveMiddleware from "./middlewares/express";
+import prettyoutput from "prettyoutput";
 
 export interface ServerConfig {
   port?: number;
@@ -32,8 +33,8 @@ const enableLogging = (app: Express, config: ServerConfig) => {
       break;
     case "verbose":
       app.use(
-        morgan("common", {
-          skip: (req, _) => req.path.includes("/_ui"),
+        morgan("combined", {
+          skip: (req, _) => req.path.includes("/_ui/"),
         })
       );
       break;
@@ -58,9 +59,10 @@ export default async (argConfig: ServerConfig) => {
   createKeepAliveRoute(app, config.readyCheck);
 
   const engine = behaveMiddleware(app, argConfig);
-  console.info(
-    `Successfully loaded a total of ${engine.behaviors.length} behaviors`
-  );
+
+  console.info(`- - - - - - Loaded Behaviors - - - - - -`);
+  engine.behaviors.forEach((be) => console.info(prettyoutput(be)));
+
   return {
     app,
     start: async () => {
