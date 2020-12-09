@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/sayjava/behave/compare/@sayjava/behave@1.3.0...@sayjava/behave@1.3.1) (2020-12-09)
+
+
+### Bug Fixes
+
+* better logs ([a969c8e](https://github.com/sayjava/behave/commit/a969c8e2cf6782cf845271c749d9fe6a398a20e6))
+
+
+
+
+
 # [1.3.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.2.0...@sayjava/behave@1.3.0) (2020-12-09)
 
 
