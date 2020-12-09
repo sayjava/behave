@@ -60,8 +60,9 @@ export default async (argConfig: ServerConfig) => {
 
   const engine = behaveMiddleware(app, argConfig);
 
-  console.info(`- - - - - - Loaded Behaviors - - - - - -`);
+  console.info(`<- - - - - - Loaded Behaviors - - - - - ->`);
   engine.behaviors.forEach((be) => console.info(prettyoutput(be)));
+  console.info(`<- - - - - - Loaded Behaviors - - - - - ->`);
 
   return {
     app,
