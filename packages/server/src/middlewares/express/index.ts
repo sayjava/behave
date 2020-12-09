@@ -33,10 +33,10 @@ export interface BehaveConfig {
 export interface BehaveMiddlewareProps {
   app: Express;
   config: BehaveConfig;
-  route?: string;
+  baseRoute?: string;
 }
 
-export default ({ app, config, route }: BehaveMiddlewareProps): Engine => {
+export default ({ app, config, baseRoute }: BehaveMiddlewareProps): Engine => {
   const loadedBehaviors = loadBehaviors(config);
   const engine = new Engine(loadedBehaviors);
 
@@ -44,6 +44,6 @@ export default ({ app, config, route }: BehaveMiddlewareProps): Engine => {
   app.use("/_/api/records", records(engine));
   app.use("/_/api/requests", assert(engine));
 
-  route ? app.use(route, routes(engine)) : app.use(routes(engine));
+  baseRoute ? app.use(baseRoute, routes(engine)) : app.use(routes(engine));
   return engine;
 };

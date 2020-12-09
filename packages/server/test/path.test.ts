@@ -66,3 +66,36 @@ test("validates that path parameters work", async () => {
 
   expect(res.status).toBe(200);
 });
+
+test("validates that the middle ware mounts on the route", async () => {
+  const app = express();
+  app.use(bodyParser.json());
+
+  middleware({
+    baseRoute: "/api",
+    app,
+    config: {
+      behaviors: [
+        {
+          name: "test expectations",
+          request: {
+            path: "/tasks/:id/doc/:docId",
+            method: "GET",
+            pathParams: {
+              id: "[a-z]+",
+              docId: "[a-z]+",
+            },
+          },
+          response: {},
+        },
+      ],
+    },
+  });
+
+  const res = await request(app)
+    // @ts-ignore
+    .get("/api/tasks/apple/doc/new")
+    .send();
+
+  expect(res.status).toBe(200);
+});
