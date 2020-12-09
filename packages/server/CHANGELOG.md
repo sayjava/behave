@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.2.0...@sayjava/behave@1.3.0) (2020-12-09)
+
+
+### Features
+
+* improved behavior logs ([39ca566](https://github.com/sayjava/behave/commit/39ca56673e50cea99db3d6dae22d7208c423130a))
+* removed behave-ui ([621001d](https://github.com/sayjava/behave/commit/621001d449074ddfd22a77962240db3a58d97ea4))
+
+
+
+
+
 # [1.2.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.1.0...@sayjava/behave@1.2.0) (2020-12-08)
 
 
