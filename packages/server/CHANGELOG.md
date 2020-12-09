@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](https://github.com/sayjava/behave/compare/@sayjava/behave@1.3.1...@sayjava/behave@1.3.2) (2020-12-09)
+
+
+### Bug Fixes
+
+* re-implemented the express middleware ([860e093](https://github.com/sayjava/behave/commit/860e09377128c286da907d81873d05c1a19f36e9))
+
+
+
+
+
 ## [1.3.1](https://github.com/sayjava/behave/compare/@sayjava/behave@1.3.0...@sayjava/behave@1.3.1) (2020-12-09)
 
 
