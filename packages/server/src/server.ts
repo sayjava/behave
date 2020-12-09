@@ -58,11 +58,11 @@ export default async (argConfig: ServerConfig) => {
   createKeepAliveRoute(app, config.healthCheck);
   createKeepAliveRoute(app, config.readyCheck);
 
-  const engine = behaveMiddleware(app, argConfig);
+  const engine = behaveMiddleware({ app, config: argConfig });
 
-  console.info(`<- - - - - - Loaded Behaviors - - - - - ->`);
+  console.info(`|- - - - - - Loaded Behaviors - - - - - -|\n\n`);
   engine.behaviors.forEach((be) => console.info(prettyoutput(be)));
-  console.info(`<- - - - - - Loaded Behaviors - - - - - ->`);
+  console.info(`|- - - - - - Loaded Behaviors - - - - - -|`);
 
   return {
     app,

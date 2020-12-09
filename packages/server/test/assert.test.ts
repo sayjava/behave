@@ -1,12 +1,12 @@
 import bodyParser from "body-parser";
 import express from "express";
 import request from "supertest";
-import routes from "../src/middlewares/express";
+import middleware from "../src/middlewares/express";
 
 test("return a 406  for empty requests", async () => {
   const app = express();
   app.use(bodyParser.json());
-  routes(app, { behaviors: [] });
+  middleware({ app, config: { behaviors: [] } });
 
   // @ts-ignore
   const res = await request(app).put("/_/api/requests/assert");
@@ -21,7 +21,7 @@ test("return a 406  for empty requests", async () => {
 test("return the error from a failed existence verification", async () => {
   const app = express();
   app.use(bodyParser.json());
-  routes(app, { behaviors: [] });
+  middleware({ app, config: { behaviors: [] } });
 
   const res = await request(app)
     // @ts-ignore
@@ -63,25 +63,27 @@ test("return the error from a failed existence verification", async () => {
 test("return accepted http 202", async () => {
   const app = express();
   app.use(bodyParser.json());
-  const engine = routes(app, {
-    behaviors: [
-      {
-        name: "test expectations",
-        request: { path: "/tasks", method: "GET" },
-        response: {},
-      },
-      {
-        name: "test expectations",
-        request: { path: "/tasks", method: "POST" },
-        response: {},
-      },
-    ],
+
+  middleware({
+    app,
+    config: {
+      behaviors: [
+        {
+          name: "test expectations",
+          request: { path: "/tasks", method: "GET" },
+          response: {},
+        },
+        {
+          name: "test expectations",
+          request: { path: "/tasks", method: "POST" },
+          response: {},
+        },
+      ],
+    },
   });
 
-  routes(app, engine);
-
-  engine.match({ path: "/tasks", method: "POST" });
-  engine.match({ path: "/tasks", method: "GET" });
+  await request(app).post("/tasks").send();
+  await request(app).get("/tasks").send();
 
   const res = await request(app)
     // @ts-ignore
@@ -108,25 +110,26 @@ test("return error for unmatched existence", async () => {
   const app = express();
   app.use(bodyParser.json());
 
-  const engine = routes(app, {
-    behaviors: [
-      {
-        name: "test expectations",
-        request: { path: "/tasks", method: "GET" },
-        response: {},
-      },
-      {
-        name: "test expectations",
-        request: { path: "/tasks", method: "POST" },
-        response: {},
-      },
-    ],
+  middleware({
+    app,
+    config: {
+      behaviors: [
+        {
+          name: "test expectations",
+          request: { path: "/tasks", method: "GET" },
+          response: {},
+        },
+        {
+          name: "test expectations",
+          request: { path: "/tasks", method: "POST" },
+          response: {},
+        },
+      ],
+    },
   });
 
-  routes(app, engine);
-
-  engine.match({ path: "/tasks", method: "GET" });
-  engine.match({ path: "/tasks", method: "GET" });
+  await request(app).get("/tasks").send();
+  await request(app).get("/tasks").send();
 
   const res = await request(app)
     // @ts-ignore

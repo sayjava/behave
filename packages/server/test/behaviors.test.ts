@@ -1,13 +1,13 @@
 import bodyParser from "body-parser";
 import express from "express";
 import request from "supertest";
-import routes from "../src/middlewares/express";
+import middleware from "../src/middlewares/express";
 
 test("add a successful behavior", async () => {
   const app = express();
   app.use(bodyParser.json());
 
-  routes(app, { behaviors: [] });
+  middleware({ app, config: { behaviors: [] } });
 
   const res = await request(app)
     // @ts-ignore
@@ -27,14 +27,17 @@ test("fail adding behavior not an array", async () => {
   const app = express();
   app.use(bodyParser.json());
 
-  routes(app, {
-    behaviors: [
-      {
-        name: "test behaviors",
-        request: { path: "/tasks", method: "GET" },
-        response: {},
-      },
-    ],
+  middleware({
+    app,
+    config: {
+      behaviors: [
+        {
+          name: "test behaviors",
+          request: { path: "/tasks", method: "GET" },
+          response: {},
+        },
+      ],
+    },
   });
 
   const res = await request(app)
@@ -58,14 +61,17 @@ test("fail adding a non valid behavior", async () => {
   const app = express();
   app.use(bodyParser.json());
 
-  routes(app, {
-    behaviors: [
-      {
-        name: "test behaviors",
-        request: { path: "/tasks", method: "GET" },
-        response: {},
-      },
-    ],
+  middleware({
+    app,
+    config: {
+      behaviors: [
+        {
+          name: "test behaviors",
+          request: { path: "/tasks", method: "GET" },
+          response: {},
+        },
+      ],
+    },
   });
 
   const res = await request(app)
@@ -97,15 +103,18 @@ test("remove an behavior", async () => {
   const app = express();
   app.use(bodyParser.json());
 
-  routes(app, {
-    behaviors: [
-      {
-        id: "sample-behavior",
-        name: "test behaviors",
-        request: { path: "/tasks", method: "GET" },
-        response: {},
-      },
-    ],
+  middleware({
+    app,
+    config: {
+      behaviors: [
+        {
+          id: "sample-behavior",
+          name: "test behaviors",
+          request: { path: "/tasks", method: "GET" },
+          response: {},
+        },
+      ],
+    },
   });
 
   const res = await request(app)
@@ -124,15 +133,18 @@ test("retrieve all behaviors", async () => {
   const app = express();
   app.use(bodyParser.json());
 
-  routes(app, {
-    behaviors: [
-      {
-        id: "sample-behavior",
-        name: "test behaviors",
-        request: { path: "/tasks", method: "GET" },
-        response: {},
-      },
-    ],
+  middleware({
+    app,
+    config: {
+      behaviors: [
+        {
+          id: "sample-behavior",
+          name: "test behaviors",
+          request: { path: "/tasks", method: "GET" },
+          response: {},
+        },
+      ],
+    },
   });
 
   const res = await request(app)
@@ -160,21 +172,24 @@ test("uses files as response", async () => {
   const app = express();
   app.use(bodyParser.json());
 
-  routes(app, {
-    behaviors: [
-      {
-        name: "test",
-        request: {
-          path: "/todos",
-        },
-        response: {
-          headers: {
-            "Content-Type": "application/json",
+  middleware({
+    app,
+    config: {
+      behaviors: [
+        {
+          name: "test",
+          request: {
+            path: "/todos",
           },
-          file: "fixtures/todos.json",
+          response: {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            file: "fixtures/todos.json",
+          },
         },
-      },
-    ],
+      ],
+    },
   });
 
   const res = await request(app)
