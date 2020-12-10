@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.3.2...@sayjava/behave@1.4.0) (2020-12-10)
+
+
+### Features
+
+* move to node http middleware ([56c59ec](https://github.com/sayjava/behave/commit/56c59ec8456b000ec309464e49d4226a86eca5ee))
+
+
+
+
+
 ## [1.3.2](https://github.com/sayjava/behave/compare/@sayjava/behave@1.3.1...@sayjava/behave@1.3.2) (2020-12-09)
 
 
