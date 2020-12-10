@@ -1,4 +1,3 @@
-import bodyParser from "body-parser";
 import cors from "cors";
 import express, { Express } from "express";
 import morgan from "morgan";
@@ -48,7 +47,6 @@ export default async (argConfig: ServerConfig) => {
   const config = Object.assign({}, defaultConfig, argConfig);
 
   const app = express();
-  app.use(bodyParser.json());
   app.use(cors());
 
   enableUI(app);

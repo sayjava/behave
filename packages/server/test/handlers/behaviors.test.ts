@@ -202,3 +202,79 @@ test("uses files as response", async () => {
     ]
   `);
 });
+
+test("handles missing files gracefully", async () => {
+  const requestHandler = createHandler({
+    config: {
+      behaviors: [
+        {
+          name: "test",
+          request: {
+            path: "/todos",
+          },
+          response: {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            file: "fixtures/non_existing_file.json",
+          },
+        },
+      ],
+    },
+  });
+
+  const server = createServer(requestHandler);
+  const res = await request(server)
+    // @ts-ignore
+    .get("/todos");
+
+  expect(res.body).toMatchInlineSnapshot(`
+    Object {
+      "message": "fixtures/non_existing_file.json can not be found on the server",
+    }
+  `);
+});
+
+test("matches request body", async () => {
+  const requestHandler = createHandler({
+    config: {
+      behaviors: [
+        {
+          name: "test",
+          request: {
+            path: "/todos",
+            method: "POST",
+            body: {
+              name: "John Doe",
+            },
+          },
+          response: {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            file: "fixtures/todos.json",
+          },
+        },
+      ],
+    },
+  });
+
+  const server = createServer(requestHandler);
+  const res = await request(server)
+    // @ts-ignore
+    .post("/todos")
+    .send({ name: "John Doe" });
+
+  expect(res.body).toMatchInlineSnapshot(`
+    Array [
+      Object {
+        "id": 2,
+        "text": "read from file",
+      },
+      Object {
+        "id": 3,
+        "text": "from todos.json",
+      },
+    ]
+  `);
+});

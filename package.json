@@ -1,12 +1,15 @@
 {
   "name": "@sayjava/behave",
   "private": "true",
+  "license": "ISC",
   "keywords": [
-    "mock server",
-    "express middleware",
-    "mock http"
+    "mock-server",
+    "http stub",
+    "http-mock-server",
+    "express-mock-middleware",
+    "http-test-server"
   ],
-  "description": "An HTTP mock server",
+  "description": "An HTTP mocking and testing server. Quickly stub out network response to requests",
   "repository": "git@gitlab.com:sayjava/behave.git",
   "scripts": {
     "build": "lerna run build",

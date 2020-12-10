@@ -1,5 +1,5 @@
 import { Engine, Request as EngineRequest } from "@sayjava/behave-engine";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { IncomingMessage, ServerResponse } from "http";
 import { parseBody, sendJson } from "../utils";
 
@@ -35,18 +35,22 @@ export default (engine: Engine) => async (
       });
 
       setTimeout(() => {
-        if (!res.hasHeader("Content-Type")) {
-          res.writeHead(statusCode, { "Content-Type": "application/json" });
-        } else {
-          res.writeHead(statusCode, {});
-        }
-
         if (file) {
-          const fileContent = readFileSync(file).toString();
-          res.write(fileContent);
-          return res.end();
+          if (existsSync(file)) {
+            res.writeHead(statusCode, {});
+            const fileContent = readFileSync(file).toString();
+            res.write(fileContent);
+            return res.end();
+          } else {
+            return sendJson({
+              res,
+              status: 400,
+              body: { message: `${file} can not be found on the server` },
+            });
+          }
         }
 
+        res.writeHead(statusCode, {});
         res.write(JSON.stringify(body));
         return res.end();
       }, delay);

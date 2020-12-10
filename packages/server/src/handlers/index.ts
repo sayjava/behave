@@ -22,9 +22,9 @@ export default ({ config }: BehaveNodeHttpProps) => {
   const assertHandler = createAssertHandler(engine);
   const sequenceHandler = createSequenceHandler(engine);
 
-  // console.info(`|- - - - - - Loaded Behaviors - - - - - -|\n\n`);
-  // engine.behaviors.forEach((be) => console.info(prettyoutput(be)));
-  // console.info(`|- - - - - - Loaded Behaviors - - - - - -|`);
+  console.info(`|- - - - - - Loaded Behaviors - - - - - -|\n\n`);
+  engine.behaviors.forEach((be) => console.info(prettyoutput(be)));
+  console.info(`|- - - - - - Loaded Behaviors - - - - - -|`);
 
   return (req: IncomingMessage, res: ServerResponse) => {
     switch (req.url) {

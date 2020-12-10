@@ -16,7 +16,9 @@ test("validates that query parameters work", async () => {
               id: "[a-z]",
             },
           },
-          response: {},
+          response: {
+            body: "Query worked",
+          },
         },
       ],
     },
@@ -29,9 +31,7 @@ test("validates that query parameters work", async () => {
     .send();
 
   expect(res.status).toBe(200);
-  expect(res.headers["content-type"]).toMatchInlineSnapshot(
-    `"application/json"`
-  );
+  expect(res.text).toMatchInlineSnapshot(`"\\"Query worked\\""`);
 });
 
 test("validates that path parameters work", async () => {
