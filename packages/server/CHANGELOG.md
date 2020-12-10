@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/sayjava/behave/compare/@sayjava/behave@1.4.0...@sayjava/behave@1.4.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* removed body-parser ([434d78c](https://github.com/sayjava/behave/commit/434d78c6be984e4421d5ecf773085fcb52ae3605))
+
+
+
+
+
 # [1.4.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.3.2...@sayjava/behave@1.4.0) (2020-12-10)
 
 

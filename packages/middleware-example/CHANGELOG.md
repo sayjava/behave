@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.6](https://github.com/sayjava/flyt/compare/@sayjava/behave-middleware-example@1.1.5...@sayjava/behave-middleware-example@1.1.6) (2020-12-10)
+
+
+### Bug Fixes
+
+* upgraded to version 1.4.0 ([0c64ad7](https://github.com/sayjava/flyt/commit/0c64ad78e0c5f73ab6b5448e9fa5201dc396ccd0))
+
+
+
+
+
 ## [1.1.5](https://github.com/sayjava/flyt/compare/@sayjava/behave-middleware-example@1.1.4...@sayjava/behave-middleware-example@1.1.5) (2020-12-10)
 
 **Note:** Version bump only for package @sayjava/behave-middleware-example
