@@ -11,7 +11,7 @@ export default (
     return true;
   }
 
-  const contentType = req.headers["Content-Type"] || "";
+  const contentType = req.headers["content-type"] || "";
   if (contentType.includes("json")) {
     return mapMatcher(
       expRequest.body as { [key: string]: any },

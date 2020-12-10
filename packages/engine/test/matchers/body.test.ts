@@ -49,7 +49,7 @@ test("matches a json object", () => {
   const request: Request = {
     path: "/todo/1",
     headers: {
-      "Content-Type": "application/json",
+      "content-type": "application/json",
     },
     method: "POST",
     body: {
@@ -60,4 +60,29 @@ test("matches a json object", () => {
   expect(matcher(expRequest, request)).toMatchInlineSnapshot(
     `[AssertionError: key: name, does not match, Doe did not match john doe: expected 'john doe' to match /Doe/]`
   );
+});
+
+test("matches a partial object", () => {
+  const expRequest: Request = {
+    path: "/todo/1",
+    headers: {},
+    method: "POST",
+    body: {
+      name: "Doe",
+    },
+  };
+
+  const request: Request = {
+    path: "/todo/1",
+    headers: {
+      "content-type": "application/json",
+    },
+    method: "POST",
+    body: {
+      name: "Doe",
+      job: "janitor",
+    },
+  };
+
+  expect(matcher(expRequest, request)).toMatchInlineSnapshot(`true`);
 });
