@@ -1,9 +1,8 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import express, { Express } from "express";
 import morgan from "morgan";
-import cors from "cors";
-import behaveMiddleware from "./middlewares/express";
-import prettyoutput from "prettyoutput";
+import behaveHandler from "./handlers/";
 
 export interface ServerConfig {
   port?: number;
@@ -58,11 +57,7 @@ export default async (argConfig: ServerConfig) => {
   createKeepAliveRoute(app, config.healthCheck);
   createKeepAliveRoute(app, config.readyCheck);
 
-  const engine = behaveMiddleware({ app, config: argConfig });
-
-  console.info(`|- - - - - - Loaded Behaviors - - - - - -|\n\n`);
-  engine.behaviors.forEach((be) => console.info(prettyoutput(be)));
-  console.info(`|- - - - - - Loaded Behaviors - - - - - -|`);
+  app.use(behaveHandler({ config: argConfig }));
 
   return {
     app,

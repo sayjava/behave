@@ -37,6 +37,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "formidable": "^1.2.2",
     "morgan": "^1.10.0",
     "prettyoutput": "^1.2.0",
     "shortid": "^2.2.16",

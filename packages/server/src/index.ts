@@ -1,2 +1,2 @@
-export { default as expressMiddleware } from "./middlewares/express";
+export { default as behaveHandler } from "./handlers";
 export { default as behaveServer } from "./server";

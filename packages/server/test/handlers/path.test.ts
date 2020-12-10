@@ -1,15 +1,10 @@
-import express from "express";
-import bodyParser from "body-parser";
+import { createServer } from "http";
 import request from "supertest";
-import middleware from "../src/middlewares/express";
+import createHandler from "../../src/handlers";
 
 // console.log = jest.fn();
 test("validates that query parameters work", async () => {
-  const app = express();
-  app.use(bodyParser.json());
-
-  middleware({
-    app,
+  const requestHandler = createHandler({
     config: {
       behaviors: [
         {
@@ -27,20 +22,20 @@ test("validates that query parameters work", async () => {
     },
   });
 
-  const res = await request(app)
+  const server = createServer(requestHandler);
+  const res = await request(server)
     // @ts-ignore
     .get("/tasks?id=visitShop")
     .send();
 
   expect(res.status).toBe(200);
+  expect(res.headers["content-type"]).toMatchInlineSnapshot(
+    `"application/json"`
+  );
 });
 
 test("validates that path parameters work", async () => {
-  const app = express();
-  app.use(bodyParser.json());
-
-  middleware({
-    app,
+  const requestHandler = createHandler({
     config: {
       behaviors: [
         {
@@ -59,7 +54,8 @@ test("validates that path parameters work", async () => {
     },
   });
 
-  const res = await request(app)
+  const server = createServer(requestHandler);
+  const res = await request(server)
     // @ts-ignore
     .get("/tasks/apple/doc/new")
     .send();
@@ -68,12 +64,7 @@ test("validates that path parameters work", async () => {
 });
 
 test("validates that the middle ware mounts on the route", async () => {
-  const app = express();
-  app.use(bodyParser.json());
-
-  middleware({
-    baseRoute: "/api",
-    app,
+  const requestHandler = createHandler({
     config: {
       behaviors: [
         {
@@ -92,7 +83,8 @@ test("validates that the middle ware mounts on the route", async () => {
     },
   });
 
-  const res = await request(app)
+  const server = createServer(requestHandler);
+  const res = await request(server)
     // @ts-ignore
     .get("/api/tasks/apple/doc/new")
     .send();

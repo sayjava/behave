@@ -1,15 +1,13 @@
-import bodyParser from "body-parser";
-import express from "express";
+import { createServer } from "http";
 import request from "supertest";
-import middleware from "../src/middlewares/express";
+import createHandler from "../../src/handlers";
 
 test("return a 406  for empty requests", async () => {
-  const app = express();
-  app.use(bodyParser.json());
-  middleware({ app, config: { behaviors: [] } });
+  const requestHandler = createHandler({ config: { behaviors: [] } });
+  const server = createServer(requestHandler);
 
   // @ts-ignore
-  const res = await request(app).put("/_/api/requests/sequence");
+  const res = await request(server).put("/_/api/requests/sequence");
   expect(res.status).toBe(406);
   expect(res.body).toMatchInlineSnapshot(`
     Object {
@@ -22,11 +20,10 @@ test("return a 406  for empty requests", async () => {
 });
 
 test("return the error from a failed verification", async () => {
-  const app = express();
-  app.use(bodyParser.json());
-  middleware({ app, config: { behaviors: [] } });
+  const requestHandler = createHandler({ config: { behaviors: [] } });
+  const server = createServer(requestHandler);
 
-  const res = await request(app)
+  const res = await request(server)
     // @ts-ignore
     .put("/_/api/requests/sequence")
     .send({
@@ -57,11 +54,7 @@ test("return the error from a failed verification", async () => {
 });
 
 test("return accepted http 202", async () => {
-  const app = express();
-  app.use(bodyParser.json());
-
-  const engine = middleware({
-    app,
+  const requestHandler = createHandler({
     config: {
       behaviors: [
         {
@@ -78,10 +71,14 @@ test("return accepted http 202", async () => {
     },
   });
 
-  engine.match({ path: "/tasks", method: "POST" });
-  engine.match({ path: "/tasks", method: "GET" });
+  const server = createServer(requestHandler);
 
-  const res = await request(app)
+  // @ts-ignore
+  await request(server).post("/tasks");
+  // @ts-ignore
+  await request(server).get("/tasks");
+
+  const res = await request(server)
     // @ts-ignore
     .put("/_/api/requests/sequence")
     .send({
@@ -101,11 +98,7 @@ test("return accepted http 202", async () => {
 });
 
 test("return error for unmatched sequence", async () => {
-  const app = express();
-  app.use(bodyParser.json());
-
-  middleware({
-    app,
+  const requestHandler = createHandler({
     config: {
       behaviors: [
         {
@@ -122,10 +115,11 @@ test("return error for unmatched sequence", async () => {
     },
   });
 
-  request(app).get("/tasks");
-  request(app).get("/tasks");
+  const server = createServer(requestHandler);
+  request(server).get("/tasks");
+  request(server).get("/tasks");
 
-  const res = await request(app)
+  const res = await request(server)
     // @ts-ignore
     .put("/_/api/requests/sequence")
     .send({
