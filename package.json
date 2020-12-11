@@ -4,6 +4,8 @@
   "license": "ISC",
   "keywords": [
     "mock-server",
+    "mock-services",
+    "mock-api",
     "http stub",
     "http-mock-server",
     "express-mock-middleware",

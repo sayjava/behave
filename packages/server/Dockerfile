@@ -5,10 +5,10 @@ COPY package.json ./
 
 RUN yarn
 COPY . .
+
+RUN npm install -g typescript
 RUN yarn build
 
 ENV NODE_ENV=production
-
-# RUN yarn prune
 
 ENTRYPOINT [ "./lib/bin/index.js" ]

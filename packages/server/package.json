@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "test": "jest --no-cache --collectCoverage",
-    "build": "tsc -p tsconfig.server.json",
+    "build": "tsc",
     "dev": "ts-node src/bin/index.ts",
     "watch": "nodemon",
     "start": "node --inspect=5858 lib/bin/index.js"
