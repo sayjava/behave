@@ -7,6 +7,14 @@ has_toc: true
 nav_order: 2
 ---
 
+# Behavior Guide
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
 The `Behave` server uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
 
 ## Behavior Document
