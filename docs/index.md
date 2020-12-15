@@ -6,9 +6,14 @@ slug: /
 nav_order: 1
 ---
 
-Behave is a robust HTTP mocking and test server that can be used in development to easily mock out HTTP endpoints for other clients to rely on.
+# Behave
+{: .fs-9 }
 
-## Start the server
+Behave is a robust HTTP mocking and test server that can be used in development to easily mock out HTTP endpoints for other clients to rely on.
+Just the Docs gives your documentation a jumpstart with a responsive Jekyll theme that is easily customizable and hosted on GitHub Pages.
+{: .fs-6 .fw-300 }
+
+## Quick Start
 
 ```shell
 npx @sayjava/behave --behaviors '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
@@ -16,7 +21,6 @@ npx @sayjava/behave --behaviors '[{"request": {"path":"/hi"}, "response": {"body
 
 This will start the sever on port `8080` and ready to receive requests at `http://localhost:8080/hi`
 
-## Run example requests
 
 ```shell
 curl http://localhost:8080/hi
