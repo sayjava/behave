@@ -3,6 +3,8 @@ id: assertions
 title: Assertions
 sidebar_label: Assertions
 slug: /assertions
+has_toc: true
+nav_order: 3
 ---
 
 The `behave` includes a feature to valid requests tha it received and matched successfully by the server. Requests that are not matched by any Behavior on the server will result in validation fail.

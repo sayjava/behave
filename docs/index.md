@@ -3,6 +3,7 @@ id: start
 title: Quick Start
 sidebar_label: Start
 slug: /
+nav_order: 1
 ---
 
 Behave is a robust HTTP mocking and test server that can be used in development to easily mock out HTTP endpoints for other clients to rely on.
@@ -23,14 +24,14 @@ curl http://localhost:8080/hi
 
 ## Server Options
 
-| Configuration      |    Default     | Description                                                       |
-| ------------------ | :------------: | :---------------------------------------------------------------- |
-| --behaviors, -b    |      none      | JSON Array of Behavior documents                                  |
-| --from-file, -f    | behaviors.json | Path to a json file containing an array of behavior configuration |
-| --port, -p         |      8080      | The port the sever should listen on                               |
-| --debug, -d        |      info      | Server debug level `warn`, `verbose` or `info`                    |
-| --healthCheck, -he |  /\_/healthz   | The keep-live path for the server                                 |
-| --readyCheck, -re  |   /\_/readyz   | The ready path for the server                                     |
+| Configuration       |    Default     | Description                                                       |
+| ------------------- | :------------: | :---------------------------------------------------------------- |
+| \--behaviors, -b    |      none      | JSON Array of Behavior documents                                  |
+| \--from-file, -f    | behaviors.json | Path to a json file containing an array of behavior configuration |
+| \--port, -p         |      8080      | The port the sever should listen on                               |
+| \--debug, -d        |      info      | Server debug level `warn`, `verbose` or `info`                    |
+| \--healthCheck, -he |  /\_/healthz   | The keep-live path for the server                                 |
+| \--readyCheck, -re  |   /\_/readyz   | The ready path for the server                                     |
 
 ## Initialize Behaviors
 

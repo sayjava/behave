@@ -3,6 +3,8 @@ id: api
 title: Server API
 sidebar_label: API
 slug: /api
+has_toc: true
+nav_order: 4
 ---
 
 The server reserves the `http://localhost:8080/_/*` paths for the integrated UI and the API endpoints.

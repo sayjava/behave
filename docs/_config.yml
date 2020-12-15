@@ -5,7 +5,7 @@ description: An HTTP Mocking server with brains
 search_enabled: true
 
 aux_links:
-  "Just the Docs on GitHub":
+  "GitHub":
     - "//github.com/sayjava/behave"
 
 # Makes Aux links open in a new tab. Default is false
