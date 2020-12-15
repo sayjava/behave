@@ -1,3 +1,12 @@
-theme: jekyll-theme-tactile
+remote_theme: pmarsceill/just-the-docs
 title: Behave
 description: An HTTP Mocking server with brains
+
+search_enabled: true
+
+aux_links:
+  "Just the Docs on GitHub":
+    - "//github.com/sayjava/behave"
+
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: false
