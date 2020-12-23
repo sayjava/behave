@@ -28,14 +28,17 @@ curl -X GET http://localhost:8080/hi
 
 ## Scenarios
 
+- Can be used as a standalone mock system that is useful for testing and mocking out APIS
 <p align="center">
 <img src="docs/media/standalone_mock _server.png">
 </p>
 
+- Existing application can be mocked away using  
 <p align="center">
 <img src="docs/media/server_mock_middleware.png">
 </p>
 
+- Testing UI/Middleware systems. Check what requests where made e.t.c
 <p align="center">
 <img src="docs/media/assert_requests.png">
 </p>
@@ -224,6 +227,11 @@ app.listen(3000, () => {
 });
 
 ```
+
+
+## Serverless Mock Server
+See [Serverless Deployment](examples/behave-on-lambda/README.md)
+:::Note Assertion does not work in the serverless:::
 
 
 ## Full Documentation

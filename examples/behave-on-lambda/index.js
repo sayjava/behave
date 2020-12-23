@@ -6,7 +6,6 @@ const app = express();
 app.use(behaveHandler({ config: { fromFile: "behaviors.json" } }));
 
 module.exports.handler = async (evt, context) => {
-  console.log(`PATH    - -- -  > `, evt.path);
   const res = await serverless(app)(evt, context);
   return res;
 };
