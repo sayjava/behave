@@ -7,9 +7,16 @@ has_toc: true
 nav_order: 4
 ---
 
-The server reserves the `http://localhost:8080/_/*` paths for the integrated UI and the API endpoints.
+## Behave Server API
 
-## Behaviors
+## Table of contents
+{: .no_toc .text-delta }
+
+
+## Behavior 
+
+The endpoint to interact with the behave server is at `http://localhost:8080/_/api/behaviors`
+
 
 ### Create
 
@@ -50,7 +57,7 @@ curl -X DELETE http://localhost:8080/_/api/behaviors/:id
 
 see more about [Behaviors](guide.md#Server-Behavior) here
 
-### Retrieve Configured Behaviors
+### Get Behaviors
 
 Retrieve all the configured behaviors on the server.
 
@@ -67,7 +74,7 @@ curl -X GET http://localhost:8080/_/api/behaviors
 
 The server stores all the received requests alongside the matched Behaviors.
 
-### Retrieve Records
+### Get Records
 
 GET `http://localhost:8080/_/api/records`
 
@@ -78,7 +85,7 @@ Example Request
 curl -X GET http://localhost:8080/_/api/records
 ```
 
-## Reset Server
+## Delete All records
 
 DELETE `http://localhost:8080/_/api/records`
 
@@ -87,8 +94,3 @@ DELETE `http://localhost:8080/_/api/records`
 curl -X DELETE http://localhost:8080/_/api/records
 ```
 
-## Server UI
-
-`http://localhost:8080/_/ui`
-
-The server has an integrated UI to view request logs and configured Behaviors

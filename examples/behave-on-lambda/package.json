@@ -1,0 +1,18 @@
+{
+  "name": "behave-on-lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@sayjava/behave": "^1.4.1",
+    "express": "^4.17.1",
+    "serverless-http": "^2.6.0",
+    "serverless-offline": "^6.8.0"
+  },
+  "scripts": {
+    "dev": "sls offline start"
+  },
+  "devDependencies": {
+    "serverless": "^2.15.0"
+  }
+}

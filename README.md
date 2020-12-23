@@ -203,12 +203,29 @@ curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `[
 ]`
 ```
 
-## Server Features
+## Programatically (Express Middleare / NodeJS HTTP Middleware)
 
-- HTTP based API configuration
-- Simple UI log and behavior viewer
-- Express middleware
+```javascript
+const express = require("express");
+const { behaveHandler } =  require("@sayjava/behave");
 
-### Full Documentation
+const app = express();
 
-[Full Documentation](https://behaviour.dev)
+app.use(express.static(__dirname + '/views'));
+
+app.get('/', function (req, res) {
+  res.render('index', { title: 'Hey', message: 'Hello there!' })
+})
+
+app.use(behaveHandler({config:{ fromFile: "behaviors.json" }}));
+
+app.listen(3000, () => {
+  console.info(`Weather ite started on 3000`);
+});
+
+```
+
+
+## Full Documentation
+
+[Full Documentation](https://sayjava.github.io/behave)

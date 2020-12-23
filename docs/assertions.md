@@ -7,11 +7,18 @@ has_toc: true
 nav_order: 3
 ---
 
-The `behave` includes a feature to valid requests tha it received and matched successfully by the server. Requests that are not matched by any Behavior on the server will result in validation fail.
+# Request Assertions
 
-There are two types of validations that the `behave` supports, count validation and sequence validation.
 
-## Counts
+## Table of contents
+{: .no_toc .text-delta }
+
+
+`behave` includes a feature to validate requests that it has received and matched successfully. Requests that are not matched by any configured Behavior on the server will result in a validation fail.
+
+There are two types of validations that the `behave` supports, `assertion` validations and `sequence` validations.
+
+## Request Assertions
 
 The server can validate how many times a request is received and matched if at all.
 
@@ -135,7 +142,7 @@ curl -X PUT http://localhost:8080/_/api/requests/assert -d '[
 ]'
 ```
 
-## Sequence
+## Request Sequence Assertions
 
 The `behave` can also match the order in which requests are received by the server.
 

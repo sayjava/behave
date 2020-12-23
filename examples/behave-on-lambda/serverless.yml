@@ -1,0 +1,14 @@
+service: behave-on-aws-lambda
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  behave:
+    handler: index.handler
+    events:
+      - http: ANY /{proxy+}
+
+plugins:
+  - serverless-offline

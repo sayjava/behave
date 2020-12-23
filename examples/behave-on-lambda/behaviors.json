@@ -1,0 +1,12 @@
+[
+  {
+    "request": {
+      "path": "/hello"
+    },
+    "response": {
+      "body": {
+        "message": "Hello World"
+      }
+    }
+  }
+]

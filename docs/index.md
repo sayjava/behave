@@ -7,11 +7,10 @@ nav_order: 1
 ---
 
 # Behave
+
 {: .fs-9 }
 
 Behave is a robust HTTP mocking and test server that can be used in development to easily mock out HTTP endpoints for other clients to rely on.
-Just the Docs gives your documentation a jumpstart with a responsive Jekyll theme that is easily customizable and hosted on GitHub Pages.
-{: .fs-6 .fw-300 }
 
 ## Quick Start
 
@@ -19,8 +18,9 @@ Just the Docs gives your documentation a jumpstart with a responsive Jekyll them
 npx @sayjava/behave --behaviors '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
 ```
 
-This will start the sever on port `8080` and ready to receive requests at `http://localhost:8080/hi`
+This will start the sever on port `8080` and ready to receive requests at `http://localhost:8080`. 
 
+The server can be tested by sending this request to the server
 
 ```shell
 curl http://localhost:8080/hi
@@ -39,7 +39,7 @@ curl http://localhost:8080/hi
 
 ## Initialize Behaviors
 
-When started, the server will look for a filed called `behaviors.json` in the current working directory and will load all the behaviors defined in the file see the [Behavior Document](/guide#Server-Behavior).
+When started, the server will look for a filed called `behaviors.json` in the current working directory and will load all the behaviors defined in the file see the [Behavior Document](/guide).
 
 an example `behaviors.json` file looks like:
 
@@ -65,3 +65,27 @@ npx @sayjava/behave
 The server will auto load the behaviors in the file.
 
 [Learn more about behaviors](/guide)
+
+
+## Express Middleware
+
+The server can also be used as an express middleware in an existing application. 
+
+```javascript
+const express = require("express");
+const { behaveHandler } =  require("@sayjava/behave");
+
+const app = express();
+
+app.use(express.static(__dirname + '/views'));
+
+app.get('/', function (req, res) {
+  res.render('index', { title: 'Hey', message: 'Hello there!' })
+})
+
+app.use(behaveHandler({config:{ fromFile: "behaviors.json" }}));
+
+app.listen(3000, () => {
+  console.info(`Weather ite started on 3000`);
+});
+```
