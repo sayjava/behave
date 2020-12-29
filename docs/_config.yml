@@ -1,8 +1,8 @@
 remote_theme: pmarsceill/just-the-docs
 title: Behave
 description: An HTTP Mocking server with brains
-
 search_enabled: true
+color_scheme: behave
 
 aux_links:
   "GitHub":

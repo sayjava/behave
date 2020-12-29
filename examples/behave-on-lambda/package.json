@@ -10,7 +10,8 @@
     "serverless-offline": "^6.8.0"
   },
   "scripts": {
-    "dev": "sls offline start"
+    "dev": "sls offline start",
+    "deploy": "sls deploy"
   },
   "devDependencies": {
     "serverless": "^2.15.0"

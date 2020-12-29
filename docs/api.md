@@ -9,24 +9,26 @@ nav_order: 4
 
 ## Behave Server API
 
+Behave Server exposes a set of APIs that are useful for manipulating behaviors or retrieving records from 
+Behave Server.
+
 ## Table of contents
 {: .no_toc .text-delta }
 
+## Behaviors 
 
-## Behavior 
+### List
 
-The endpoint to interact with the behave server is at `http://localhost:8080/_/api/behaviors`
+`GET /_/api/behaviors` will list all the configured behaviors on the server for example:
 
-
+```shell script
+curl http://localhost:8080/_/api/behaviors 
+```
 ### Create
 
-The server stores its behaviors by default in memory
+`PUT http://localhost:8080/_/api/behaviors` will create new behaviors on the server, for example:
 
-PUT `http://localhost:8080/_/api/behaviors`
-
-Example Request
-
-```shell
+```shell script
 # Responds with a 201
 curl -X PUT http://localhost:8080/_/api/behaviors -d '[
     {
@@ -42,55 +44,37 @@ curl -X PUT http://localhost:8080/_/api/behaviors -d '[
 ]'
 ```
 
-see more about [Behaviors](start.md#Server-Behavior) here
+see more about [Behaviors](guide.md) here
 
 ### Delete
 
-DELETE `http://localhost:8080/_/api/behaviors/:id`
-
-Example Request
+`DELETE http://localhost:8080/_/api/behaviors/:id` will delete the behavior with the specified id, for example:
 
 ```shell
 # Responds with a 201
 curl -X DELETE http://localhost:8080/_/api/behaviors/:id
 ```
 
-see more about [Behaviors](guide.md#Server-Behavior) here
+see more about [Behaviors](guide.md) here
 
-### Get Behaviors
-
-Retrieve all the configured behaviors on the server.
-
-GET `http://localhost:8080/_/api/behaviors`
-
-Example Request
-
-```shell
-# Responds with a 200 and configured behaviors
-curl -X GET http://localhost:8080/_/api/behaviors
-```
 
 ## Records
 
-The server stores all the received requests alongside the matched Behaviors.
+The server stores all the received requests alongside the matched Behaviors in memory
 
-### Get Records
+### List
 
-GET `http://localhost:8080/_/api/records`
-
-Example Request
+`GET http://localhost:8080/_/api/records` will list all the records received by the server, for example:
 
 ```shell
 # Responds with a 200 and a list of requests and matched behaviors
 curl -X GET http://localhost:8080/_/api/records
 ```
 
-## Delete All records
-
-DELETE `http://localhost:8080/_/api/records`
+## Delete
+`PUT http://localhost:8080/_/api/reset` will delete all the records and behaviors, for example:
 
 ```shell
 # Clear all records and behaviors
-curl -X DELETE http://localhost:8080/_/api/records
+curl -X PUT http://localhost:8080/_/api/reset
 ```
-

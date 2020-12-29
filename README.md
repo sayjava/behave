@@ -1,6 +1,6 @@
  <h1 align="center">Behave</h1>
  <p align="center">
-The easiest and quickest way to mock HTTP endpoints for development and tests purposes
+The easiest and quickest way to mock HTTP endpoints for development and testing purposes
  </p>
  <p align="center">
     <a href="https://sayjava.github.io/behave/"><strong>Explore Behave docs »</strong></a>
@@ -14,38 +14,47 @@ The easiest and quickest way to mock HTTP endpoints for development and tests pu
 
 ## Quick Start
 
-Start the sever with a simple [behavior](https://sayjava.github.io/behave/guide)
-
 ```shell
 npx @sayjava/behave -b '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
 ```
 
-Run a sample request against the server to see the response
+This will start the server on port 8080, then run a sample request against the server to see the response
 
 ```shell
 curl -X GET http://localhost:8080/hi
 ```
 
-## Scenarios
+## Features
+- Standalone http mock server
+- HTTP Assertion server
+- NodeJS/Express Middleware
+- API Spec compliant
+- Serverless Ready (see examples folder)
 
-- Can be used as a standalone mock system that is useful for testing and mocking out APIS
+## Useful Mocking Scenarios
+
+These are some basic scenarios that behave can help with during the development and testing process
+
+- As a standalone mock system that is useful for testing and mocking out APIS
 <p align="center">
 <img src="docs/media/standalone_mock _server.png">
 </p>
 
-- Existing application can be mocked away using  
+- Existing application can be mocked using  
 <p align="center">
 <img src="docs/media/server_mock_middleware.png">
 </p>
 
-- Testing UI/Middleware systems. Check what requests where made e.t.c
+- Test UI/Middleware systems. For example, checking what requests where made e.t.c
 <p align="center">
 <img src="docs/media/assert_requests.png">
 </p>
 
-## Mocking Endpoints
+## Mocking Examples
 
-- Regex based URL matchers e.g
+Here are some scenarios where `Behave` can be used to mock endpoints
+
+- Regex paths
 
 ```shell
 curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
@@ -65,7 +74,7 @@ curl -v -X GET http://localhost:8080/task/2
 curl -v -X GET http://localhost:8080/task/10
 ```
 
-- Respond based on request header properties e.g `{"user-agent": "Chrome|Apple*"}`
+- Request headers e.g `{"user-agent": "Chrome|Apple*"}`
 
 ```shell
 curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
@@ -93,7 +102,7 @@ to match requests like:
 curl -v -X GET http://localhost:8080/task/2 -H 'user-agent: Chrome'
 ```
 
-- Response based on http request body e.g `{"user":"john_[a-z]+"}`
+- Response Body e.g `{"user":"john_[a-z]+"}`
 
 ```shell
 curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[{
@@ -163,9 +172,9 @@ curl -v -X PUT http://localhost:8080/_/api/behaviors -d '[
 '
 ```
 
-[see more examples](docs/endpoints.md)
+[see more examples](docs/guide.md)
 
-## HTTP Test Endpoints
+## Useful Testing Scenarios
 
 - Validate received requests. e.g
 
@@ -206,7 +215,10 @@ curl -v -X PUT http://localhost:8080/_/api/requests/sequence -d `[
 ]`
 ```
 
-## Programatically (Express Middleare / NodeJS HTTP Middleware)
+## Programmatically Use cases (Express Middleware / NodeJS HTTP Middleware)
+
+See 
+- Express Middleware
 
 ```javascript
 const express = require("express");
@@ -216,10 +228,12 @@ const app = express();
 
 app.use(express.static(__dirname + '/views'));
 
+// Existing route
 app.get('/', function (req, res) {
   res.render('index', { title: 'Hey', message: 'Hello there!' })
 })
 
+// Handle all other routes, e.g /api/user. 
 app.use(behaveHandler({config:{ fromFile: "behaviors.json" }}));
 
 app.listen(3000, () => {

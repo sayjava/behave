@@ -6,7 +6,7 @@ import createBehaviorsHandler from "../handlers/behaviors";
 import createRecordsHandler from "../handlers/records";
 import createRoutesHandler from "../handlers/routes";
 import createSequenceHandler from "../handlers/sequence";
-import { BehaveConfig, loadBehaviors } from "../utils";
+import { BehaveConfig, loadBehaviors, sendJson } from "../utils";
 
 export interface BehaveNodeHttpProps {
   config: BehaveConfig;
@@ -39,6 +39,10 @@ export default ({ config }: BehaveNodeHttpProps) => {
 
       case "/_/api/requests/sequence":
         return sequenceHandler(req, res);
+
+			case "/_/api/reset":
+				engine.clearAll();
+				return sendJson({ res, status: 201, body: { ok:true } });
 
       default:
         return routesHandler(req, res);

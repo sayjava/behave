@@ -114,3 +114,5 @@ build
 tailwind.output.css
 
 .npmrc
+
+.idea

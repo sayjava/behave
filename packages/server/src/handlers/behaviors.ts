@@ -30,5 +30,8 @@ export default (engine: Engine) => async (
           },
         });
       }
+
+      default:
+        return sendJson({status: 401, res, body: {message: "Only POST method is supported" }})
   }
 };

@@ -8,8 +8,6 @@ nav_order: 1
 
 # Behave
 
-{: .fs-9 }
-
 Behave is a robust HTTP mocking and test server that can be used in development to easily mock out HTTP endpoints for other clients to rely on.
 
 ## Quick Start
