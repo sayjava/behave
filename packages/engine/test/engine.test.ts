@@ -1,55 +1,55 @@
-import { create, Engine } from "../src/engine";
-import { Behavior, Request } from "../src/types";
+import { create, Engine } from '../src/engine';
+import { Behavior, Request } from '../src/types';
 
-test("validates expectation", () => {
-  const exps: any[] = [
-    {
-      name: "sample",
-      request: {},
-      response: {},
-    },
-  ];
+test('validates expectation', () => {
+    const exps: any[] = [
+        {
+            name: 'sample',
+            request: {},
+            response: {},
+        },
+    ];
 
-  const doCreate = () => create({ behaviors: exps, config: {} });
+    const doCreate = () => create({ behaviors: exps, config: {} });
 
-  expect(doCreate).toThrowError();
+    expect(doCreate).toThrowError();
 });
 
-test("match simple method request", () => {
-  const behaviors: Behavior[] = [
-    {
-      id: "exp1",
-      name: "sample1",
-      request: {
-        headers: {},
-        path: "/todos",
-      },
-      response: {
-        body: [{ id: 2, text: "get request" }],
-      },
-    },
-    {
-      name: "sample2",
-      request: {
-        method: "DELETE",
-        headers: {},
-        path: "/todos",
-      },
-      response: {
-        body: [],
-      },
-    },
-  ];
+test('match simple method request', () => {
+    const behaviors: Behavior[] = [
+        {
+            id: 'exp1',
+            name: 'sample1',
+            request: {
+                headers: {},
+                path: '/todos',
+            },
+            response: {
+                body: [{ id: 2, text: 'get request' }],
+            },
+        },
+        {
+            name: 'sample2',
+            request: {
+                method: 'DELETE',
+                headers: {},
+                path: '/todos',
+            },
+            response: {
+                body: [],
+            },
+        },
+    ];
 
-  const engine = create({ behaviors, config: {} });
+    const engine = create({ behaviors, config: {} });
 
-  const matched = engine.match({
-    path: "/todos",
-    method: "GET",
-    headers: { host: "example.com" },
-  });
+    const matched = engine.match({
+        path: '/todos',
+        method: 'GET',
+        headers: { host: 'example.com' },
+    });
 
-  expect(matched).toMatchInlineSnapshot(`
+    expect(matched).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "exp1",
@@ -72,45 +72,45 @@ test("match simple method request", () => {
   `);
 });
 
-test("match headers request", () => {
-  const behaviors: Behavior[] = [
-    {
-      id: "exp1",
-      name: "sample1",
-      request: {
-        headers: {
-          host: "example.com",
+test('match headers request', () => {
+    const behaviors: Behavior[] = [
+        {
+            id: 'exp1',
+            name: 'sample1',
+            request: {
+                headers: {
+                    host: 'example.com',
+                },
+                path: '/todos',
+                method: 'GET',
+            },
+            response: {
+                body: [{ id: 2, text: 'get request' }],
+            },
         },
-        path: "/todos",
-        method: "GET",
-      },
-      response: {
-        body: [{ id: 2, text: "get request" }],
-      },
-    },
-    {
-      id: "exp2",
-      name: "sample2",
-      request: {
-        method: "DELETE",
-        headers: {},
-        path: "/todos",
-      },
-      response: {
-        body: [],
-      },
-    },
-  ];
+        {
+            id: 'exp2',
+            name: 'sample2',
+            request: {
+                method: 'DELETE',
+                headers: {},
+                path: '/todos',
+            },
+            response: {
+                body: [],
+            },
+        },
+    ];
 
-  const engine = create({ behaviors, config: {} });
+    const engine = create({ behaviors, config: {} });
 
-  const matched = engine.match({
-    path: "/todos",
-    method: "GET",
-    headers: { host: "example.com", "User-Agent": "node-js" },
-  });
+    const matched = engine.match({
+        path: '/todos',
+        method: 'GET',
+        headers: { host: 'example.com', 'User-Agent': 'node-js' },
+    });
 
-  expect(matched).toMatchInlineSnapshot(`
+    expect(matched).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "exp1",
@@ -136,48 +136,48 @@ test("match headers request", () => {
   `);
 });
 
-test("match json body request", () => {
-  const behaviors: Behavior[] = [
-    {
-      id: "exp1",
-      name: "sample1",
-      request: {
-        headers: {},
-        path: "/todos",
-        method: "GET",
-      },
-      response: {
-        body: [{ id: 2, text: "get request" }],
-      },
-    },
-    {
-      id: "exp2",
-      name: "sample2",
-      request: {
-        method: "POST",
-        headers: {},
-        path: "/todos",
-        body: {
-          id: 3,
-          text: "new post",
+test('match json body request', () => {
+    const behaviors: Behavior[] = [
+        {
+            id: 'exp1',
+            name: 'sample1',
+            request: {
+                headers: {},
+                path: '/todos',
+                method: 'GET',
+            },
+            response: {
+                body: [{ id: 2, text: 'get request' }],
+            },
         },
-      },
-      response: {
-        body: [],
-      },
-    },
-  ];
+        {
+            id: 'exp2',
+            name: 'sample2',
+            request: {
+                method: 'POST',
+                headers: {},
+                path: '/todos',
+                body: {
+                    id: 3,
+                    text: 'new post',
+                },
+            },
+            response: {
+                body: [],
+            },
+        },
+    ];
 
-  const engine = create({ behaviors, config: {} });
+    const engine = create({ behaviors, config: {} });
 
-  const matched = engine.match({
-    path: "/todos",
-    method: "POST",
-    headers: { host: "example.com" },
-    body: { id: 3, text: "new post" },
-  });
+    const matched = engine.match({
+        path: '/todos',
+        method: 'POST',
+        headers: { host: 'example.com' },
+        body: { id: 3, text: 'new post' },
+    });
 
-  expect(matched).toMatchInlineSnapshot(`
+    expect(matched).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "exp2",
@@ -200,45 +200,45 @@ test("match json body request", () => {
   `);
 });
 
-test("match string body request", () => {
-  const behaviors: Behavior[] = [
-    {
-      id: "exp1",
-      name: "sample1",
-      request: {
-        headers: {},
-        path: "/todos",
-        method: "GET",
-      },
-      response: {
-        body: [{ id: 2, text: "get request" }],
-      },
-    },
-    {
-      id: "exp2",
-      name: "sample2",
-      request: {
-        method: "POST",
-        headers: {},
-        path: "/todos",
-        body: "[0-9]th todo",
-      },
-      response: {
-        body: [],
-      },
-    },
-  ];
+test('match string body request', () => {
+    const behaviors: Behavior[] = [
+        {
+            id: 'exp1',
+            name: 'sample1',
+            request: {
+                headers: {},
+                path: '/todos',
+                method: 'GET',
+            },
+            response: {
+                body: [{ id: 2, text: 'get request' }],
+            },
+        },
+        {
+            id: 'exp2',
+            name: 'sample2',
+            request: {
+                method: 'POST',
+                headers: {},
+                path: '/todos',
+                body: '[0-9]th todo',
+            },
+            response: {
+                body: [],
+            },
+        },
+    ];
 
-  const engine = create({ behaviors, config: {} });
+    const engine = create({ behaviors, config: {} });
 
-  const matched = engine.match({
-    path: "/todos",
-    method: "POST",
-    headers: { host: "example.com" },
-    body: "5th todo",
-  });
+    const matched = engine.match({
+        path: '/todos',
+        method: 'POST',
+        headers: { host: 'example.com' },
+        body: '5th todo',
+    });
 
-  expect(matched).toMatchInlineSnapshot(`
+    expect(matched).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "exp2",
@@ -258,78 +258,78 @@ test("match string body request", () => {
   `);
 });
 
-test("matched 2 times only", () => {
-  const behaviors: Behavior[] = [
-    {
-      id: "exp1",
-      name: "sample1",
-      request: {
+test('matched 2 times only', () => {
+    const behaviors: Behavior[] = [
+        {
+            id: 'exp1',
+            name: 'sample1',
+            request: {
+                headers: {},
+                path: '/todos',
+                method: 'GET',
+            },
+            response: {
+                body: [{ id: 2, text: 'get request' }],
+            },
+            limit: 2,
+        },
+    ];
+
+    const request: Request = {
+        path: '/todos',
+        method: 'GET',
         headers: {},
-        path: "/todos",
-        method: "GET",
-      },
-      response: {
-        body: [{ id: 2, text: "get request" }],
-      },
-      limit: 2,
-    },
-  ];
+    };
 
-  const request: Request = {
-    path: "/todos",
-    method: "GET",
-    headers: {},
-  };
+    const engine = create({ behaviors, config: {} });
 
-  const engine = create({ behaviors, config: {} });
+    engine.match(request);
+    engine.match(request);
+    const lastMatch = engine.match(request);
 
-  engine.match(request);
-  engine.match(request);
-  const lastMatch = engine.match(request);
-
-  expect(lastMatch).toMatchInlineSnapshot(`Array []`);
+    expect(lastMatch).toMatchInlineSnapshot(`Array []`);
 });
 
-test("multiple expectation matches", () => {
-  const behaviors: Behavior[] = [
-    {
-      id: "exp1",
-      name: "sample1",
-      request: {
+test('multiple expectation matches', () => {
+    const behaviors: Behavior[] = [
+        {
+            id: 'exp1',
+            name: 'sample1',
+            request: {
+                headers: {},
+                path: '/todos',
+                method: 'GET',
+            },
+            response: {
+                statusCode: 200,
+            },
+            limit: 1,
+        },
+        {
+            id: 'exp2',
+            name: 'sample2',
+            request: {
+                headers: {},
+                path: '/todos',
+                method: 'GET',
+            },
+            response: {
+                statusCode: 500,
+            },
+            limit: 'unlimited',
+        },
+    ];
+
+    const engine = create({ behaviors, config: {} });
+
+    const request: Request = {
+        path: '/todos',
+        method: 'GET',
         headers: {},
-        path: "/todos",
-        method: "GET",
-      },
-      response: {
-        statusCode: 200,
-      },
-      limit: 1,
-    },
-    {
-      id: "exp2",
-      name: "sample2",
-      request: {
-        headers: {},
-        path: "/todos",
-        method: "GET",
-      },
-      response: {
-        statusCode: 500,
-      },
-      limit: "unlimited",
-    },
-  ];
+    };
 
-  const engine = create({ behaviors, config: {} });
-
-  const request: Request = {
-    path: "/todos",
-    method: "GET",
-    headers: {},
-  };
-
-  const successExp = engine.match(request);
-  expect(successExp).toMatchInlineSnapshot(`
+    const successExp = engine.match(request);
+    expect(successExp).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "exp1",
@@ -360,8 +360,8 @@ test("multiple expectation matches", () => {
     ]
   `);
 
-  const failExp = engine.match(request);
-  expect(failExp).toMatchInlineSnapshot(`
+    const failExp = engine.match(request);
+    expect(failExp).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "exp2",
@@ -380,25 +380,23 @@ test("multiple expectation matches", () => {
   `);
 });
 
-test("Behavior: add results in error", () => {
-  const engine = new Engine([]);
-  const add = () => engine.addBehavior({ request: {} } as any);
-  expect(add).toThrowError(
-    "Request requires a path: expected {} to contain key 'path'"
-  );
+test('Behavior: add results in error', () => {
+    const engine = new Engine([]);
+    const add = () => engine.addBehavior({ request: {} } as any);
+    expect(add).toThrowError("Request requires a path: expected {} to contain key 'path'");
 });
 
-test("Behavior: add", () => {
-  const engine = new Engine([]);
-  const add = () =>
-    engine.addBehavior({
-      id: "new",
-      name: "base expectation",
-      request: { path: "/hello" },
-      response: {},
-    });
-  expect(add).not.toThrow();
-  expect(engine.behaviors).toMatchInlineSnapshot(`
+test('Behavior: add', () => {
+    const engine = new Engine([]);
+    const add = () =>
+        engine.addBehavior({
+            id: 'new',
+            name: 'base expectation',
+            request: { path: '/hello' },
+            response: {},
+        });
+    expect(add).not.toThrow();
+    expect(engine.behaviors).toMatchInlineSnapshot(`
     Array [
       Object {
         "id": "new",
@@ -413,47 +411,47 @@ test("Behavior: add", () => {
   `);
 });
 
-test("Behavior: remove", () => {
-  const engine = new Engine([]);
-  engine.addBehavior({
-    id: "new",
-    name: "base expectation",
-    request: { path: "/hello" },
-    response: {},
-  });
-  engine.removeBehavior("new");
-  expect(engine.behaviors).toMatchInlineSnapshot(`Array []`);
+test('Behavior: remove', () => {
+    const engine = new Engine([]);
+    engine.addBehavior({
+        id: 'new',
+        name: 'base expectation',
+        request: { path: '/hello' },
+        response: {},
+    });
+    engine.removeBehavior('new');
+    expect(engine.behaviors).toMatchInlineSnapshot(`Array []`);
 });
 
 test(`Clear all records`, () => {
-  const behaviors: Behavior[] = [
-    {
-      id: "exp1",
-      name: "sample1",
-      request: {
+    const behaviors: Behavior[] = [
+        {
+            id: 'exp1',
+            name: 'sample1',
+            request: {
+                headers: {},
+                path: '/todos',
+                method: 'GET',
+            },
+            response: {
+                body: [{ id: 2, text: 'get request' }],
+            },
+            limit: 2,
+        },
+    ];
+
+    const request: Request = {
+        path: '/todos',
+        method: 'GET',
         headers: {},
-        path: "/todos",
-        method: "GET",
-      },
-      response: {
-        body: [{ id: 2, text: "get request" }],
-      },
-      limit: 2,
-    },
-  ];
+    };
 
-  const request: Request = {
-    path: "/todos",
-    method: "GET",
-    headers: {},
-  };
+    const engine = create({ behaviors, config: {} });
 
-  const engine = create({ behaviors, config: {} });
+    engine.match(request);
+    engine.match(request);
+    engine.clearAll();
 
-  engine.match(request);
-  engine.match(request);
-  engine.clearAll();
-
-  expect(engine.records).toMatchInlineSnapshot(`Array []`);
-  expect(engine.behaviors).toMatchInlineSnapshot(`Array []`);
+    expect(engine.records).toMatchInlineSnapshot(`Array []`);
+    expect(engine.behaviors).toMatchInlineSnapshot(`Array []`);
 });

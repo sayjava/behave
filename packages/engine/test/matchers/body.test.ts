@@ -1,88 +1,88 @@
-import matcher from "../../src/matchers/body";
-import { Request } from "../../src/types";
+import matcher from '../../src/matchers/body';
+import { Request } from '../../src/types';
 
-test("matches a string body", () => {
-  const expRequest: Request = {
-    path: "/todo/1",
-    headers: {},
-    body: "A simple body counts at [0-9]+",
-    method: "POST",
-  };
+test('matches a string body', () => {
+    const expRequest: Request = {
+        path: '/todo/1',
+        headers: {},
+        body: 'A simple body counts at [0-9]+',
+        method: 'POST',
+    };
 
-  const request: Request = {
-    path: "/todo/1",
-    headers: {},
-    method: "POST",
-    body: "A simple body counts at 10",
-  };
+    const request: Request = {
+        path: '/todo/1',
+        headers: {},
+        method: 'POST',
+        body: 'A simple body counts at 10',
+    };
 
-  expect(matcher(expRequest, request)).toBe(true);
+    expect(matcher(expRequest, request)).toBe(true);
 });
 
-test("matches an empty body", () => {
-  const expRequest: Request = {
-    path: "/todo/1",
-    headers: {},
-    method: "POST",
-  };
+test('matches an empty body', () => {
+    const expRequest: Request = {
+        path: '/todo/1',
+        headers: {},
+        method: 'POST',
+    };
 
-  const request: Request = {
-    path: "/todo/1",
-    headers: {},
-    method: "POST",
-    body: "A simple body counts at 10",
-  };
+    const request: Request = {
+        path: '/todo/1',
+        headers: {},
+        method: 'POST',
+        body: 'A simple body counts at 10',
+    };
 
-  expect(matcher(expRequest, request)).toBe(true);
+    expect(matcher(expRequest, request)).toBe(true);
 });
 
-test("matches a json object", () => {
-  const expRequest: Request = {
-    path: "/todo/1",
-    headers: {},
-    method: "POST",
-    body: {
-      name: "Doe",
-    },
-  };
+test('matches a json object', () => {
+    const expRequest: Request = {
+        path: '/todo/1',
+        headers: {},
+        method: 'POST',
+        body: {
+            name: 'Doe',
+        },
+    };
 
-  const request: Request = {
-    path: "/todo/1",
-    headers: {
-      "content-type": "application/json",
-    },
-    method: "POST",
-    body: {
-      name: "john doe",
-    },
-  };
+    const request: Request = {
+        path: '/todo/1',
+        headers: {
+            'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: {
+            name: 'john doe',
+        },
+    };
 
-  expect(matcher(expRequest, request)).toMatchInlineSnapshot(
-    `[AssertionError: key: name, does not match, Doe did not match john doe: expected 'john doe' to match /Doe/]`
-  );
+    expect(matcher(expRequest, request)).toMatchInlineSnapshot(
+        `[AssertionError: key: name, does not match, Doe did not match john doe: expected 'john doe' to match /Doe/]`,
+    );
 });
 
-test("matches a partial object", () => {
-  const expRequest: Request = {
-    path: "/todo/1",
-    headers: {},
-    method: "POST",
-    body: {
-      name: "Doe",
-    },
-  };
+test('matches a partial object', () => {
+    const expRequest: Request = {
+        path: '/todo/1',
+        headers: {},
+        method: 'POST',
+        body: {
+            name: 'Doe',
+        },
+    };
 
-  const request: Request = {
-    path: "/todo/1",
-    headers: {
-      "content-type": "application/json",
-    },
-    method: "POST",
-    body: {
-      name: "Doe",
-      job: "janitor",
-    },
-  };
+    const request: Request = {
+        path: '/todo/1',
+        headers: {
+            'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: {
+            name: 'Doe',
+            job: 'janitor',
+        },
+    };
 
-  expect(matcher(expRequest, request)).toMatchInlineSnapshot(`true`);
+    expect(matcher(expRequest, request)).toMatchInlineSnapshot(`true`);
 });

@@ -1,26 +1,23 @@
-import { AssertionError } from "assert";
-import { assert } from "chai";
-import { Request } from "../types";
+import { AssertionError } from 'assert';
+import { assert } from 'chai';
+import { Request } from '../types';
 
-export default (
-  expRequest: Request,
-  req: Request
-): boolean | AssertionError => {
-  if (Object.keys(expRequest.headers || {}).length === 0) {
-    return true;
-  }
+export default (expRequest: Request, req: Request): boolean | AssertionError => {
+    if (Object.keys(expRequest.headers || {}).length === 0) {
+        return true;
+    }
 
-  try {
-    // check matching keys
-    assert.containsAllKeys(req.headers, expRequest.headers || {});
+    try {
+        // check matching keys
+        assert.containsAllKeys(req.headers, expRequest.headers || {});
 
-    // check matching values
-    Object.entries(expRequest.headers || {}).forEach(([key, expValue]) => {
-      assert.match((req.headers || {})[key], new RegExp(expValue));
-    });
+        // check matching values
+        Object.entries(expRequest.headers || {}).forEach(([key, expValue]) => {
+            assert.match((req.headers || {})[key], new RegExp(expValue));
+        });
 
-    return true;
-  } catch (e) {
-    return e;
-  }
+        return true;
+    } catch (e) {
+        return e;
+    }
 };

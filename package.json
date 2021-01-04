@@ -1,6 +1,6 @@
 {
-  "name": "@sayjava/behave",
-  "private": "true",
+  "name": "@sayjava/behave-project",
+  "private": true,
   "license": "ISC",
   "keywords": [
     "mock-server",
@@ -18,14 +18,24 @@
     "test": "lerna run test",
     "bootstrap": "lerna bootstrap",
     "prepublish": "yarn build",
-    "release": "yarn build && lerna publish"
+    "release": "yarn build && lerna publish",
+    "lint": "eslint '*/**/src/*.ts' --quiet --fix"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
-    "lerna": "^3.22.1"
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.2.1"
   },
   "version": "0.0.0",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "rome": {
+    "version": "^0.0.1"
+  }
 }
