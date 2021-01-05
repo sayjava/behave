@@ -1,0 +1,10 @@
+{
+    "headers": {},
+    "content": [{
+        "username": "john.doe"
+    },{
+        "username": "jane.doe"
+    }],
+    "delay": 10,
+    "limit": 5
+}

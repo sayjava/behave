@@ -29,6 +29,10 @@ const args = yargs(hideBin(process.argv))
         alias: 'f',
         describe: 'JSON file containing array of behaviors',
         default: 'behaviors.json',
+	})
+	.option('open-api', {
+        alias: 'a',
+        describe: 'Open API file',
     })
     .option('debug', {
         alias: 'd',

@@ -2,10 +2,12 @@ import cors from 'cors';
 import express, { Express } from 'express';
 import morgan from 'morgan';
 import behaveHandler from './handlers/';
+import openAPI from './open_api';
 
 export interface ServerConfig {
     port?: number;
     fromFile?: string;
+    openApi?: string;
     behaviors?: Array<any>;
     healthCheck?: string;
     readyCheck?: string;
@@ -13,19 +15,20 @@ export interface ServerConfig {
 }
 
 const defaultConfig: ServerConfig = {
-    port: 8_080,
+    port: 8080,
     healthCheck: '/_/healthz',
     readyCheck: '/_/readyz',
     debug: 'none',
+    fromFile: 'behaviors.json',
 };
 
-function createKeepAliveRoute(app: Express, path: string) {
+const createKeepAliveRoute = (app: Express, path: string) => {
     app.get(path, (req, res) => {
         res.status(200).send('Ok');
     });
-}
+};
 
-function enableLogging(app: Express, config: ServerConfig) {
+const enableLogging = (app: Express, config: ServerConfig) => {
     switch (config.debug) {
         case 'none':
             break;
@@ -38,14 +41,29 @@ function enableLogging(app: Express, config: ServerConfig) {
             break;
         }
     }
-}
+};
 
-function enableUI(app: Express) {
+const enableUI = (app: Express) => {
     app.use('/_ui/', express.static('public'));
-}
+};
+
+const loadOpenAPI = async (config: ServerConfig): Promise<ServerConfig> => {
+    if (config.openApi) {
+        try {
+            const behaviors = await openAPI({ uri: config.openApi });
+            return Object.assign({}, config, { behaviors });
+        } catch (error) {
+            console.error(`OPEN API ERROR: `, error);
+            return config;
+        }
+    }
+
+    return config;
+};
 
 export default async (argConfig: ServerConfig) => {
-    const config = Object.assign({}, defaultConfig, argConfig);
+    const filledConfig = Object.assign({}, defaultConfig, argConfig);
+    const config = await loadOpenAPI(filledConfig);
 
     const app = express();
     app.use(cors());
@@ -56,7 +74,7 @@ export default async (argConfig: ServerConfig) => {
     createKeepAliveRoute(app, config.healthCheck);
     createKeepAliveRoute(app, config.readyCheck);
 
-    app.use(behaveHandler({ config: argConfig }));
+    app.use(behaveHandler({ config }));
 
     return {
         app,

@@ -20,9 +20,9 @@ export function parseBehaviors(behaviors: string): Array<Behavior> {
 }
 
 export function loadBehaviors(args: BehaveConfig): Array<any> {
-    const { behaviors, fromFile } = args;
+    const { behaviors, fromFile = 'behaviors.json' } = args;
 
-    const filePath = path.join(path.resolve(process.cwd(), fromFile || ''));
+    const filePath = path.join(path.resolve(process.cwd(), fromFile));
     const fileExists = existsSync(filePath);
 
     if (!behaviors && !fileExists) {
