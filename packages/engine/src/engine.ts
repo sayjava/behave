@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 import shortId from 'shortid';
 import bodyMatcher from './matchers/body';
+import queryMatcher from './matchers/query';
 import headerMatcher from './matchers/headers';
 import pathMatcher from './matchers/path';
 import { Behavior, IntervalVerification, Record, Request, Verification, VerificationError } from './types';
@@ -74,6 +75,7 @@ export class Engine {
                 return method === request.method;
             })
             .filter((exp) => pathMatcher(exp.request, request))
+            .filter((exp) => queryMatcher(exp.request, request))
             .filter((exp) => headerMatcher(exp.request, request) === true)
             .filter((exp) => bodyMatcher(exp.request, request) === true)
             .filter((exp) => {
