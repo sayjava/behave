@@ -11,19 +11,20 @@ export default (contentType: string, params: { [key: string]: any }) => {
     const headers = { 'content-type': contentType };
 
     params.forEach((param) => {
+        if (!param.required) {
+            return;
+        }
 
-      if(!param.required) {
-        return 
-      }
+        const property = param.schema || param;
 
         let value = '.*';
-        if (param.schema.enum) {
-            value = param.schema.enum.join('|')
-        } else if (param.schema.type === 'integer') {
+        if (property.enum) {
+            value = property.enum.join('|');
+        } else if (property.type === 'integer') {
             value = '[0-9]+';
-        } else if (param.schema.type === 'string') {
+        } else if (property.type === 'string') {
             value = '[a-zA-Z]+';
-        } else if (param.schema.type === 'boolean') {
+        } else if (property.type === 'boolean') {
             value = 'true|false';
         }
 
@@ -37,6 +38,9 @@ export default (contentType: string, params: { [key: string]: any }) => {
 
             case 'header':
                 return (headers[param.name] = value);
+
+            case 'body':
+                return;
 
             default:
                 return (pathParams[param.name] = value);

@@ -1,6 +1,5 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { Behavior } from '@sayjava/behave-engine';
-import { existsSync } from 'fs';
 import { dirname } from 'path';
 import createBody from './create_body';
 import createParams from './create_params';
@@ -12,19 +11,23 @@ interface Args {
 }
 
 export default async ({ uri, basePath }: Args): Promise<Behavior[]> => {
-    if (!existsSync(uri)) {
-        throw new Error(`${uri} can not be found`);
-    }
-
     const responseBase = basePath ?? dirname(uri);
     const parser = new SwaggerParser();
 
-    const { paths, components } = await parser.dereference(uri);
+    const { paths } = await parser.dereference(uri, {
+        validate: {
+            spec: false,
+            schema: true,
+        },
+    });
 
     // Generate behaviors for each path
     return Object.entries(paths)
         .map(([requestPath, config]: [string, any]) => {
             return Object.entries(config)
+
+                .filter(([method]) => ['get', 'post', 'delete', 'patch', 'put'].includes(method.toLocaleLowerCase()))
+
                 .map(([method, requestConfig]) => {
                     const {
                         responses,
@@ -42,7 +45,7 @@ export default async ({ uri, basePath }: Args): Promise<Behavior[]> => {
                                 },
                             );
 
-                            const body = createBody(requestBody);
+                            const body = createBody(requestBody, parameters);
                             const response = createResponse({
                                 basePath: responseBase,
                                 method,

@@ -6,19 +6,27 @@
 
 type AnyMap = { [key: string]: any };
 
-export default (requestBody: AnyMap) => {
+const extractSwaggerBody = (params: any[]) => {
+    const [body] = params.filter((param) => param.in === 'body');
+    return body || { schema: {} };
+};
+
+const extractSpecBody = (requestBody) => {
     const { content } = requestBody;
-    const [contentKey] = Object.keys(content);
+    const [contentKey = ""] = Object.keys(content);
 
-    if (!contentKey) {
-        return {};
-    }
+    return content[contentKey] || { schema: {} };
+};
 
+export default (requestBody: AnyMap, parameters: any[]) => {
     const body = {};
-    const { schema } = content[contentKey];
+    const specBody = extractSpecBody(requestBody);
+    const swaggerBody = extractSwaggerBody(parameters);
 
-    if (schema.properties) {
-        Object.entries(schema.properties).forEach(([name, property]: [string, any]) => {
+    const properties = specBody.schema.properties || swaggerBody.schema.properties;
+
+    if (properties) {
+        Object.entries(properties).forEach(([name, property]: [string, any]) => {
             let value = '.*';
             if (property.enum) {
                 value = property.enum.join('|');
