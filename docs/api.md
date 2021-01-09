@@ -1,6 +1,6 @@
 ---
 id: api
-title: Server API
+title: API
 sidebar_label: API
 slug: /api
 has_toc: true

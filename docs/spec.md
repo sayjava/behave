@@ -1,17 +1,17 @@
 ---
 id: spec
-title: Guide
-sidebar_label: Open API/Swagger
+title: Open API / Swagger
+sidebar_label: Open API / Swagger
 slug: /spec
 has_toc: true
-nav_order: 2
+nav_order: 5
 ---
 
 # Open API 3.0 / Swagger 2.0
 
 Behave supports Open API 3.0 and Swagger 2.0 specification. By pointing behave to a local file or an http location of a `json/yml` specification file, behave will automatically generate routes from the spec file.
 
-## Open API Spec / Swagger Routes
+## Paths
 
 Behave will automatically generate behavior routes for all defined paths in the spec file. There will be a unique behavior for each defined route and response type in the spec file. e.g
 
