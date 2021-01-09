@@ -4,67 +4,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Behave is a robust http server</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.9/dist/css/uikit.min.css" />
 </head>
 <body>
-    <nav>
-        <a href="/" class="logo">Behave</a>
-        <ul>
-            <li>
-                <a href="/start">Start</a>
-            </li>
-            <li>
-                <a href="/guide">Guide</a>
-            </li>
-            <li>
-                <a href="/API">API</a>
-            </li>
-            <li>
-                <a href="/assertions">Assertions</a>
-            </li>
-            <li>
-                <a href="/spec">Open API/Swagger</a>
-            </li>
-        </ul>
-    </nav>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;600;700&display=swap');
+
+        html, body {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 50%;
+
+            color: #fff!important;
+        }
+        .title {
+            align-items: center;
+        }
+
+        
+    </style>
+    <main>
+        <section class="uk-section uk-section-muted uk-padding-large">
+            <div class="uk-flex uk-flex-center uk-flex-column">
+                <div class="uk-flex uk-flex-center title">
+                    <div class="icon uk-margin-small-right">
+                        <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <path d="M16.5428932,17.4571068 L11,11.9142136 L11,4 C11,3.44771525 11.4477153,3 12,3 C12.5522847,3 13,3.44771525 13,4 L13,11.0857864 L17.9571068,16.0428932 L20.1464466,13.8535534 C20.3417088,13.6582912 20.6582912,13.6582912 20.8535534,13.8535534 C20.9473216,13.9473216 21,14.0744985 21,14.2071068 L21,19.5 C21,19.7761424 20.7761424,20 20.5,20 L15.2071068,20 C14.9309644,20 14.7071068,19.7761424 14.7071068,19.5 C14.7071068,19.3673918 14.7597852,19.2402148 14.8535534,19.1464466 L16.5428932,17.4571068 Z" fill="#000000" fill-rule="nonzero"></path>
+                                <path d="M7.24478854,17.1447885 L9.2464466,19.1464466 C9.34021479,19.2402148 9.39289321,19.3673918 9.39289321,19.5 C9.39289321,19.7761424 9.16903559,20 8.89289321,20 L3.52893218,20 C3.25278981,20 3.02893218,19.7761424 3.02893218,19.5 L3.02893218,14.136039 C3.02893218,14.0034307 3.0816106,13.8762538 3.17537879,13.7824856 C3.37064094,13.5872234 3.68722343,13.5872234 3.88248557,13.7824856 L5.82567301,15.725673 L8.85405776,13.1631936 L10.1459422,14.6899662 L7.24478854,17.1447885 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="uk-heading-small">Behave</h1>
+                    </div>
+                </div>
+                <p class="uk-text-center">
+                    A robust, declarative http mock and testing server
+                </p>
+            </div>
+
+            <div class="uk-flex uk-flex-column uk-flex-center">
+                <div class="uk-card uk-card-body uk-width-1-2@m uk-margin-auto">
+                    <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">npx @sayjava/behave --behaviors <span style="color: #0000FF">\</span>
+<span style="color: #0000FF">&#39;[{&quot;request&quot;: {&quot;path&quot;:&quot;/hi&quot;}, &quot;response&quot;: {&quot;body&quot;: &quot;Hello World&quot;}}]&#39;</span>
+</pre></div>
+                </div>
+                <div class="uk-card uk-card-body uk-width-1-2@m uk-margin uk-margin-auto">
+                   <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"> curl http://localhost:8080/hi
+</pre></div>
+
+                </div>
+            </div>
+        </section>
+            
+
+            <section class="uk-section">
+                 <div class="uk-container">
+                    <div class="uk-grid">
+                        <div class="uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                                <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M16.0322024,5.68722152 L5.75790403,15.945742 C5.12139076,16.5812778 5.12059836,17.6124773 5.75613416,18.2489906 C5.75642891,18.2492858 5.75672377,18.2495809 5.75701875,18.2498759 L5.75701875,18.2498759 C6.39304347,18.8859006 7.42424328,18.8859006 8.060268,18.2498759 C8.06056298,18.2495809 8.06085784,18.2492858 8.0611526,18.2489906 L18.3196731,7.9746922 C18.9505124,7.34288268 18.9501191,6.31942463 18.3187946,5.68810005 L18.3187946,5.68810005 C17.68747,5.05677547 16.6640119,5.05638225 16.0322024,5.68722152 Z" fill="#000000" fill-rule="nonzero"></path>
+                                        <path d="M9.85714286,6.92857143 C9.85714286,8.54730513 8.5469533,9.85714286 6.93006028,9.85714286 C5.31316726,9.85714286 4,8.54730513 4,6.92857143 C4,5.30983773 5.31316726,4 6.93006028,4 C8.5469533,4 9.85714286,5.30983773 9.85714286,6.92857143 Z M20,17.0714286 C20,18.6901623 18.6898104,20 17.0729174,20 C15.4560244,20 14.1428571,18.6901623 14.1428571,17.0714286 C14.1428571,15.4497247 15.4560244,14.1428571 17.0729174,14.1428571 C18.6898104,14.1428571 20,15.4497247 20,17.0714286 Z" fill="#000000" opacity="0.3"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <h2>Declarative</h2>
+                            <p>
+                                Enjoy a faster workflow with live browser reloads any time you make a new change.
+                            </p>
+                        </div>
+
+                        <div class="uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                                <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                        <path d="M18.5,8 C17.1192881,8 16,6.88071187 16,5.5 C16,4.11928813 17.1192881,3 18.5,3 C19.8807119,3 21,4.11928813 21,5.5 C21,6.88071187 19.8807119,8 18.5,8 Z M18.5,21 C17.1192881,21 16,19.8807119 16,18.5 C16,17.1192881 17.1192881,16 18.5,16 C19.8807119,16 21,17.1192881 21,18.5 C21,19.8807119 19.8807119,21 18.5,21 Z M5.5,21 C4.11928813,21 3,19.8807119 3,18.5 C3,17.1192881 4.11928813,16 5.5,16 C6.88071187,16 8,17.1192881 8,18.5 C8,19.8807119 6.88071187,21 5.5,21 Z" fill="#000000" opacity="0.3"></path>
+                                        <path d="M5.5,8 C4.11928813,8 3,6.88071187 3,5.5 C3,4.11928813 4.11928813,3 5.5,3 C6.88071187,3 8,4.11928813 8,5.5 C8,6.88071187 6.88071187,8 5.5,8 Z M11,4 L13,4 C13.5522847,4 14,4.44771525 14,5 C14,5.55228475 13.5522847,6 13,6 L11,6 C10.4477153,6 10,5.55228475 10,5 C10,4.44771525 10.4477153,4 11,4 Z M11,18 L13,18 C13.5522847,18 14,18.4477153 14,19 C14,19.5522847 13.5522847,20 13,20 L11,20 C10.4477153,20 10,19.5522847 10,19 C10,18.4477153 10.4477153,18 11,18 Z M5,10 C5.55228475,10 6,10.4477153 6,11 L6,13 C6,13.5522847 5.55228475,14 5,14 C4.44771525,14 4,13.5522847 4,13 L4,11 C4,10.4477153 4.44771525,10 5,10 Z M19,10 C19.5522847,10 20,10.4477153 20,11 L20,13 C20,13.5522847 19.5522847,14 19,14 C18.4477153,14 18,13.5522847 18,13 L18,11 C18,10.4477153 18.4477153,10 19,10 Z" fill="#000000"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                        
+                            <h2>Assertions</h2>
+                            <p>
+                                Get free lifetime updates of new components, layouts, page designs and an attentive technical support.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
     
-    <section class="hero">
-        <h1>Behave</h1>
-        <p>
-            A robust, declarative http mock and testing server
-        </p>
-    </section>
 
-    <section class="features">
-        <div class="feature">
-            <h3>Declarative</h3>
-            <div>Responses</div>
-        </div>
-        <div class="feature">
-            <h3>Assertions</h3>
-            <div>Assertions</div>
-        </div>
-        <div class="feature">
-            <h3>Programmatic</h3>
-            <p>
-                Use 
-            </p>
-        </div>
-        <div class="feature">
-            <h3>Open API</h3>
-            <div>Support for Open API / Swagger</div>
-        </div>
-    </section>
+            <section class="uk-section uk-section-muted">
+                <div class="uk-container">
+                    <div class="uk-grid">
+                        <div class="uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                                <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="9"></circle>
+                                        <path d="M11.7357634,20.9961946 C6.88740052,20.8563914 3,16.8821712 3,12 C3,11.9168367 3.00112797,11.8339369 3.00336944,11.751315 C3.66233009,11.8143341 4.85636818,11.9573854 4.91262842,12.4204038 C4.9904938,13.0609191 4.91262842,13.8615942 5.45804656,14.101772 C6.00346469,14.3419498 6.15931561,13.1409372 6.6267482,13.4612567 C7.09418079,13.7815761 8.34086797,14.0899175 8.34086797,14.6562185 C8.34086797,15.222396 8.10715168,16.1034596 8.34086797,16.2636193 C8.57458427,16.423779 9.5089688,17.54465 9.50920913,17.7048097 C9.50956962,17.8649694 9.83857487,18.6793513 9.74040201,18.9906563 C9.65905192,19.2487394 9.24857641,20.0501554 8.85059781,20.4145589 C9.75315358,20.7620621 10.7235846,20.9657742 11.7357634,20.9960544 L11.7357634,20.9961946 Z M8.28272988,3.80112099 C9.4158415,3.28656421 10.6744554,3 12,3 C15.5114513,3 18.5532143,5.01097452 20.0364482,7.94408274 C20.069657,8.72412177 20.0638332,9.39135321 20.2361262,9.6327358 C21.1131932,10.8600506 18.0995147,11.7043158 18.5573343,13.5605384 C18.7589671,14.3794892 16.5527814,14.1196773 16.0139722,14.886394 C15.4748026,15.6527403 14.1574598,15.137809 13.8520064,14.9904917 C13.546553,14.8431744 12.3766497,15.3341497 12.4789081,14.4995164 C12.5805657,13.664636 13.2922889,13.6156126 14.0555619,13.2719546 C14.8184743,12.928667 15.9189236,11.7871741 15.3781918,11.6380045 C12.8323064,10.9362407 11.963771,8.47852395 11.963771,8.47852395 C11.8110443,8.44901109 11.8493762,6.74109366 11.1883616,6.69207022 C10.5267462,6.64279981 10.170464,6.88841096 9.20435656,6.69207022 C8.23764828,6.49572949 8.44144409,5.85743687 8.2887174,4.48255778 C8.25453994,4.17415686 8.25619136,3.95717082 8.28272988,3.80112099 Z M20.9991771,11.8770357 C20.9997251,11.9179585 21,11.9589471 21,12 C21,16.9406923 17.0188468,20.9515364 12.0895088,20.9995641 C16.970233,20.9503326 20.9337111,16.888438 20.9991771,11.8770357 Z" fill="#000000" opacity="0.3"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <h2>Serverless Ready</h2>
+                            <p>Launch a complete website with 10 ready to use landing pages and 40+ support pages. Each one with unique ideas and layouts.</p>
+                        </div>
+                        <div class="uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                                <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                        <path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999) "></path>
+                                        <rect fill="#000000" opacity="0.3" x="12" y="17" width="10" height="2" rx="1"></rect>
+                                    </g>
+                                </svg>
+                            </div>
+                        
+                            <h2>Programmatic</h2>
+                            <p>
+                                Inertia is made to be easily adapted to different looks. It comes with styled Bootstrap components plus new ones that can be customized via SASS variables.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  <footer>
-      <ul>
-          <li>
-              <a href="https://github.com/sayjava/behave">Github</a>
-          </li>
-          <li>
-            <a href="https://github.com/sayjava/behave">Twitter</a>
-        </li>
-      </ul>
-  </footer>
+            <section class="uk-section">
+                <div class="uk-container">
+                    <div class="uk-grid">
+                        <div class="uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                                <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="9"></circle>
+                                        <path d="M11.7357634,20.9961946 C6.88740052,20.8563914 3,16.8821712 3,12 C3,11.9168367 3.00112797,11.8339369 3.00336944,11.751315 C3.66233009,11.8143341 4.85636818,11.9573854 4.91262842,12.4204038 C4.9904938,13.0609191 4.91262842,13.8615942 5.45804656,14.101772 C6.00346469,14.3419498 6.15931561,13.1409372 6.6267482,13.4612567 C7.09418079,13.7815761 8.34086797,14.0899175 8.34086797,14.6562185 C8.34086797,15.222396 8.10715168,16.1034596 8.34086797,16.2636193 C8.57458427,16.423779 9.5089688,17.54465 9.50920913,17.7048097 C9.50956962,17.8649694 9.83857487,18.6793513 9.74040201,18.9906563 C9.65905192,19.2487394 9.24857641,20.0501554 8.85059781,20.4145589 C9.75315358,20.7620621 10.7235846,20.9657742 11.7357634,20.9960544 L11.7357634,20.9961946 Z M8.28272988,3.80112099 C9.4158415,3.28656421 10.6744554,3 12,3 C15.5114513,3 18.5532143,5.01097452 20.0364482,7.94408274 C20.069657,8.72412177 20.0638332,9.39135321 20.2361262,9.6327358 C21.1131932,10.8600506 18.0995147,11.7043158 18.5573343,13.5605384 C18.7589671,14.3794892 16.5527814,14.1196773 16.0139722,14.886394 C15.4748026,15.6527403 14.1574598,15.137809 13.8520064,14.9904917 C13.546553,14.8431744 12.3766497,15.3341497 12.4789081,14.4995164 C12.5805657,13.664636 13.2922889,13.6156126 14.0555619,13.2719546 C14.8184743,12.928667 15.9189236,11.7871741 15.3781918,11.6380045 C12.8323064,10.9362407 11.963771,8.47852395 11.963771,8.47852395 C11.8110443,8.44901109 11.8493762,6.74109366 11.1883616,6.69207022 C10.5267462,6.64279981 10.170464,6.88841096 9.20435656,6.69207022 C8.23764828,6.49572949 8.44144409,5.85743687 8.2887174,4.48255778 C8.25453994,4.17415686 8.25619136,3.95717082 8.28272988,3.80112099 Z M20.9991771,11.8770357 C20.9997251,11.9179585 21,11.9589471 21,12 C21,16.9406923 17.0188468,20.9515364 12.0895088,20.9995641 C16.970233,20.9503326 20.9337111,16.888438 20.9991771,11.8770357 Z" fill="#000000" opacity="0.3"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <h2>Serverless Ready</h2>
+                            <p>Launch a complete website with 10 ready to use landing pages and 40+ support pages. Each one with unique ideas and layouts.</p>
+                        </div>
+                        <div class="uk-width-1-2">
+                            <div class="uk-margin-small-bottom">
+                                <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                        <path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999) "></path>
+                                        <rect fill="#000000" opacity="0.3" x="12" y="17" width="10" height="2" rx="1"></rect>
+                                    </g>
+                                </svg>
+                            </div>
+                        
+                            <h2>Programmatic</h2>
+                            <p>
+                                Inertia is made to be easily adapted to different looks. It comes with styled Bootstrap components plus new ones that can be customized via SASS variables.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="uk-section">
+                <div class="uk-flex uk-flex-center">
+                    <a href="/start" class="uk-button uk-button-secondary">Getting Started</a>
+                </div>
+            </section>
+         </main>
+    <footer>
+        <section class="uk-section uk-section-muted">
+            <div class="uk-container">
+                <div class="uk-flex uk-flex-center uk-padding-large">
+                    <div class="uk-margin-medium-left uk-flex uk-link-muted">
+                        <a href="https://sayjava.github.io/behave">Github</a>
+                    </div>
+                    <div class="uk-margin-medium-left uk-link-muted">
+                        <a href="https://twitter.com/sayjava">Twitter</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
 </body>
 </html>
