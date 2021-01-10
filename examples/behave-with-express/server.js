@@ -11,6 +11,6 @@ app.get('/', function (req, res) {
 
 app.use("/api",behaveHandler({ config: { fromFile: 'behaviors.json' } }));
 
-app.listen(3000, () => {
-    console.info(`Weather ite started on 3000`);
+app.listen(8080, () => {
+    console.info(`Weather ite started on 8080`);
 });

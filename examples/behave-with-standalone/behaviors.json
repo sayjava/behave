@@ -1,0 +1,18 @@
+[
+  {
+    "request": {
+      "path": "/hello"
+    },
+    "response": {
+      "body": "Hello World"
+    }
+  },
+  {
+    "request": {
+      "path": "/todo/2"
+    },
+    "response": {
+      "body": "The Todo is 2"
+    }
+  }
+]
