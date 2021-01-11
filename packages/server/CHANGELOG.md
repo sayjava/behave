@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.4.1...@sayjava/behave@1.5.0) (2021-01-11)
+
+
+### Bug Fixes
+
+* dockerise server ([8b64713](https://github.com/sayjava/behave/commit/8b647138460b8f67d3feac5ed37434986449be90))
+* prettify and lint ([d1d4b96](https://github.com/sayjava/behave/commit/d1d4b96d8a26429bfa9aa1a224694d659b6956ef))
+
+
+### Features
+
+* added basic swagger support ([ced31d6](https://github.com/sayjava/behave/commit/ced31d6f4e94786346869fe42f3762d36a3e41c2))
+* open api support ([b28f3d5](https://github.com/sayjava/behave/commit/b28f3d5e2cec91ee8ccf86e741bb08db4e2d09d8))
+
+
+
+
+
 ## [1.4.1](https://github.com/sayjava/behave/compare/@sayjava/behave@1.4.0...@sayjava/behave@1.4.1) (2020-12-10)
 
 

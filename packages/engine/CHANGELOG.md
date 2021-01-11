@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/sayjava/behave/compare/@sayjava/behave-engine@1.1.0...@sayjava/behave-engine@1.1.1) (2021-01-11)
+
+
+### Bug Fixes
+
+* content-type fix in body matching ([12972b9](https://github.com/sayjava/behave/commit/12972b9d663811eade87943b6cdb05866b774925))
+* fixed the bug with query params ([a2096ab](https://github.com/sayjava/behave/commit/a2096ab49704c962d441da2d88d9852687d49bc4))
+* linting and prettier ([a690e5a](https://github.com/sayjava/behave/commit/a690e5af9b789f26ebfe0c953854666afb99926c))
+
+
+
+
+
 # 1.1.0 (2020-12-08)
 
 
