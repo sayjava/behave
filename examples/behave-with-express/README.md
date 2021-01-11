@@ -2,16 +2,19 @@
 
 Use behave as an express middleware on an existing application. The middleware can be mounted as any express middleware.
 
-## Start
+This is a simple web application that fetches weather data and renders it. It fetches the data on `/api` and behave serves the response from the filesystem
 
-Install dependencies. you can also use `npm`
-```bash
+### Install Dependencies
+
+```shell
 yarn
 ```
 
-Start the server
-```bash
+### Start 
+
+```shell
 yarn start
 ```
 
-All the usual behave api endpoints will be available as well. 
+### Test
+Visit http://localhost:8080 

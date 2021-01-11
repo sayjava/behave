@@ -4,13 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@sayjava/behave": "^1.4.1",
+    "@sayjava/behave": "latest",
     "express": "^4.17.1",
     "serverless-http": "^2.6.0",
     "serverless-offline": "^6.8.0"
   },
   "scripts": {
-    "dev": "sls offline start",
+    "start": "sls offline start",
     "deploy": "sls deploy"
   },
   "devDependencies": {

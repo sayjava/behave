@@ -1,0 +1,23 @@
+{
+  "name": "@sayjava/behave-with-open-api",
+  "version": "1.0.0",
+  "description": "How to use Open API 3.0 and Swagger 2.0 with behave",
+  "author": "Raymond Ottun",
+  "homepage": "https://github.com/sayjava/behave#readme",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sayjava/behave.git"
+  },
+  "dependencies": {
+    "@sayjava/behave": "latest"
+  },
+  "scripts": {
+    "start-open-api": "behave --open-api github_open_api.json",
+    "start-swaggeer": "behave --open-api bigcommerce_swagger.json"
+  },
+  "bugs": {
+    "url": "https://github.com/sayjava/behave/issues"
+  }
+}

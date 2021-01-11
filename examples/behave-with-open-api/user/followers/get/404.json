@@ -1,0 +1,13 @@
+{
+    "headers": {
+        "x-github-response": "sorry-not-allowed",
+        "x-github-media-type": ["unknown", "github.v3"],
+        "X-Ratelimit-Used": 2,
+        "X-Ratelimit-Limit": 60,
+        "X-Ratelimit-Remaining": 58
+    },
+    "content":{
+        "message": "Not Found",
+        "documentation_url": "https://docs.github.com/rest/reference/users#list-followers-of-a-user"
+    }
+}
