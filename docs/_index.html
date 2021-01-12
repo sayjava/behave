@@ -16,6 +16,7 @@
 
         h1, h2, h3, h4, h5, h6 {
             margin: 0;
+            font-family: 'Source Sans Pro', sans-serif !important;
         }
 
         .icon {
@@ -34,38 +35,88 @@
 
         
     </style>
-    <main>
-        <section class="uk-section uk-section-muted uk-padding-large">
-            <div class="uk-flex uk-flex-center uk-flex-column">
-                <div class="uk-flex uk-flex-center title">
-                    <div class="icon uk-margin-small-right">
-                        <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24"></rect>
-                                <path d="M16.5428932,17.4571068 L11,11.9142136 L11,4 C11,3.44771525 11.4477153,3 12,3 C12.5522847,3 13,3.44771525 13,4 L13,11.0857864 L17.9571068,16.0428932 L20.1464466,13.8535534 C20.3417088,13.6582912 20.6582912,13.6582912 20.8535534,13.8535534 C20.9473216,13.9473216 21,14.0744985 21,14.2071068 L21,19.5 C21,19.7761424 20.7761424,20 20.5,20 L15.2071068,20 C14.9309644,20 14.7071068,19.7761424 14.7071068,19.5 C14.7071068,19.3673918 14.7597852,19.2402148 14.8535534,19.1464466 L16.5428932,17.4571068 Z" fill="#000000" fill-rule="nonzero"></path>
-                                <path d="M7.24478854,17.1447885 L9.2464466,19.1464466 C9.34021479,19.2402148 9.39289321,19.3673918 9.39289321,19.5 C9.39289321,19.7761424 9.16903559,20 8.89289321,20 L3.52893218,20 C3.25278981,20 3.02893218,19.7761424 3.02893218,19.5 L3.02893218,14.136039 C3.02893218,14.0034307 3.0816106,13.8762538 3.17537879,13.7824856 C3.37064094,13.5872234 3.68722343,13.5872234 3.88248557,13.7824856 L5.82567301,15.725673 L8.85405776,13.1631936 L10.1459422,14.6899662 L7.24478854,17.1447885 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
-                            </g>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="uk-heading-small">Behave</h1>
-                    </div>
-                </div>
-                <p class="uk-text-center">
-                    A robust, declarative http mock and testing server
-                </p>
+    <header>
+        <nav class="uk-navbar-container uk-navbar">
+            <div class="uk-navbar-left">
+        
+                <a class="uk-navbar-item uk-logo" href="#">
+                    <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        Behave
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"></rect>
+                            <path d="M16.5428932,17.4571068 L11,11.9142136 L11,4 C11,3.44771525 11.4477153,3 12,3 C12.5522847,3 13,3.44771525 13,4 L13,11.0857864 L17.9571068,16.0428932 L20.1464466,13.8535534 C20.3417088,13.6582912 20.6582912,13.6582912 20.8535534,13.8535534 C20.9473216,13.9473216 21,14.0744985 21,14.2071068 L21,19.5 C21,19.7761424 20.7761424,20 20.5,20 L15.2071068,20 C14.9309644,20 14.7071068,19.7761424 14.7071068,19.5 C14.7071068,19.3673918 14.7597852,19.2402148 14.8535534,19.1464466 L16.5428932,17.4571068 Z" fill="#000000" fill-rule="nonzero"></path>
+                            <path d="M7.24478854,17.1447885 L9.2464466,19.1464466 C9.34021479,19.2402148 9.39289321,19.3673918 9.39289321,19.5 C9.39289321,19.7761424 9.16903559,20 8.89289321,20 L3.52893218,20 C3.25278981,20 3.02893218,19.7761424 3.02893218,19.5 L3.02893218,14.136039 C3.02893218,14.0034307 3.0816106,13.8762538 3.17537879,13.7824856 C3.37064094,13.5872234 3.68722343,13.5872234 3.88248557,13.7824856 L5.82567301,15.725673 L8.85405776,13.1631936 L10.1459422,14.6899662 L7.24478854,17.1447885 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                        </g>
+                    </svg>
+                </a>
+        
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <a href="#">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                            Quick Start
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                            Guide
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                            API
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                            Testing
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                            Open Spec
+                        </a>
+                    </li>
+                </ul>
+        
+              
             </div>
-
-            <div class="uk-flex uk-flex-column uk-flex-center">
-                <div class="uk-card uk-card-body uk-width-1-2@m uk-margin-auto">
-                    <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">npx @sayjava/behave --behaviors <span style="color: #0000FF">\</span>
-<span style="color: #0000FF">&#39;[{&quot;request&quot;: {&quot;path&quot;:&quot;/hi&quot;}, &quot;response&quot;: {&quot;body&quot;: &quot;Hello World&quot;}}]&#39;</span>
-</pre></div>
-                </div>
-                <div class="uk-card uk-card-body uk-width-1-2@m uk-margin uk-margin-auto">
-                   <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"> curl http://localhost:8080/hi
-</pre></div>
-
+        </nav>
+    </header>
+    <main>
+        <section class="uk-section uk-section-muted uk-padding-large uk-section-secondary">
+            <div class="uk-container uk-flex uk-flex-wrap">
+                <div class="uk-flex uk-flex-center uk-flex-column uk-width-1-1 uk-width-1-2@m">
+                    <div class="uk-flex uk-flex-center title">
+                        <div class="icon uk-margin-small-right">
+                            <svg width="36px" height="36px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                    <path d="M16.5428932,17.4571068 L11,11.9142136 L11,4 C11,3.44771525 11.4477153,3 12,3 C12.5522847,3 13,3.44771525 13,4 L13,11.0857864 L17.9571068,16.0428932 L20.1464466,13.8535534 C20.3417088,13.6582912 20.6582912,13.6582912 20.8535534,13.8535534 C20.9473216,13.9473216 21,14.0744985 21,14.2071068 L21,19.5 C21,19.7761424 20.7761424,20 20.5,20 L15.2071068,20 C14.9309644,20 14.7071068,19.7761424 14.7071068,19.5 C14.7071068,19.3673918 14.7597852,19.2402148 14.8535534,19.1464466 L16.5428932,17.4571068 Z" fill="#000000" fill-rule="nonzero"></path>
+                                    <path d="M7.24478854,17.1447885 L9.2464466,19.1464466 C9.34021479,19.2402148 9.39289321,19.3673918 9.39289321,19.5 C9.39289321,19.7761424 9.16903559,20 8.89289321,20 L3.52893218,20 C3.25278981,20 3.02893218,19.7761424 3.02893218,19.5 L3.02893218,14.136039 C3.02893218,14.0034307 3.0816106,13.8762538 3.17537879,13.7824856 C3.37064094,13.5872234 3.68722343,13.5872234 3.88248557,13.7824856 L5.82567301,15.725673 L8.85405776,13.1631936 L10.1459422,14.6899662 L7.24478854,17.1447885 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="uk-heading-small">Behave</h1>
+                        </div>
+                    </div>
+                    <p class="uk-text-center">
+                        A robust, declarative http mock and testing server
+                    </p>
+                </div> 
+    
+                <div class="uk-flex uk-flex-center uk-flex-column uk-width-1-1 uk-width-1-2@m">
+                    <div class="uk-padding-small uk-flex uk-flex-center">
+                        <img src="media/quick_start.svg" alt="Quick Start" class="uk-margin-auto">
+                    </div>
+                    <div class="uk-padding-small uk-flex uk-flex-center">
+                        <img src="media/test.svg" alt="Quick Start" class="uk-margin-auto">
+                    </div>
                 </div>
             </div>
         </section>
@@ -111,7 +162,7 @@
             </section>
     
 
-            <section class="uk-section uk-section-muted">
+            <!-- <section class="uk-section uk-section-muted">
                 <div class="uk-container">
                     <div class="uk-grid">
                         <div class="uk-width-1-2">
@@ -145,7 +196,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
             <section class="uk-section">
                 <div class="uk-container">
