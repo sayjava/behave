@@ -7,6 +7,7 @@ import path from 'path';
 export interface BehaveConfig {
     fromFile?: string;
     behaviors?: Array<Behavior>;
+    debug?: boolean;
 }
 
 export function parseBehaviors(behaviors: string): Array<Behavior> {

@@ -74,7 +74,8 @@ export default async (argConfig: ServerConfig) => {
     createKeepAliveRoute(app, config.healthCheck);
     createKeepAliveRoute(app, config.readyCheck);
 
-    app.use(behaveHandler({ config }));
+    const behaveConfig = Object.assign({}, config, { debug: argConfig.debug === 'verbose' });
+    app.use(behaveHandler({ config: behaveConfig }));
 
     return {
         app,
