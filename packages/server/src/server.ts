@@ -80,9 +80,7 @@ export default async (argConfig: ServerConfig) => {
     return {
         app,
         start: async () => {
-            app.listen(config.port, () => {
-                console.info(`behave Server started on ${config.port}`);
-            });
+            app.listen(config.port);
         },
         stop: () => {
             console.info('Stop the server');
