@@ -38,13 +38,7 @@ export default async ({ uri, basePath }: Args): Promise<Behavior[]> => {
                     } = requestConfig as any;
 
                     return Object.entries(responses)
-                        .map(([status, responseContent]) => {
-                            const [[contentType]] = Object.entries(
-                                (responseContent as any).content || {
-                                    'text/plain': 'text/plain',
-                                },
-                            );
-
+                        .map(([status]) => {
                             const body = createBody(requestBody, parameters);
                             const response = createResponse({
                                 basePath: responseBase,
@@ -53,10 +47,7 @@ export default async ({ uri, basePath }: Args): Promise<Behavior[]> => {
                                 status,
                             });
 
-                            const { headers, pathParams, queryParams, queryString } = createParams(
-                                contentType,
-                                parameters,
-                            );
+                            const { headers, pathParams, queryParams, queryString } = createParams(parameters);
 
                             let fullPath = queryString.length ? `${requestPath}?${queryString}` : requestPath;
                             fullPath = fullPath.replace(/}/g, '');

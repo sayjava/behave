@@ -14,9 +14,7 @@ describe('Open API', () => {
                   "body": Object {
                     "position": "^(?:first|last|after:\\\\d+)$",
                   },
-                  "headers": Object {
-                    "content-type": "application/json",
-                  },
+                  "headers": Object {},
                   "method": "POST",
                   "path": "/projects/columns/:column_id/moves$",
                   "pathParams": Object {
@@ -38,9 +36,7 @@ describe('Open API', () => {
                   "body": Object {
                     "position": "^(?:first|last|after:\\\\d+)$",
                   },
-                  "headers": Object {
-                    "content-type": "text/plain",
-                  },
+                  "headers": Object {},
                   "method": "POST",
                   "path": "/projects/columns/:column_id/moves$",
                   "pathParams": Object {
@@ -62,9 +58,7 @@ describe('Open API', () => {
                   "body": Object {
                     "position": "^(?:first|last|after:\\\\d+)$",
                   },
-                  "headers": Object {
-                    "content-type": "application/json",
-                  },
+                  "headers": Object {},
                   "method": "POST",
                   "path": "/projects/columns/:column_id/moves$",
                   "pathParams": Object {
@@ -86,9 +80,7 @@ describe('Open API', () => {
                   "body": Object {
                     "position": "^(?:first|last|after:\\\\d+)$",
                   },
-                  "headers": Object {
-                    "content-type": "application/json",
-                  },
+                  "headers": Object {},
                   "method": "POST",
                   "path": "/projects/columns/:column_id/moves$",
                   "pathParams": Object {
@@ -110,9 +102,7 @@ describe('Open API', () => {
                   "body": Object {
                     "position": "^(?:first|last|after:\\\\d+)$",
                   },
-                  "headers": Object {
-                    "content-type": "application/json",
-                  },
+                  "headers": Object {},
                   "method": "POST",
                   "path": "/projects/columns/:column_id/moves$",
                   "pathParams": Object {
@@ -141,9 +131,7 @@ describe('Open API', () => {
               "name": "projects/list-collaborators",
               "request": Object {
                 "body": Object {},
-                "headers": Object {
-                  "content-type": "application/json",
-                },
+                "headers": Object {},
                 "method": "GET",
                 "path": "/projects/:project_id/collaborators$",
                 "pathParams": Object {
@@ -171,9 +159,7 @@ describe('Open API', () => {
               "name": "licenses/get-all-commonly-used",
               "request": Object {
                 "body": Object {},
-                "headers": Object {
-                  "content-type": "application/json",
-                },
+                "headers": Object {},
                 "method": "GET",
                 "path": "/licenses$",
                 "pathParams": Object {},
@@ -203,9 +189,7 @@ describe('Open API', () => {
                   "mode": "markdown|gfm",
                   "text": "[a-zA-Z]+",
                 },
-                "headers": Object {
-                  "content-type": "text/plain",
-                },
+                "headers": Object {},
                 "method": "POST",
                 "path": "/markdown$",
                 "pathParams": Object {},
@@ -234,9 +218,7 @@ describe('Open API', () => {
               "name": "users/list-followers-for-authenticated-user",
               "request": Object {
                 "body": Object {},
-                "headers": Object {
-                  "content-type": "application/json",
-                },
+                "headers": Object {},
                 "method": "GET",
                 "path": "/user/followers$",
                 "pathParams": Object {},
@@ -251,7 +233,9 @@ describe('Open API', () => {
                     "username": "jane.doe",
                   },
                 ],
-                "headers": Object {},
+                "headers": Object {
+                  "content-type": "application/json",
+                },
                 "statusCode": "200",
               },
             }
@@ -265,9 +249,7 @@ describe('Open API', () => {
               "name": "users/list-followers-for-authenticated-user",
               "request": Object {
                 "body": Object {},
-                "headers": Object {
-                  "content-type": "application/json",
-                },
+                "headers": Object {},
                 "method": "GET",
                 "path": "/user/followers$",
                 "pathParams": Object {},
@@ -278,6 +260,7 @@ describe('Open API', () => {
                   "message": "sorry didn't happen",
                 },
                 "headers": Object {
+                  "content-type": "application/json",
                   "x-github-response": "sorry-not-allowed",
                 },
                 "statusCode": "403",

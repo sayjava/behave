@@ -8,6 +8,7 @@ import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
 export default ({ method, status, path, basePath }): { response: Response; limit?: any; delay?: number } => {
+    const defaultHeaders = { 'content-type': 'application/json' };
     const paths = path.split('/');
     const responsePath =
         path === '/'
@@ -31,7 +32,7 @@ export default ({ method, status, path, basePath }): { response: Response; limit
             response: {
                 statusCode: status,
                 body: content,
-                headers,
+                headers: Object.assign({}, defaultHeaders, headers),
             },
             delay,
             limit,
@@ -40,6 +41,7 @@ export default ({ method, status, path, basePath }): { response: Response; limit
         return {
             response: {
                 statusCode: 500,
+                headers: defaultHeaders,
                 body: {
                     message: `There is a problem parsing ${responsePath}`,
                     error,

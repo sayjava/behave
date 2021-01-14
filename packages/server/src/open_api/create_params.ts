@@ -4,11 +4,11 @@
 
 import query from 'querystring';
 
-export default (contentType: string, params: { [key: string]: any }) => {
+export default (params: { [key: string]: any }) => {
     const pathParams = {};
     const queryParams = {};
     const queryString = {};
-    const headers = { 'content-type': contentType };
+    const headers = { };
 
     params.forEach((param) => {
         if (!param.required) {

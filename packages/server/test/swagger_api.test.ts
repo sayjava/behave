@@ -19,9 +19,7 @@ describe('Swagger API', () => {
                 "name": "getTransactions",
                 "request": Object {
                   "body": Object {},
-                  "headers": Object {
-                    "content-type": "text/plain",
-                  },
+                  "headers": Object {},
                   "method": "GET",
                   "path": "/orders/:order_id/transactions$",
                   "pathParams": Object {
@@ -48,9 +46,7 @@ describe('Swagger API', () => {
                 "name": "getTransactions",
                 "request": Object {
                   "body": Object {},
-                  "headers": Object {
-                    "content-type": "text/plain",
-                  },
+                  "headers": Object {},
                   "method": "GET",
                   "path": "/orders/:order_id/transactions$",
                   "pathParams": Object {
@@ -77,9 +73,7 @@ describe('Swagger API', () => {
                 "name": "getTransactions",
                 "request": Object {
                   "body": Object {},
-                  "headers": Object {
-                    "content-type": "text/plain",
-                  },
+                  "headers": Object {},
                   "method": "GET",
                   "path": "/orders/:order_id/transactions$",
                   "pathParams": Object {
@@ -144,9 +138,7 @@ describe('Swagger API', () => {
                   "items": ".*",
                   "order_id": "[0-9]+",
                 },
-                "headers": Object {
-                  "content-type": "text/plain",
-                },
+                "headers": Object {},
                 "method": "POST",
                 "path": "/orders/:order_id/payment_actions/refund_quotes$",
                 "pathParams": Object {
@@ -180,9 +172,7 @@ describe('Swagger API', () => {
               "name": "getOrderMetafieldByOrderIdAndMetafieldId",
               "request": Object {
                 "body": Object {},
-                "headers": Object {
-                  "content-type": "text/plain",
-                },
+                "headers": Object {},
                 "method": "GET",
                 "path": "/orders/:order_id/metafields/:metafield_id$",
                 "pathParams": Object {},
@@ -192,7 +182,9 @@ describe('Swagger API', () => {
                 "body": Object {
                   "meta_field": "Safely returned metatfield",
                 },
-                "headers": Object {},
+                "headers": Object {
+                  "content-type": "application/json",
+                },
                 "statusCode": "200",
               },
             }
@@ -207,9 +199,7 @@ describe('Swagger API', () => {
               "name": "deleteOrderMetafieldById",
               "request": Object {
                 "body": Object {},
-                "headers": Object {
-                  "content-type": "text/plain",
-                },
+                "headers": Object {},
                 "method": "DELETE",
                 "path": "/orders/:order_id/metafields/:metafield_id$",
                 "pathParams": Object {},
@@ -219,7 +209,9 @@ describe('Swagger API', () => {
                 "body": Object {
                   "meta_field": "deleted meta field successfully",
                 },
-                "headers": Object {},
+                "headers": Object {
+                  "content-type": "application/json",
+                },
                 "statusCode": "204",
               },
             }
