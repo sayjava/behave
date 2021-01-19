@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.5.0...@sayjava/behave@1.6.0) (2021-01-19)
+
+
+### Bug Fixes
+
+* enable debugging ([0bee7d4](https://github.com/sayjava/behave/commit/0bee7d458466ab3221eb870b2c3dfdab6142001a))
+* log server out ([cf5b5c3](https://github.com/sayjava/behave/commit/cf5b5c3f27ee196ccadf654d9e7eaec195bb9d46))
+* removed default "application/json" headers ([c6f2299](https://github.com/sayjava/behave/commit/c6f2299e0e86dd3b17c52e694270a4cc9f0b2afd))
+
+
+### Features
+
+* improved logging ([8c4a0e4](https://github.com/sayjava/behave/commit/8c4a0e486d0fceda1bd5efabe9ab26550ed4b625))
+* watch behaviors file by default ([796054b](https://github.com/sayjava/behave/commit/796054b62a5a5b385261f3e99fb94033a9fb630c))
+
+
+
+
+
 # [1.5.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.4.1...@sayjava/behave@1.5.0) (2021-01-11)
 
 

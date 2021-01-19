@@ -1,6 +1,6 @@
 {
   "name": "@sayjava/behave",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "main": "lib/index.js",
   "repository": "git@github.com:sayjava/behave.git",
   "author": "Raymond Ottun <sayjava@gmail.com>",
