@@ -6,6 +6,7 @@ import createBehaviorsHandler from '../handlers/behaviors';
 import createRecordsHandler from '../handlers/records';
 import createRoutesHandler from '../handlers/routes';
 import createSequenceHandler from '../handlers/sequence';
+import logger from "../logger";
 import { BehaveConfig, loadBehaviors, sendJson } from '../utils';
 
 export interface BehaveNodeHttpProps {
@@ -13,9 +14,9 @@ export interface BehaveNodeHttpProps {
 }
 
 const log = (behaviors: Behavior[]) => {
-    console.info(`|- - - - - - Loaded Behaviors  (${behaviors.length}) - - - - - -|\n\n`);
-    behaviors.forEach((be) => console.info(prettyoutput(be)));
-    console.info(`|- - - - - - Loaded Behaviors - - - - - -|`);
+    logger.info(`|- - - - - - Loaded Behaviors (${behaviors.length}) - - - - - -|\n\n`);
+    behaviors.forEach((be) => logger.info(prettyoutput(be)));
+    logger.info(`|- - - - - - Loaded Behaviors - - - - - -|`);
 };
 
 export default ({ config }: BehaveNodeHttpProps) => {
@@ -28,7 +29,7 @@ export default ({ config }: BehaveNodeHttpProps) => {
     const assertHandler = createAssertHandler(engine);
     const sequenceHandler = createSequenceHandler(engine);
 
-    config.debug && log(behaviors);
+    log(behaviors);
 
     return (req: IncomingMessage, res: ServerResponse) => {
         switch (req.url) {

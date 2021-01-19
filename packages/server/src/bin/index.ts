@@ -6,6 +6,7 @@ import path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import server from '../server';
+import logger from "../logger"
 
 const logInfo = (config) => {
     const {
@@ -17,8 +18,8 @@ const logInfo = (config) => {
         ],
     } = os.networkInterfaces();
 
-    console.log(`|------ Behave Server Started on port ${config.port} ------- |`);
-    console.log(`|------ Available urls on the server are:  ------- |`);
+    console.info(`|------ Behave Server Started on port ${config.port} ------- |`);
+    console.info(`|------ Available urls on the server are:  ------- |`);
 
     const routes = [
         ['List Behaviors', '/_/api/behaviors'],
@@ -36,7 +37,7 @@ const logInfo = (config) => {
                 table.push([desc, `http://${it.address}:${config.port}${url}`]);
             });
 
-            console.log(table.toString());
+            console.info(table.toString());
         }
     });
 };
@@ -97,17 +98,17 @@ const start = async () => {
         if (existsSync(behaviorFile)) {
             watchFile(behaviorFile, async () => {
                 try {
-                    console.info(`${behaviorFile} has changed and restarting the server`)
+                    logger.info(`${behaviorFile} has changed and restarting the server`)
                     serverApp.stop();
                     serverApp = await startServer();
                 } catch (error) {
-                    console.error(error);
+                    logger.error(error);
                     process.exit(-1);
                 }
             });
         }
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         process.exit(-1);
     }
 };

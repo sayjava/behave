@@ -3,6 +3,7 @@ import formidable from 'formidable';
 import { existsSync, readFileSync } from 'fs';
 import { IncomingMessage, ServerResponse } from 'http';
 import path from 'path';
+import logger from './logger';
 
 export interface BehaveConfig {
     fromFile?: string;
@@ -27,8 +28,8 @@ export function loadBehaviors(args: BehaveConfig): Array<any> {
     const fileExists = existsSync(filePath);
 
     if (!behaviors && !fileExists) {
-        console.warn('No behaviors was loaded');
-        console.warn('see the docs at https://behave.dev');
+        logger.warn('No behaviors was loaded');
+        logger.warn('see the docs at https://behave.dev');
         return [];
     }
 

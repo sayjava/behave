@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express, { Express } from 'express';
-import morgan from 'morgan';
 import behaveHandler from './handlers/';
+import logger from './logger';
 import openAPI from './open_api';
 
 export interface ServerConfig {
@@ -28,19 +28,13 @@ const createKeepAliveRoute = (app: Express, path: string) => {
     });
 };
 
-const enableLogging = (app: Express, config: ServerConfig) => {
-    switch (config.debug) {
-        case 'none':
-            break;
-        case 'verbose': {
-            app.use(
-                morgan('combined', {
-                    skip: (req, _) => req.path.includes('/_ui/'),
-                }),
-            );
-            break;
+const enableLogging = (app: Express) => {
+    app.use((req, res, next) => {
+        if(!req.path.includes("/_/")) {
+            logger.info(`method: ${req.method}, path: ${req.path}, query: ${JSON.stringify(req.query)}`)
         }
-    }
+        next()
+    });
 };
 
 const enableUI = (app: Express) => {
@@ -53,7 +47,7 @@ const loadOpenAPI = async (config: ServerConfig): Promise<ServerConfig> => {
             const behaviors = await openAPI({ uri: config.openApi });
             return Object.assign({}, config, { behaviors });
         } catch (error) {
-            console.error(`OPEN API ERROR: `, error);
+            logger.error(error);
             return config;
         }
     }
@@ -69,7 +63,7 @@ export default async (argConfig: ServerConfig) => {
     app.use(cors());
 
     enableUI(app);
-    enableLogging(app, config);
+    enableLogging(app);
 
     createKeepAliveRoute(app, config.healthCheck);
     createKeepAliveRoute(app, config.readyCheck);
