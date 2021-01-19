@@ -1,52 +1,42 @@
 #!/usr/bin/env node
 import Table from 'cli-table';
+import { existsSync, watchFile } from 'fs';
 import os from 'os';
+import path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import server from '../server';
 
 const logInfo = (config) => {
-    const { eth0 = [{
-        family: "IPv4",
-        address: "localhost"
-    }] } = os.networkInterfaces();
+    const {
+        eth0 = [
+            {
+                family: 'IPv4',
+                address: 'localhost',
+            },
+        ],
+    } = os.networkInterfaces();
 
-    console.log(`|------ Behave Server Started on port ${config.port} ------- |`)
-    console.log(`|------ Available urls on the server are:  ------- |`)
+    console.log(`|------ Behave Server Started on port ${config.port} ------- |`);
+    console.log(`|------ Available urls on the server are:  ------- |`);
 
     const routes = [
-        [
-           'List Behaviors',
-           '/_/api/behaviors',
-        ],
-        [
-            'List Records',
-           '/_/api/records',
-        ],
-        [
-            'Assert Request Sequence',
-           '/_/api/sequence',
-        ],
-        [
-            'Assert Requests Existences & Counts',
-           '/_/api/requests/assert',
-        ],
-        [
-            'Reset Server',
-           '/_/api/reset',
-        ]
+        ['List Behaviors', '/_/api/behaviors'],
+        ['List Records', '/_/api/records'],
+        ['Assert Request Sequence', '/_/api/sequence'],
+        ['Assert Requests Existences & Counts', '/_/api/requests/assert'],
+        ['Reset Server', '/_/api/reset'],
     ];
 
     eth0.forEach((it) => {
         if (it.family === 'IPv4') {
-            const table = new Table({ head: ["Description", "Url"] })
+            const table = new Table({ head: ['Description', 'Url'] });
 
-            routes
-            .forEach(([desc, url]) =>  {
+            routes.forEach(([desc, url]) => {
                 table.push([desc, `http://${it.address}:${config.port}${url}`]);
             });
-            
-            console.log(table.toString())
+
+            console.log(table.toString());
         }
     });
 };
@@ -76,8 +66,8 @@ const args = yargs(hideBin(process.argv))
         alias: 'f',
         describe: 'JSON file containing array of behaviors',
         default: 'behaviors.json',
-	})
-	.option('open-api', {
+    })
+    .option('open-api', {
         alias: 'a',
         describe: 'Open API file',
     })
@@ -87,17 +77,39 @@ const args = yargs(hideBin(process.argv))
         default: 'info',
     }).argv;
 
-try {
-    if (args.behaviors) {
-        Object.assign(args, { behaviors: JSON.parse(args.behaviors) });
+const startServer = async () => {
+    let app = await server({ ...(args as any) });
+    app.start();
+    logInfo(args);
+    return app;
+};
+
+const start = async () => {
+    try {
+        
+        if (args.behaviors) {
+            Object.assign(args, { behaviors: JSON.parse(args.behaviors) });
+        }
+        
+        let serverApp = await startServer();
+        
+        const behaviorFile = path.join(process.cwd(), args['from-file']);
+        if (existsSync(behaviorFile)) {
+            watchFile(behaviorFile, async () => {
+                try {
+                    console.info(`${behaviorFile} has changed and restarting the server`)
+                    serverApp.stop();
+                    serverApp = await startServer();
+                } catch (error) {
+                    console.error(error);
+                    process.exit(-1);
+                }
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        process.exit(-1);
     }
-    server({
-        ...(args as any),
-    }).then((app) => {
-        app.start();
-        logInfo(args)
-    });
-} catch (error) {
-    console.error(error);
-    process.exit(-1);
-}
+};
+
+start();

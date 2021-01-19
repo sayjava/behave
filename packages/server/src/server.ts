@@ -77,13 +77,14 @@ export default async (argConfig: ServerConfig) => {
     const behaveConfig = Object.assign({}, config, { debug: argConfig.debug === 'verbose' });
     app.use(behaveHandler({ config: behaveConfig }));
 
+    let server;
     return {
         app,
         start: async () => {
-            app.listen(config.port);
+            server = app.listen(config.port);
         },
         stop: () => {
-            console.info('Stop the server');
+            server.close();
         },
     };
 };
