@@ -1,15 +1,8 @@
 import { createLogger, format, transports } from 'winston';
 
-const getLogLevel = () => {
-    if(process.env.NODE_ENV === "test") {
-        return "error"
-    }
-
-    return process.env.LOG_LEVEL || "info"
-}
-
 export default createLogger({
-    level: getLogLevel(),
+    silent: process.env.NODE_ENV === "test",
+    level: process.env.LOG_LEVEL || "info",
     format: format.combine(
         format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss',

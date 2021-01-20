@@ -71,11 +71,6 @@ const args = yargs(hideBin(process.argv))
     .option('open-api', {
         alias: 'a',
         describe: 'Open API file',
-    })
-    .option('debug', {
-        alias: 'd',
-        describe: 'Debug level info, verbose',
-        default: 'info',
     }).argv;
 
 const startServer = async () => {

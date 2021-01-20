@@ -1,6 +1,7 @@
 import { Engine } from '@sayjava/behave-engine';
 import { IncomingMessage, ServerResponse } from 'http';
 import { parseBody, sendJson } from '../utils';
+import logger from "../logger"
 
 export default (engine: Engine) => async (req: IncomingMessage, res: ServerResponse) => {
     switch (req.method) {
@@ -16,7 +17,7 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
 
                 return sendJson({ res, status: 406, body: result });
             } catch (error) {
-                console.error(error);
+                logger.error(error);
                 return sendJson({ res, status: 400, body: error });
             }
 

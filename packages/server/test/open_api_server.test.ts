@@ -66,7 +66,6 @@ describe('Open API Server', () => {
         const res = await request(app).get('/user/followers').set('content-type', 'application/json');
         expect(res.status).toBe(404);
 
-        expect(console.error).toHaveBeenLastCalledWith(`OPEN API ERROR: `, new Error(`Error opening file "/Users/raymondottun/Projects/behave/packages/server/fixtures/none_existing_api.json"`))
     });
 
     

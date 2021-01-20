@@ -11,14 +11,12 @@ export interface ServerConfig {
     behaviors?: Array<any>;
     healthCheck?: string;
     readyCheck?: string;
-    debug?: 'none' | 'verbose';
 }
 
 const defaultConfig: ServerConfig = {
     port: 8080,
     healthCheck: '/_/healthz',
     readyCheck: '/_/readyz',
-    debug: 'none',
     fromFile: 'behaviors.json',
 };
 
@@ -68,8 +66,7 @@ export default async (argConfig: ServerConfig) => {
     createKeepAliveRoute(app, config.healthCheck);
     createKeepAliveRoute(app, config.readyCheck);
 
-    const behaveConfig = Object.assign({}, config, { debug: argConfig.debug === 'verbose' });
-    app.use(behaveHandler({ config: behaveConfig }));
+    app.use(behaveHandler({ config }));
 
     let server;
     return {
