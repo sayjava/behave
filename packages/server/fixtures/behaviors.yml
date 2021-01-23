@@ -1,0 +1,16 @@
+---
+- name: Successful todo
+  request:
+    path: "/todo/[0-9]+"
+    method: GET
+  response:
+    body:
+      id: 2
+      text: The todo body
+- name: Failed todo
+  request:
+    path: "/todo/[a-z]+"
+    method: GET
+  response:
+    statusCode: 500
+    body: Server blew up

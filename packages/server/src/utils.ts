@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'fs';
 import { IncomingMessage, ServerResponse } from 'http';
 import path from 'path';
 import logger from './logger';
-
+import Yaml from "yaml";
 export interface BehaveConfig {
     fromFile?: string;
     behaviors?: Array<Behavior>;
@@ -38,7 +38,11 @@ export function loadBehaviors(args: BehaveConfig): Array<any> {
     }
 
     if (fileExists) {
-        return parseBehaviors(readFileSync(filePath).toString());
+        const fileContent = readFileSync(filePath, "utf-8");
+        if([".yaml", ".yml"].includes(path.extname(filePath))) {
+            return parseBehaviors(JSON.stringify(Yaml.parse(fileContent)))
+        }
+        return parseBehaviors(fileContent);
     }
 }
 

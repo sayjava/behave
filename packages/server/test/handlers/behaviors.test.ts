@@ -23,6 +23,46 @@ test('add a successful behavior', async () => {
     expect(res.status).toBe(201);
 });
 
+test('load behaviors from a yml', async () => {
+    const requestHandler = createHandler({ config: { fromFile: 'fixtures/behaviors.yml' } });
+
+    const server = createServer(requestHandler);
+    const res = await request(server).get('/_/api/behaviors');
+
+    expect(res.body).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "id": "tZidRRZxqw",
+            "limit": "unlimited",
+            "name": "Successful todo",
+            "request": Object {
+              "method": "GET",
+              "path": "/todo/[0-9]+",
+            },
+            "response": Object {
+              "body": Object {
+                "id": 2,
+                "text": "The todo body",
+              },
+            },
+          },
+          Object {
+            "id": "57UObfxxIR",
+            "limit": "unlimited",
+            "name": "Failed todo",
+            "request": Object {
+              "method": "GET",
+              "path": "/todo/[a-z]+",
+            },
+            "response": Object {
+              "body": "Server blew up",
+              "statusCode": 500,
+            },
+          },
+        ]
+    `);
+});
+
 test('fail adding behavior not an array', async () => {
     const requestHandler = createHandler({
         config: {
@@ -49,17 +89,15 @@ test('fail adding behavior not an array', async () => {
         });
 
     expect(res.status).toBe(400);
-    expect(res.body).toMatchInlineSnapshot(
-        `
-    Object {
-      "actual": Array [],
-      "expected": Array [
-        "path",
-      ],
-      "message": "Request requires a path: expected {} to contain key 'path'",
-    }
-  `,
-    );
+    expect(res.body).toMatchInlineSnapshot(`
+            Object {
+              "actual": Array [],
+              "expected": Array [
+                "path",
+              ],
+              "message": "Request requires a path: expected {} to contain key 'path'",
+            }
+      `);
 });
 
 test('fail adding a non valid behavior', async () => {
@@ -87,19 +125,17 @@ test('fail adding a non valid behavior', async () => {
         ]);
 
     expect(res.status).toBe(400);
-    expect(res.body).toMatchInlineSnapshot(
-        `
-    Object {
-      "actual": Array [
-        "method",
-      ],
-      "expected": Array [
-        "path",
-      ],
-      "message": "Request requires a path: expected { method: 'POST' } to contain key 'path'",
-    }
-  `,
-    );
+    expect(res.body).toMatchInlineSnapshot(`
+            Object {
+              "actual": Array [
+                "method",
+              ],
+              "expected": Array [
+                "path",
+              ],
+              "message": "Request requires a path: expected { method: 'POST' } to contain key 'path'",
+            }
+      `);
 });
 
 test.skip('remove an behavior', async () => {
@@ -120,13 +156,11 @@ test.skip('remove an behavior', async () => {
     const res = await request(server).delete('/_/api/behaviors?id=sample-behavior');
 
     expect(res.status).toBe(201);
-    expect(res.body).toMatchInlineSnapshot(
-        `
-    Object {
-      "message": "ok",
-    }
-  `,
-    );
+    expect(res.body).toMatchInlineSnapshot(`
+            Object {
+              "message": "ok",
+            }
+      `);
 });
 
 test('retrieve all behaviors', async () => {
@@ -147,22 +181,20 @@ test('retrieve all behaviors', async () => {
     const res = await request(server).get('/_/api/behaviors');
 
     expect(res.status).toBe(200);
-    expect(res.body).toMatchInlineSnapshot(
-        `
-    Array [
-      Object {
-        "id": "sample-behavior",
-        "limit": "unlimited",
-        "name": "test behaviors",
-        "request": Object {
-          "method": "GET",
-          "path": "/tasks",
-        },
-        "response": Object {},
-      },
-    ]
-  `,
-    );
+    expect(res.body).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "id": "sample-behavior",
+                "limit": "unlimited",
+                "name": "test behaviors",
+                "request": Object {
+                  "method": "GET",
+                  "path": "/tasks",
+                },
+                "response": Object {},
+              },
+            ]
+      `);
 });
 
 test('uses files as response', async () => {
@@ -188,20 +220,18 @@ test('uses files as response', async () => {
     const server = createServer(requestHandler);
     const res = await request(server).get('/todos');
 
-    expect(res.body).toMatchInlineSnapshot(
-        `
-    Array [
-      Object {
-        "id": 2,
-        "text": "read from file",
-      },
-      Object {
-        "id": 3,
-        "text": "from todos.json",
-      },
-    ]
-  `,
-    );
+    expect(res.body).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "id": 2,
+                "text": "read from file",
+              },
+              Object {
+                "id": 3,
+                "text": "from todos.json",
+              },
+            ]
+      `);
 });
 
 test('handles missing files gracefully', async () => {
@@ -227,13 +257,11 @@ test('handles missing files gracefully', async () => {
     const server = createServer(requestHandler);
     const res = await request(server).get('/todos');
 
-    expect(res.body).toMatchInlineSnapshot(
-        `
-    Object {
-      "message": "fixtures/non_existing_file.json can not be found on the server",
-    }
-  `,
-    );
+    expect(res.body).toMatchInlineSnapshot(`
+            Object {
+              "message": "fixtures/non_existing_file.json can not be found on the server",
+            }
+      `);
 });
 
 test('matches request body', async () => {
@@ -263,18 +291,16 @@ test('matches request body', async () => {
     const server = createServer(requestHandler);
     const res = await request(server).post('/todos').send({ name: 'John Doe' });
 
-    expect(res.body).toMatchInlineSnapshot(
-        `
-    Array [
-      Object {
-        "id": 2,
-        "text": "read from file",
-      },
-      Object {
-        "id": 3,
-        "text": "from todos.json",
-      },
-    ]
-  `,
-    );
+    expect(res.body).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "id": 2,
+                "text": "read from file",
+              },
+              Object {
+                "id": 3,
+                "text": "from todos.json",
+              },
+            ]
+      `);
 });
