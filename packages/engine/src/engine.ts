@@ -1,9 +1,9 @@
 import { assert } from 'chai';
 import shortId from 'shortid';
 import bodyMatcher from './matchers/body';
-import queryMatcher from './matchers/query';
 import headerMatcher from './matchers/headers';
 import pathMatcher from './matchers/path';
+import queryMatcher from './matchers/query';
 import { Behavior, IntervalVerification, Record, Request, Verification, VerificationError } from './types';
 
 interface EngineConfig {
@@ -74,21 +74,21 @@ export class Engine {
                 const method = rec.request.method || 'GET';
                 return method === request.method;
             })
-            .filter((exp) => pathMatcher(exp.request, request))
-            .filter((exp) => queryMatcher(exp.request, request))
-            .filter((exp) => headerMatcher(exp.request, request) === true)
-            .filter((exp) => bodyMatcher(exp.request, request) === true)
-            .filter((exp) => {
-                if (exp.limit === 'unlimited' || exp.limit === undefined) {
+            .filter((behavior) => pathMatcher(behavior.request, request))
+            .filter((behavior) => queryMatcher(behavior.request, request))
+            .filter((behavior) => headerMatcher(behavior.request, request) === true)
+            .filter((behavior) => bodyMatcher(behavior.request, request) === true)
+            .filter((behavior) => {
+                if (behavior.limit === 'unlimited' || behavior.limit === undefined) {
                     return true;
                 }
 
-                const pastMatches = this.$records.filter((rec) => {
-                    const exps = rec.matches.map((e) => e.id);
-                    return exps.includes(exp.id);
+                const pastMatches = this.$records.filter((record) => {
+                    const bids = record.matches.map((b) => b.id);
+                    return bids[0] === behavior.id;
                 }).length;
 
-                return pastMatches < exp.limit;
+                return pastMatches < behavior.limit;
             });
 
         this.$records.push({

@@ -62,6 +62,22 @@ test('matches query string order parameters', () => {
     expect(matcher(expRequest, request2)).toBe(true);
 });
 
+test('optional query string order parameters', () => {
+    const expRequest: Request = {
+        path: '/todo',
+        headers: {},
+        method: 'GET',
+    };
+
+    const request1: Request = {
+        path: '/todo?done=false&id=2',
+        headers: {},
+        method: 'GET',
+    };
+
+    expect(matcher(expRequest, request1)).toBe(true);
+});
+
 test('matches query string parameters and path parameters', () => {
     const expRequest: Request = {
         path: '/todo/:id/owner/:ownerId',
