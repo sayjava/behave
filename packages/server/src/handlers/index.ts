@@ -1,23 +1,15 @@
-import { Behavior, Engine } from '@sayjava/behave-engine';
+import { Engine } from '@sayjava/behave-engine';
 import { IncomingMessage, ServerResponse } from 'http';
-import prettyoutput from 'prettyoutput';
 import createAssertHandler from '../handlers/assert';
 import createBehaviorsHandler from '../handlers/behaviors';
 import createRecordsHandler from '../handlers/records';
 import createRoutesHandler from '../handlers/routes';
 import createSequenceHandler from '../handlers/sequence';
-import logger from "../logger";
 import { BehaveConfig, loadBehaviors, sendJson } from '../utils';
 
 export interface BehaveNodeHttpProps {
     config: BehaveConfig;
 }
-
-const log = (behaviors: Behavior[]) => {
-    logger.info(`|- - - - - - Loaded Behaviors (${behaviors.length}) - - - - - -|\n\n`);
-    behaviors.forEach((be) => logger.info(prettyoutput(be)));
-    logger.info(`|- - - - - - Loaded Behaviors - - - - - -|`);
-};
 
 export default ({ config }: BehaveNodeHttpProps) => {
     const behaviors = loadBehaviors(config);
@@ -28,8 +20,6 @@ export default ({ config }: BehaveNodeHttpProps) => {
     const routesHandler = createRoutesHandler(engine);
     const assertHandler = createAssertHandler(engine);
     const sequenceHandler = createSequenceHandler(engine);
-
-    log(behaviors);
 
     return (req: IncomingMessage, res: ServerResponse) => {
         switch (req.url) {
