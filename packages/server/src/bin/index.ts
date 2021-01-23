@@ -18,8 +18,8 @@ const logInfo = (config) => {
         ],
     } = os.networkInterfaces();
 
-    console.info(`|------ Behave Server Started on port ${config.port} ------- |`);
-    console.info(`|------ Available urls on the server are:  ------- |`);
+    console.info(`|------ Behave Server Started on port ${config.port} -------|`);
+    console.info(`|------ Available urls on the server are:  -----------------|`);
 
     const routes = [
         ['List Behaviors', '/_/api/behaviors'],

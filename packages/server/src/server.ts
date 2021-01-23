@@ -29,7 +29,13 @@ const createKeepAliveRoute = (app: Express, path: string) => {
 const enableLogging = (app: Express) => {
     app.use((req, res, next) => {
         if(!req.path.includes("/_/")) {
-            logger.info(`method: ${req.method}, path: ${req.path}, query: ${JSON.stringify(req.query)}`)
+            const log = {
+                method: req.method,
+                path: req.path,
+                query: req.query,
+                body: req.body
+            }
+            logger.info(log);
         }
         next()
     });

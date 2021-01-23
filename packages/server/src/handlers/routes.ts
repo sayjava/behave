@@ -1,7 +1,7 @@
 import { Engine, Request as EngineRequest } from '@sayjava/behave-engine';
 import { existsSync, readFileSync } from 'fs';
 import { IncomingMessage, ServerResponse } from 'http';
-import logger from "../logger";
+import logger from '../logger';
 import { parseBody, sendJson } from '../utils';
 
 export default (engine: Engine) => async (req: IncomingMessage, res: ServerResponse) => {
@@ -19,7 +19,13 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
         const [matched] = engine.match(engineRequest);
 
         if (matched) {
-            logger.info(`Behavior matched ${matched.id} - name: ${matched.name}, path: ${matched.request.path}`)
+            const log = {
+                id: matched.id,
+                name: matched.name,
+                path: matched.request.path,
+                info: 'Behavior Matched',
+            };
+            logger.info(log);
             const { statusCode = 200, body = '', headers = {}, delay = 0, file, attachment } = matched.response;
 
             Object.entries(headers).forEach(([key, value]) => {
@@ -47,11 +53,12 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
                 return res.end();
             }, delay);
         } else {
-            logger.warn(`${req.url}:  No behaviors matched`);
+            const log = { path: req.url, info: 'Behavior Not Matched' };
+            logger.warn(log);
             return sendJson({ res, status: 404, body: { path: req.url } });
         }
     } catch (error) {
-        logger.error(error)
+        logger.error(error);
         return sendJson({ res, status: 404, body: { error } });
     }
 };
