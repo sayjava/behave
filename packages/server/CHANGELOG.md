@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.6.0...@sayjava/behave@1.7.0) (2021-01-25)
+
+
+### Bug Fixes
+
+* json log format ([dd6b6f2](https://github.com/sayjava/behave/commit/dd6b6f2993e9401c784fe48691a820583ca8985a))
+* silent logs ([9e5ea60](https://github.com/sayjava/behave/commit/9e5ea60c426fc7b6f84c8b40c526e2c04a7ac271))
+* Updated the logs ([090f66f](https://github.com/sayjava/behave/commit/090f66f0dcd627ec38c54519d875233a5133963e))
+
+
+### Features
+
+* included yaml support ([dab6d60](https://github.com/sayjava/behave/commit/dab6d60fe4a55f2eeb8020e7cd8ddf18449ab0fa))
+
+
+
+
+
 # [1.6.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.5.0...@sayjava/behave@1.6.0) (2021-01-19)
 
 
