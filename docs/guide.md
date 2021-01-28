@@ -1,20 +1,9 @@
 ---
 id: guide
 title: Guide
-sidebar_label: Guide
-slug: /guide
-has_toc: true
-nav_order: 2
 ---
 
 # Behavior Guide
-{: .no_toc }
-
-<!-- ## Table of contents -->
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
 
 The `Behave` server uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
 
@@ -41,7 +30,6 @@ curl -v -X PUT "http://localhost:8080/_/api/behaviors" -d '[
         }
     }
 ]'
-
 ```
 
 The server can also be initialized with a set of behaviors at start up as described [here](guide.md#configure)

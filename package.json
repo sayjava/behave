@@ -11,7 +11,7 @@
     "express-mock-middleware",
     "http-test-server"
   ],
-  "description": "An HTTP mocking and testing server. Quickly stub out network response to requests",
+  "description": "A robust HTTP mocking server to rapidly aid application development and system testing",
   "repository": "git@gitlab.com:sayjava/behave.git",
   "scripts": {
     "build": "lerna run build",
@@ -19,7 +19,9 @@
     "bootstrap": "lerna bootstrap",
     "prepublish": "yarn build",
     "release": "yarn build && lerna publish",
-    "lint": "eslint '*/**/src/*.ts' --quiet --fix"
+    "lint": "eslint '*/**/src/*.ts' --quiet --fix",
+    "dev:docs": "vuepress dev docs",
+    "build:docs": "vuepress build docs"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
@@ -29,7 +31,8 @@
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.3.0",
     "lerna": "^3.22.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "vuepress": "^1.5.3"
   },
   "version": "0.0.0",
   "workspaces": [
@@ -37,5 +40,6 @@
   ],
   "rome": {
     "version": "^0.0.1"
-  }
+  },
+  "dependencies": {}
 }
