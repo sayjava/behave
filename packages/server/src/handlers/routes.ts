@@ -23,6 +23,8 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
                 id: matched.id,
                 name: matched.name,
                 path: matched.request.path,
+                method: matched.request.method,
+                status: matched.response.statusCode || 200,
                 info: 'Behavior Matched',
             };
             logger.info(log);
@@ -53,7 +55,7 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
                 return res.end();
             }, delay);
         } else {
-            const log = { path: req.url, info: 'Behavior Not Matched' };
+            const log = { path: req.url, method: req.method, info: 'Behavior Not Matched' };
             logger.warn(log);
             return sendJson({ res, status: 404, body: { path: req.url } });
         }
