@@ -12,7 +12,6 @@ jobs:
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: sayjava/behave
-        TARGET_BRANCH: master
+        TARGET_BRANCH: A:gh_pages
         BUILD_SCRIPT: yarn && yarn build:docs
         BUILD_DIR: docs/.vuepress/dist/
-        
