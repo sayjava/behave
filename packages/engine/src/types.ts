@@ -1,6 +1,6 @@
 export interface Request {
     path: string;
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTION' | 'PATCH';
+    method?: string;
     contentType?: 'application/json' | 'text/plain';
     body?:
         | string

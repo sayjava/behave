@@ -4,6 +4,7 @@ import bodyMatcher from './matchers/body';
 import headerMatcher from './matchers/headers';
 import pathMatcher from './matchers/path';
 import queryMatcher from './matchers/query';
+import methodMatcher from './matchers/method';
 import { Behavior, IntervalVerification, Record, Request, Verification, VerificationError } from './types';
 
 interface EngineConfig {
@@ -57,10 +58,7 @@ export class Engine {
 
     private verifyRequest(request: Request): Record[] {
         return this.$records
-            .filter((rec) => {
-                const method = rec.request.method || 'GET';
-                return method === request.method;
-            })
+            .filter((rec) => methodMatcher(request, rec.request) === true)
             .filter((rec) => rec.request.path === request.path)
             .filter((rec) => headerMatcher(request, rec.request) === true)
             .filter((rec) => bodyMatcher(request, rec.request) === true)
@@ -70,10 +68,7 @@ export class Engine {
 
     match(request: Request): Behavior[] {
         const matches = this.$behaviors
-            .filter((rec) => {
-                const method = rec.request.method || 'GET';
-                return method === request.method;
-            })
+            .filter((behavior) => methodMatcher(behavior.request, request) === true)
             .filter((behavior) => pathMatcher(behavior.request, request))
             .filter((behavior) => queryMatcher(behavior.request, request))
             .filter((behavior) => headerMatcher(behavior.request, request) === true)
