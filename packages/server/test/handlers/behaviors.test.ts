@@ -32,7 +32,7 @@ test('load behaviors from a yml', async () => {
     expect(res.body).toMatchInlineSnapshot(`
         Array [
           Object {
-            "id": "tZidRRZxqw",
+            "id": "first_behavior",
             "limit": "unlimited",
             "name": "Successful todo",
             "request": Object {
@@ -47,7 +47,7 @@ test('load behaviors from a yml', async () => {
             },
           },
           Object {
-            "id": "57UObfxxIR",
+            "id": "last_behavior",
             "limit": "unlimited",
             "name": "Failed todo",
             "request": Object {

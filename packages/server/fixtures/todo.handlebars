@@ -1,0 +1,9 @@
+{
+    {{#with req.body}}
+    "text":         "{{name}}",
+    "owner":        "{{owner}}",
+    {{/with}}
+    "url":          "{{req.path}}",
+    "done":         "{{req.queryParams.isDone}}",
+    "accepted":     "{{req.cookies.accepted}}"
+}

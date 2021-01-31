@@ -1,0 +1,45 @@
+
+
+- name: Inline template
+  id: inline_template
+  
+  request:
+    path: "/todo/[0-9]+"
+    method: GET
+  
+  response:
+    statusCode: 200
+    headers:
+      content-type: application/json
+    body: 
+        {
+          "path": "{{req.path}}"      
+        }
+
+
+- name: File template
+  id: file_template
+  
+  request:
+    path: "/todo"
+    method: POST
+  
+  response:
+    statusCode: 200
+    headers:
+      content-type: application/json
+    file: fixtures/todo.handlebars
+
+
+- name: File template
+  id: file_template
+  
+  request:
+    path: "/task/:name"
+    method: GET
+  
+  response:
+    statusCode: 200
+    headers:
+      content-type: application/json
+    body: "The task called {{req.pathParams.name}} was called"

@@ -1,5 +1,6 @@
 ---
 - name: Successful todo
+  id: first_behavior
   request:
     path: "/todo/[0-9]+"
     method: GET
@@ -7,7 +8,9 @@
     body:
       id: 2
       text: The todo body
+      
 - name: Failed todo
+  id: last_behavior
   request:
     path: "/todo/[a-z]+"
     method: GET
