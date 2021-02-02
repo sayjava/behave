@@ -1,13 +1,14 @@
 ---
 id: guide
 title: Guide
+sidebarDepth: 3
 ---
 
 # Behavior Guide
 
 The `Behave` server uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http `404` response back to the client
 
-## Behavior Configuration
+## Definition
 
 A Behavior is a configuration object that describes how the `behave` server should respond to http requests it receives.
 
@@ -315,6 +316,31 @@ curl -X POST http://localhost:8080/tasks -d '{ "name": "other_tasks", id: 2 }' -
 ## Response
 
 The server response can also be tailored using the Behavior document.
+
+## Templated Response (Handlebars)
+
+Responses can be generated using handlebar templates. 
+
+```shell
+  curl -X POST http://localhost:8080/tasks -H "content-type:application/json" -H "cookie=accepted=false" -d '
+  { "name": "eat out", "owner": "me" }'
+```
+
+A templated response can look like this.
+
+```handlebars
+  {
+    {{#with req.body}}
+    "text":         "{{name}}",
+    "owner":        "{{owner}}",
+    {{/with}}
+    "url":          "{{req.path}}",
+    "done":         "{{req.queryParams.isDone}}",
+    "accepted":     "{{req.cookies.accepted}}"
+  }
+```
+
+
 
 ### Limited
 
