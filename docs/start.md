@@ -1,14 +1,7 @@
 ---
-id: start
 title: Quick Start
-sidebar_label: Start
-slug: /
-nav_order: 1
 ---
-
-Behave is a robust HTTP mocking and test server that can be used in development to easily mock out HTTP endpoints for other clients to rely on.
-
-## Quick Start
+## Start Server
 
 ```shell
 npx @sayjava/behave --behaviors '[{"request": {"path":"/hi"}, "response": {"body": "Hello World"}}]'
@@ -16,23 +9,16 @@ npx @sayjava/behave --behaviors '[{"request": {"path":"/hi"}, "response": {"body
 
 This will start the sever on port `8080` and ready to receive requests at `http://localhost:8080`.
 
-The server can be tested by sending this request to the server
-
-```shell
-curl http://localhost:8080/hi
-```
-
 ## Server Options
 
-| Configuration       |    Default     | Description                                                       |
-| ------------------- | :------------: | :---------------------------------------------------------------- |
-| \--behaviors, -b    |      none      | JSON Array of Behavior documents                                  |
-| \--from-file, -f    | behaviors.json | Path to a json file containing an array of behavior configuration |
-| \--open-api, -a     |      none      | uri (file/http(s)) location of an Open API 3.0/Swagger 2.0 file   |
-| \--port, -p         |      8080      | The port the sever should listen on                               |
-| \--debug, -d        |      info      | Server debug level `warn`, `verbose` or `info`                    |
-| \--healthCheck, -he |  /\_/healthz   | The keep-live path for the server                                 |
-| \--readyCheck, -re  |   /\_/readyz   | The ready path for the server                                     |
+| Configuration       |    Default     | Description                                                            |
+| :------------------ | :------------  | :--------------------------------------------------------------------- |
+| \--behaviors, -b    |      none      | JSON Array of behaviors                                                |    
+| \--from-file, -f    | behaviors.json | Path to a JSON/YAML file containing an array of behaviors              |
+| \--open-api, -a     |      none      | URI (file/http(s)) location of an Open API 3.0/Swagger 2.0 spec file   |
+| \--port, -p         |      8080      | The port the sever should listen on                                    |
+| \--healthCheck, -he |  /\_/healthz   | The keep-live path for the server                                      |
+| \--readyCheck, -re  |   /\_/readyz   | The ready path for the server                                          |
 
 ## Initialize Behaviors
 
@@ -63,9 +49,17 @@ The server will auto load the behaviors in the file.
 
 [Learn more about behaviors](/guide)
 
-## Express Middleware
+## Logging
+The server uses the environmental variable `NODE_LOG_LEVEL` to enable logging. Possible values
 
-The server can also be used as an express middleware in an existing application.
+- `INFO`
+- `DEBUG`
+- `ERROR`
+
+
+## Programmatic
+
+Behave can also be used as an express middleware in an existing application.
 
 ```javascript
 const express = require('express');
@@ -73,15 +67,13 @@ const { behaveHandler } = require('@sayjava/behave');
 
 const app = express();
 
-app.use(express.static(__dirname + '/views'));
-
-app.get('/', function (req, res) {
-    res.render('index', { title: 'Hey', message: 'Hello there!' });
-});
+app.get('/', (req, res) => 
+    res.render('index', { title: 'Hey', message: 'Hello there!' }));
 
 app.use(behaveHandler({ config: { fromFile: 'behaviors.json' } }));
 
-app.listen(3000, () => {
-    console.info(`Weather ite started on 3000`);
-});
+// can also be mounted on a path
+app.use('/api', behaveHandler({ config: { fromFile: 'api.json' } }));
+
+app.listen(3000, () => console.info(`App started on 3000`));
 ```

@@ -14,5 +14,16 @@
     "response": {
       "body": "The Todo is 2"
     }
+  },
+  {
+    "request": {
+      "path": "/greet/:name",
+      "pathParams": {
+        "name": "[a-z]+"
+      }
+    },
+    "response": {
+      "body": "Hello {{req.pathParams.name}}"
+    }
   }
 ]
