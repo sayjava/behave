@@ -47,7 +47,7 @@ Here are some scenarios where `Behave` can be used to mock endpoints. Start the 
 npx @sayjava/behave
 ```
 
-## Regex paths
+### Regex paths
 
 ```shell
 npx @sayjava/behave -b '[
@@ -69,7 +69,8 @@ curl http://localhost:8080/tasks/2
 curl http://localhost:8080/tasks/10
 ```
 
-## Request headers e.g `{"user-a∫gent": "Chrome|Apple*"}`
+### Request headers 
+e.g `{"user-a∫gent": "Chrome|Apple*"}`
 
 ```shell
 npx @sayjava/behave -b '[
@@ -92,11 +93,11 @@ npx @sayjava/behave -b '[
 to match requests like:
 
 ```shell
-curl -v -X GET http://localhost:8080/tasks/2 -H 'user-agent: Chrome'
+curl http://localhost:8080/tasks/2 -H 'user-agent: Chrome'
 ```
 
-## Templated response
-
+### Templated response
+HTTP response can be templated using Handlebars syntax
 ```shell
 @sayava/behave -b `[
   {
@@ -119,7 +120,10 @@ to match requests and respond with the template:
 curl http://localhost:8080/greet/jane
 ```
 
-## Request body matchers e.g `{"user":"john_[a-z]+"}`
+and respond with `Hello jane`
+
+### Request body matchers 
+e.g `{"user":"john_[a-z]+"}`
 
 ```shell
 @sayjava/behave -b '[{
@@ -145,7 +149,7 @@ to match requests like:
 curl -X POST http://localhost:8080/tasks -H "content-type:application/json" -d '{ "user": "john_doe", "name": "pay up" }'
 ```
 
-## Asserts received requests
+### Asserts received requests
 
 Asserts that Behave has received a request with that path at least twice and at most 10 times
 
@@ -163,7 +167,7 @@ curl -X PUT http://localhost:8080/_/api/requests/assert -H "content-type:applica
 ]'
 ```
 
-## Asserts the sequence requests are received
+### Asserts the sequence requests are received
 
 Asserts that Behave has received a request with that path at least twice and at most 10 times
 
@@ -184,7 +188,7 @@ curl -X PUT http://localhost:8080/_/api/requests/sequence -H "content-type:appli
 
 see the [Behavior Guide](http://sayjava.github.com/behave)
 
-## Programmatically Use cases (Express Middleware / NodeJS HTTP Middleware)
+### Programmatically Use cases (Express Middleware / NodeJS HTTP Middleware)
 
 ```javascript
 const express = require("express");
@@ -202,9 +206,9 @@ app.use('/api',behaveHandler({config:{ fromFile: 'api.json' }}));
 app.listen(3000, () => console.info(`App started on 3000`));
 ```
 
-## Serverless Mock Server
+### Serverless Mock Server
 See [Serverless Deployment](examples/behave-on-lambda/README.md)
 
-## Full Documentation
+### Full Documentation
 
 [Full Documentation](https://sayjava.github.io/behave)

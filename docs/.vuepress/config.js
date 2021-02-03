@@ -1,4 +1,5 @@
 const { description } = require('../../package')
+const { version } = require('../../packages/server/package')
 
 module.exports = {
 
@@ -11,7 +12,7 @@ module.exports = {
     /**
      * Ref：https://v1.vuepress.vuejs.org/config/#description
      */
-    description: description,
+    description,
 
     /**
      * Extra tags to be injected to the page HTML `<head>`
@@ -30,6 +31,7 @@ module.exports = {
      * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
      */
     themeConfig: {
+        version,
         repo: 'sayjava/behave',
         editLinks: false,
         docsDir: 'docs',

@@ -15,21 +15,13 @@ footer: MIT Licensed
 ---
 
 ## Quick Start
-
-<code-group>
-<code-block title="Start">
 ```bash
 $ npx @sayjava/behave --behaviors '[{"request": {"path":"/todos/[0-9]+"},"response": {"body": [{ "name": "run_app" }]}}]'
 ```
-</code-block>
 
-<code-block title="Test">
 ```bash
 $ curl http://localhost:8080/todos/4
 ```
-</code-block>
-</code-group>
-
 ## Programmatic Middleware
 
 ```javascript

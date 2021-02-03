@@ -5,8 +5,8 @@ import os from 'os';
 import path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import logger from "../logger";
 import server from '../server';
-import logger from "../logger"
 
 const logInfo = (config) => {
     const {

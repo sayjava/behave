@@ -15,51 +15,68 @@ A Behavior is a configuration object that describes how the `behave` server shou
 Behaviors can be created on the server by sending an http request to the behavior endpoint of the server. e.g
 
 ```shell
-curl -v -X PUT "http://localhost:8080/_/api/behaviors" -d '[
-    {
-        "request": {
-            "path": "/some/path"
+curl -X POST "http://localhost:8080/_/api/behaviors" -H "content-type:application/json" -d '[
+  {
+    "request": {
+        "path": "/some/path"
+    },
+    "response": {
+        "statusCode": 200,
+        "headers": {
+            "content-type": "application/json"
         },
-        "response": {
-            "statusCode": 200,
-            "headers": {
-                "content-type": "application/json"
-            },
-            "body": {
-                "message": "some response"
-            }
+        "body": {
+            "message": "some response"
         }
     }
+  }
 ]'
 ```
 
 The server can also be initialized with a set of behaviors at start up as described [here](guide.md#configure)
 
-Here is a full sample of a Behavior document.
+Here is a full sample of a Behavior document in YAML.
 
-```json
-{
-  "name": "Optional name of this behavior",
+```yaml
+# Optional
+name: Name of this behavior
 
-  "description": "Optional description for this behavior",
+# Optional
+description: Description for this behavior
 
-  "request": {
-    "path": "a/path/to/match",
-    "headers": {
-      "x-some-custom-header": "any value"
-    },
-    "body": "json/text"
-  },
+# Required
+request:
+  
+  # Required: the path to match this behavior to
+  path: a/path/to/match
+  
+  # Optional: list of header values to use for matching requests
+  headers:
+    x-some-custom-header: any value
+  
+  # Optional: JSON/Text used to match incoming requests to this behavior
+  body: json/text
 
-  "response": {
-    "statusCode": "any http status code",
-    "body": "json object/text",
-    "headers": {},
-    "delay": "seconds to delay the response. defaults to 0"
-  },
+response:
+  # Optional: Defaults to 200
+  statusCode: any http status code
+  
+  #Optional: Defaults to empty string
+  body: json object/text
+  
+  # Optional: defaults to null
+  file: read the response from a file on the server instead of the inline response
+  
+  # Optional: Response headers 
+  headers:
+    some_header: some_header_value_like_cookies
+  
+  # Optional: defaults to immediately
+  delay: seconds to delay the response. defaults to 0
 
-  "limit": "how many times this behavior should be used. defaults to unlimited"
-}
+# Optional: defaults to unlimited
+limit: how many times this behavior should be used. defaults to unlimited
+
 ```
 
 ## Request
