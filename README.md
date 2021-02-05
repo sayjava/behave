@@ -10,6 +10,10 @@ The easiest and quickest way to mock HTTP endpoints for development and testing 
   <a href="https://sayjava.github.io/behave/guide">Guide »</a>
   <a href="https://sayjava.github.io/behave/api">API »</a>
  </p>
+ <p align="center">
+  <img src="https://github.com/sayjava/behave/workflows/CI/badge.svg" />
+  <img src="https://github.com/sayjava/behave/workflows/Docs/badge.svg" />
+ </p>
 
 
  # What is Behave?
@@ -207,7 +211,7 @@ app.listen(3000, () => console.info(`App started on 3000`));
 ```
 
 ### Serverless Mock Server
-See [Serverless Deployment](examples/behave-on-lambda/README.md)
+See [Serverless Deployment](examples/behave-with-lambda/README.md)
 
 ### Full Documentation
 
