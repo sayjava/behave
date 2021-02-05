@@ -9,7 +9,7 @@
     "lib/**"
   ],
   "scripts": {
-    "test": "jest --no-cache --collectCoverage",
+    "test": "jest",
     "build": "tsc",
     "dev": "ts-node src/bin/index.ts",
     "watch": "nodemon",

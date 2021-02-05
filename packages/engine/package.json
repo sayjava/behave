@@ -7,7 +7,7 @@
   "author": "Raymond Ottun <sayjava@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --collectCoverage",
+    "test": "jest",
     "build": "tsc"
   },
   "devDependencies": {
