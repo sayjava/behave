@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/sayjava/behave/compare/@sayjava/behave-engine@1.1.2...@sayjava/behave-engine@1.2.0) (2021-02-05)
+
+
+### Features
+
+* regex method matcher ([8ea99e7](https://github.com/sayjava/behave/commit/8ea99e7f07a2cd5f9de9898926dbff7c11cc3fdf))
+
+
+
+
+
 ## [1.1.2](https://github.com/sayjava/behave/compare/@sayjava/behave-engine@1.1.1...@sayjava/behave-engine@1.1.2) (2021-01-25)
 
 **Note:** Version bump only for package @sayjava/behave-engine

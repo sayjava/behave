@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.7.0...@sayjava/behave@1.8.0) (2021-02-05)
+
+
+### Bug Fixes
+
+* updated logs with method & status ([19b9294](https://github.com/sayjava/behave/commit/19b9294a1d397c673de9d06bc74dea17767ce22a))
+
+
+### Features
+
+* templated response ([eb19115](https://github.com/sayjava/behave/commit/eb19115acdd39dbadb29fcaa0e739407cc77b61f))
+
+
+
+
+
 # [1.7.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.6.0...@sayjava/behave@1.7.0) (2021-01-25)
 
 
