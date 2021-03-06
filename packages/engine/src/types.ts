@@ -13,10 +13,10 @@ export interface Request {
         [key: string]: string;
     };
     pathParams?: {
-        [key: string]: string | number;
+        [key: string]: any;
     };
     queryParams?: {
-        [key: string]: string | number;
+        [key: string]: any;
     };
     time?: number;
 }

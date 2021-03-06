@@ -29,11 +29,13 @@ const createKeepAliveRoute = (app: Express, path: string) => {
 };
 
 const enableLogging = (app: Express) => {
-    app.use(
-        morgan('common', {
-            skip: (req) => req.path.includes('/_/'),
-        }),
-    );
+    if (process.env.NODE_ENV !== 'test') {
+        app.use(
+            morgan('common', {
+                skip: (req) => req.path.includes('/_/'),
+            }),
+        );
+    }
 };
 
 const enableUI = (app: Express) => {
