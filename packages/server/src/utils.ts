@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Behavior, validateBehavior } from '@sayjava/behave-engine';
 import cookie from 'cookie';
 import formidable from 'formidable';
@@ -78,12 +79,13 @@ interface JSONProps {
     body: any;
 }
 
-export const sendJson = ({ status, res, body }: JSONProps) => {
+export const sendJson = ({ status, res, body }: JSONProps): void => {
     res.writeHead(status, { 'Content-Type': 'application/json' });
     res.write(JSON.stringify(body));
     return res.end();
 };
 
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const createTemplateParams = (props: { req: IncomingMessage; body: any; path: string }) => {
     const { req, body, path } = props;
     const [requestPath, urlParams] = decodeURIComponent(req.url).split('?');

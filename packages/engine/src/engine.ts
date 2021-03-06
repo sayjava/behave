@@ -248,25 +248,25 @@ export class Engine {
         return true;
     }
 
-    addBehavior(behavior: Behavior) {
+    addBehavior(behavior: Behavior): void {
         const newBehavior = Object.assign(this.baseBehavior(), behavior);
         const validated = validateBehavior(newBehavior);
         this.$behaviors.push(validated);
     }
 
-    removeBehavior(id: string) {
+    removeBehavior(id: string): void {
         this.$behaviors = this.$behaviors.filter((exp) => exp.id !== id);
     }
 
-    clearAllBehavior() {
+    clearAllBehavior(): void {
         this.$behaviors = [];
     }
 
-    clearAllRecords() {
+    clearAllRecords(): void {
         this.$records = [];
     }
 
-    clearAll() {
+    clearAll(): void {
         this.clearAllBehavior();
         this.clearAllRecords();
     }
@@ -280,7 +280,7 @@ export class Engine {
     }
 }
 
-export const create = ({ behaviors }: Props) => {
+export const create = ({ behaviors }: Props): Engine => {
     const validateBehaviors = behaviors.map(validateBehavior);
     return new Engine(validateBehaviors);
 };

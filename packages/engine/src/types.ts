@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Request {
     path: string;
     method?: string;
@@ -12,10 +13,10 @@ export interface Request {
         [key: string]: string;
     };
     pathParams?: {
-        [key: string]: any;
+        [key: string]: string | number;
     };
     queryParams?: {
-        [key: string]: any;
+        [key: string]: string | number;
     };
     time?: number;
 }
@@ -73,7 +74,7 @@ export interface Response {
      * HTTP response headers
      */
     headers?: {
-        [key: string]: any;
+        [key: string]: string | number;
     };
 }
 

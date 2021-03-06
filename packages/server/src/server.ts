@@ -4,12 +4,13 @@ import behaveHandler from './handlers/';
 import logger from './logger';
 import openAPI from './open_api';
 import morgan from 'morgan';
+import { Behavior } from '@sayjava/behave-engine';
 
 export interface ServerConfig {
     port?: number;
     fromFile?: string;
     openApi?: string;
-    behaviors?: Array<any>;
+    behaviors?: Array<Behavior>;
     healthCheck?: string;
     readyCheck?: string;
 }
@@ -30,7 +31,7 @@ const createKeepAliveRoute = (app: Express, path: string) => {
 const enableLogging = (app: Express) => {
     app.use(
         morgan('common', {
-            skip: (req, res) => req.path.includes('/_/'),
+            skip: (req) => req.path.includes('/_/'),
         }),
     );
 };
@@ -54,7 +55,13 @@ const loadOpenAPI = async (config: ServerConfig): Promise<ServerConfig> => {
     return config;
 };
 
-export default async (argConfig: ServerConfig) => {
+type App = {
+    app: Express;
+    start: () => void;
+    stop: () => void;
+};
+
+export default async (argConfig: ServerConfig): Promise<App> => {
     const filledConfig = Object.assign({}, defaultConfig, argConfig);
     const config = await loadOpenAPI(filledConfig);
 

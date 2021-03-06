@@ -19,7 +19,7 @@
         "bootstrap": "lerna bootstrap",
         "prepublish": "yarn build",
         "release": "yarn build && lerna publish",
-        "lint": "eslint '*/**/src/*.ts' --quiet --fix",
+        "lint": "eslint '*/**/src/*.ts' --fix",
         "dev:docs": "vuepress dev docs",
         "build:docs": "vuepress build docs"
     },
