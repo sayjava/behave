@@ -26,6 +26,6 @@ jobs:
     - name: Lint
       run: yarn lint
     - name: Testing
-      run: yarn test
+      run: cd packages/server && yarn test
     - name: Build packages
       run: yarn build
