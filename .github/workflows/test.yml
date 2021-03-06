@@ -1,4 +1,4 @@
-name: CI
+name: Testing
 
 on:
   push:
@@ -23,7 +23,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Dependencies
       run: yarn
-    - name: Lint
-      run: yarn lint
-    - name: Build packages
-      run: yarn build
+    - name: Testing
+      run: yarn test
