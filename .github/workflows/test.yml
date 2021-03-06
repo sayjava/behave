@@ -25,5 +25,7 @@ jobs:
       run: yarn
     - name: Bootstrap
       run: yarn bootstrap 
-    - name: Testing
+    - name: Engine Testing
       run: cd packages/engine && yarn test
+    - name: Server Testing
+      run: cd packages/server && yarn test
