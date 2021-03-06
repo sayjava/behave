@@ -26,4 +26,4 @@ jobs:
     - name: Bootstrap
       run: yarn bootstrap 
     - name: Testing
-      run: yarn test
+      run: yarn test --no-ci
