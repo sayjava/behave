@@ -9,7 +9,7 @@
         "lib/**"
     ],
     "scripts": {
-        "test": "jest",
+        "test": "jest --forceExit",
         "build": "tsc",
         "dev": "ts-node src/bin/index.ts",
         "watch": "nodemon",
