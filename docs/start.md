@@ -1,6 +1,7 @@
 ---
 title: Quick Start
 ---
+
 ## Start Server
 
 ```shell
@@ -11,14 +12,14 @@ This will start the sever on port `8080` and ready to receive requests at `http:
 
 ## Server Options
 
-| Configuration       |    Default     | Description                                                            |
-| :------------------ | :------------  | :--------------------------------------------------------------------- |
-| \--behaviors, -b    |      none      | JSON Array of behaviors                                                |    
-| \--from-file, -f    | behaviors.json | Path to a JSON/YAML file containing an array of behaviors              |
-| \--open-api, -a     |      none      | URI (file/http(s)) location of an Open API 3.0/Swagger 2.0 spec file   |
-| \--port, -p         |      8080      | The port the sever should listen on                                    |
-| \--healthCheck, -he |  /\_/healthz   | The keep-live path for the server                                      |
-| \--readyCheck, -re  |   /\_/readyz   | The ready path for the server                                          |
+| Configuration       | Default        | Description                                                          |
+| :------------------ | :------------- | :------------------------------------------------------------------- |
+| \--behaviors, -b    | none           | JSON Array of behaviors                                              |
+| \--from-file, -f    | behaviors.json | Path to a JSON/YAML file containing an array of behaviors            |
+| \--open-api, -a     | none           | URI (file/http(s)) location of an Open API 3.0/Swagger 2.0 spec file |
+| \--port, -p         | 8080           | The port the sever should listen on                                  |
+| \--healthCheck, -he | /\_/healthz    | The keep-live path for the server                                    |
+| \--readyCheck, -re  | /\_/readyz     | The ready path for the server                                        |
 
 ## Initialize Behaviors
 
@@ -50,12 +51,12 @@ The server will auto load the behaviors in the file.
 [Learn more about behaviors](/guide)
 
 ## Logging
+
 The server uses the environmental variable `NODE_LOG_LEVEL` to enable logging. Possible values
 
-- `INFO`
-- `DEBUG`
-- `ERROR`
-
+-   `INFO`
+-   `DEBUG`
+-   `ERROR`
 
 ## Programmatic
 
@@ -67,8 +68,7 @@ const { behaveHandler } = require('@sayjava/behave');
 
 const app = express();
 
-app.get('/', (req, res) => 
-    res.render('index', { title: 'Hey', message: 'Hello there!' }));
+app.get('/', (req, res) => res.render('index', { title: 'Hey', message: 'Hello there!' }));
 
 app.use(behaveHandler({ config: { fromFile: 'behaviors.json' } }));
 
