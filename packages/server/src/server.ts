@@ -3,6 +3,7 @@ import express, { Express } from 'express';
 import behaveHandler from './handlers/';
 import logger from './logger';
 import openAPI from './open_api';
+import morgan from 'morgan';
 
 export interface ServerConfig {
     port?: number;
@@ -27,22 +28,16 @@ const createKeepAliveRoute = (app: Express, path: string) => {
 };
 
 const enableLogging = (app: Express) => {
-    app.use((req, res, next) => {
-        if(!req.path.includes("/_/")) {
-            const log = {
-                method: req.method,
-                path: req.path,
-                query: req.query,
-                body: req.body
-            }
-            logger.info(log);
-        }
-        next()
-    });
+    app.use(
+        morgan('common', {
+            skip: (req, res) => req.path.includes('/_/'),
+        }),
+    );
 };
 
 const enableUI = (app: Express) => {
-    app.use('/_ui/', express.static('public'));
+    const prefix = process.env.NODE_ENV !== 'production' ? '../../' : '';
+    app.use('/_ui/', express.static(`${prefix}node_modules/@sayjava/behave-ui/public`));
 };
 
 const loadOpenAPI = async (config: ServerConfig): Promise<ServerConfig> => {

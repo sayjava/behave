@@ -5,18 +5,6 @@ import { IncomingMessage, ServerResponse } from 'http';
 import logger from '../logger';
 import { createTemplateParams, parseBody, sendJson } from '../utils';
 
-const logMatched = (matched: Behavior) => {
-    const log = {
-        id: matched.id,
-        name: matched.name,
-        path: matched.request.path,
-        method: matched.request.method,
-        status: matched.response.statusCode || 200,
-        info: 'Behavior Matched',
-    };
-    logger.info(log);
-};
-
 export default (engine: Engine) => async (req: IncomingMessage, res: ServerResponse) => {
     try {
         const { fields: body = {} } = await parseBody(req);
@@ -24,7 +12,11 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
         const engineRequest: EngineRequest = {
             path: req.url,
             method: req.method as any,
-            headers: req.headers as any,
+            headers: {
+                ...req.headers,
+                httpVersion: req.httpVersion,
+                remoteAddress: req.connection.remoteAddress,
+            } as any,
             body,
             time: Date.now(),
         };
@@ -37,8 +29,6 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
                 body: engineRequest.body,
                 path: matched.request.path,
             });
-
-            logMatched(matched);
 
             const { statusCode = 200, body = '', headers = {}, delay = 0, file } = matched.response;
             Object.entries(headers).forEach(([key, value]) => res.setHeader(key, value as any));
@@ -66,12 +56,9 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
                 return res.end();
             }, delay);
         } else {
-            const log = { path: req.url, method: req.method, info: 'Behavior Not Matched' };
-            logger.warn(log);
             return sendJson({ res, status: 404, body: { path: req.url, method: req.method } });
         }
     } catch (error) {
-        console.error(error);
         logger.error(error);
         return sendJson({ res, status: 404, body: { error } });
     }
