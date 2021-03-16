@@ -1,5 +1,6 @@
 import { Behavior, Engine, Request as EngineRequest } from '@sayjava/behave-engine';
 import { existsSync, readFileSync } from 'fs';
+import { resolve } from 'path';
 import Handlebars from 'handlebars';
 import { IncomingMessage, ServerResponse } from 'http';
 import logger from '../logger';
@@ -32,12 +33,12 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
 
             const { statusCode = 200, body = '', headers = {}, delay = 0, file } = matched.response;
             Object.entries(headers).forEach(([key, value]) => res.setHeader(key, value as any));
-
             setTimeout(() => {
                 if (file) {
-                    if (existsSync(file)) {
+                    const filePath = resolve(file);
+                    if (existsSync(filePath)) {
                         res.writeHead(statusCode, {});
-                        const fileContent = readFileSync(file).toString();
+                        const fileContent = readFileSync(resolve(filePath), 'utf-8');
                         const template = Handlebars.compile(fileContent);
                         res.write(template(templateParams));
                         return res.end();
@@ -45,7 +46,7 @@ export default (engine: Engine) => async (req: IncomingMessage, res: ServerRespo
                         return sendJson({
                             res,
                             status: 400,
-                            body: { message: `${file} can not be found on the server` },
+                            body: { message: `${filePath} can not be found on the server` },
                         });
                     }
                 }
