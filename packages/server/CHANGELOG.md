@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.8.0...@sayjava/behave@1.9.0) (2021-03-16)
+
+
+### Bug Fixes
+
+* resolve file ([ad3d3dc](https://github.com/sayjava/behave/commit/ad3d3dcfdbb8f5d6651b92b15fbadcfbe1d2f8ee))
+
+
+### Features
+
+* basic ui ([392d6db](https://github.com/sayjava/behave/commit/392d6db77fb86cb75ca949d1c687a900dcbca6cd))
+
+
+
+
+
 # [1.8.0](https://github.com/sayjava/behave/compare/@sayjava/behave@1.7.0...@sayjava/behave@1.8.0) (2021-02-05)
 
 
