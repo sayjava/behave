@@ -4,21 +4,15 @@ title: Assertions
 sidebar_label: Assertions
 slug: /assertions
 has_toc: true
-nav_order: 3
+sidebarDepth: 3
 ---
-
 # Request Assertions
-
-
-<!-- ## Table of contents -->
-{: .no_toc .text-delta }
-
 
 `behave` includes a feature to validate requests that it has received and matched successfully. Requests that are not matched by any configured Behavior on the server will result in a validation fail.
 
-There are two types of validations that the `behave` supports, `assertion` validations and `sequence` validations.
+There are two types of validations that `behave` supports, `assertions` and `sequence` validations.
 
-## Request Assertions
+## Assertions
 
 The server can validate how many times a request is received and matched if at all.
 

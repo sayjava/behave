@@ -48,11 +48,15 @@ module.exports = {
                 link: '/guide'
             },
             {
+                text: 'Assertions',
+                link: '/assertions'
+            },
+            {
                 text: 'API',
                 link: '/api'
             },
             {
-                text: 'Spec',
+                text: 'API Spec',
                 link: '/spec'
             }
         ],
@@ -60,6 +64,7 @@ module.exports = {
             '/',
             '/start',
             '/guide',
+            '/assertions',
             '/api',
             '/spec'
         ]

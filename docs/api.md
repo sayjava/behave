@@ -12,10 +12,7 @@ nav_order: 4
 Behave Server exposes a set of APIs that are useful for manipulating behaviors or retrieving records from 
 Behave Server.
 
-<!-- ## Table of contents -->
-{: .no_toc .text-delta }
-
-## Behaviors 
+## Behaviors
 
 ### List
 

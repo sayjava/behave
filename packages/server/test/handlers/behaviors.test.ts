@@ -257,11 +257,7 @@ test('handles missing files gracefully', async () => {
     const server = createServer(requestHandler);
     const res = await request(server).get('/todos');
 
-    expect(res.body).toMatchInlineSnapshot(`
-            Object {
-              "message": "fixtures/non_existing_file.json can not be found on the server",
-            }
-      `);
+    expect(res.body.message).toContain('fixtures/non_existing_file.json can not be found on the server');
 });
 
 test('matches request body', async () => {
