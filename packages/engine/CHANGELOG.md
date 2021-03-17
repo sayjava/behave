@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/sayjava/behave/compare/@sayjava/behave-engine@1.2.1...@sayjava/behave-engine@1.2.2) (2021-03-17)
+
+
+### Bug Fixes
+
+* support for object arrays ([27c1a2e](https://github.com/sayjava/behave/commit/27c1a2e120d7e0e82769cb700361ea721c41c60a))
+
+
+
+
+
 ## [1.2.1](https://github.com/sayjava/behave/compare/@sayjava/behave-engine@1.2.0...@sayjava/behave-engine@1.2.1) (2021-03-16)
 
 **Note:** Version bump only for package @sayjava/behave-engine
