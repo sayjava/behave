@@ -58,7 +58,7 @@ test('matches a json object', () => {
     };
 
     expect(matcher(expRequest, request)).toMatchInlineSnapshot(
-        `[AssertionError: key: name, does not match, Doe did not match john doe: expected 'john doe' to match /Doe/]`,
+        `[AssertionError: key: name, does not match, Doe did not match john doe: expected '"john doe"' to match /Doe/]`,
     );
 });
 
@@ -81,6 +81,62 @@ test('matches a partial object', () => {
         body: {
             name: 'Doe',
             job: 'janitor',
+        },
+    };
+
+    expect(matcher(expRequest, request)).toMatchInlineSnapshot(`true`);
+});
+
+test('matches a full array', () => {
+    const expRequest: Request = {
+        path: '/todo/1',
+        headers: {},
+        method: 'POST',
+        body: [
+            {
+                name: 'user_name',
+                password: 'secure_password',
+            },
+        ],
+    };
+
+    const request: Request = {
+        path: '/todo/1',
+        headers: {
+            'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: [
+            {
+                name: 'user_name',
+                password: 'secure_password',
+            },
+        ],
+    };
+
+    expect(matcher(expRequest, request)).toMatchInlineSnapshot(`true`);
+});
+
+test('matches a partial object with an array', () => {
+    const expRequest: Request = {
+        path: '/todo/1',
+        headers: {},
+        method: 'POST',
+        body: {
+            name: 'user_name',
+            occupation: 'waitress',
+        },
+    };
+
+    const request: Request = {
+        path: '/todo/1',
+        headers: {
+            'content-type': 'application/json',
+        },
+        method: 'POST',
+        body: {
+            name: 'user_name',
+            occupation: ['waitress', 'cook'],
         },
     };
 

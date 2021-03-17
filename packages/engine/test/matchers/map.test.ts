@@ -25,7 +25,7 @@ test("don't match unequal values", () => {
     );
 
     expect(result).toMatchInlineSnapshot(
-        `[AssertionError: key: id, does not match, 2 did not match 1: expected 1 to match /2/]`,
+        `[AssertionError: key: id, does not match, 2 did not match 1: expected '1' to match /2/]`,
     );
 });
 
@@ -45,6 +45,6 @@ test("don't match regex values", () => {
     );
 
     expect(result).toMatchInlineSnapshot(
-        `[AssertionError: key: id, does not match, [a-z] did not match 1: expected 1 to match /[a-z]/]`,
+        `[AssertionError: key: id, does not match, [a-z] did not match 1: expected '1' to match /[a-z]/]`,
     );
 });
