@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Assertions | Behave</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="A robust HTTP mocking server to rapidly aid application development and system testing">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="preload" href="/behave/assets/css/0.styles.2e5c98a2.css" as="style"><link rel="preload" href="/behave/assets/js/app.acbf8b06.js" as="script"><link rel="preload" href="/behave/assets/js/2.45932810.js" as="script"><link rel="preload" href="/behave/assets/js/8.20a2dbf2.js" as="script"><link rel="prefetch" href="/behave/assets/js/10.99269775.js"><link rel="prefetch" href="/behave/assets/js/11.20a8f0ba.js"><link rel="prefetch" href="/behave/assets/js/12.9a39af3e.js"><link rel="prefetch" href="/behave/assets/js/3.5ed7cb29.js"><link rel="prefetch" href="/behave/assets/js/4.b4088367.js"><link rel="prefetch" href="/behave/assets/js/5.42433e02.js"><link rel="prefetch" href="/behave/assets/js/6.60d915b0.js"><link rel="prefetch" href="/behave/assets/js/7.5c2bffd2.js"><link rel="prefetch" href="/behave/assets/js/9.2faba85b.js">
+    <link rel="stylesheet" href="/behave/assets/css/0.styles.2e5c98a2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/behave/" class="home-link router-link-active"><img src="/behave/assets/img/landing.svg" alt="Behave" class="logo"> <span class="site-name can-hide">Behave</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/behave/start.html" class="nav-link">
+  Start
+</a></div><div class="nav-item"><a href="/behave/guide.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/behave/assertions.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Assertions
+</a></div><div class="nav-item"><a href="/behave/api.html" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/behave/spec.html" class="nav-link">
+  API Spec
+</a></div> <a href="https://github.com/sayjava/behave" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/behave/start.html" class="nav-link">
+  Start
+</a></div><div class="nav-item"><a href="/behave/guide.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/behave/assertions.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Assertions
+</a></div><div class="nav-item"><a href="/behave/api.html" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/behave/spec.html" class="nav-link">
+  API Spec
+</a></div> <a href="https://github.com/sayjava/behave" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/behave/" aria-current="page" class="sidebar-link">Home</a></li><li><a href="/behave/start.html" class="sidebar-link">Quick Start</a></li><li><a href="/behave/guide.html" class="sidebar-link">Guide</a></li><li><a href="/behave/assertions.html" aria-current="page" class="active sidebar-link">Assertions</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/behave/assertions.html#assertions" class="sidebar-link">Assertions</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/behave/assertions.html#request-was-matched-at-least-once" class="sidebar-link">Request was matched at least once</a></li><li class="sidebar-sub-header"><a href="/behave/assertions.html#requests-was-matched-by-an-upper-limit-count" class="sidebar-link">Requests was matched by an upper limit count</a></li><li class="sidebar-sub-header"><a href="/behave/assertions.html#requests-was-matched-by-a-lower-limit-count" class="sidebar-link">Requests was matched by a lower limit count</a></li><li class="sidebar-sub-header"><a href="/behave/assertions.html#request-was-matched-by-an-exact-number" class="sidebar-link">Request was matched by an exact number</a></li><li class="sidebar-sub-header"><a href="/behave/assertions.html#request-was-never-received" class="sidebar-link">Request was never received</a></li><li class="sidebar-sub-header"><a href="/behave/assertions.html#requests-were-received-at-least-at-an-interval" class="sidebar-link">Requests were received at least at an interval</a></li><li class="sidebar-sub-header"><a href="/behave/assertions.html#requests-were-received-at-most-at-an-interval" class="sidebar-link">Requests were received at most at an interval</a></li></ul></li><li class="sidebar-sub-header"><a href="/behave/assertions.html#request-sequence-assertions" class="sidebar-link">Request Sequence Assertions</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/behave/assertions.html#requests-were-received-in-a-particular-order" class="sidebar-link">Requests were received in a particular order</a></li></ul></li></ul></li><li><a href="/behave/api.html" class="sidebar-link">API</a></li><li><a href="/behave/spec.html" class="sidebar-link">Open API / Swagger</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="request-assertions"><a href="#request-assertions" class="header-anchor">#</a> Request Assertions</h1> <p><code>behave</code> includes a feature to validate requests that it has received and matched successfully. Requests that are not matched by any configured Behavior on the server will result in a validation fail.</p> <p>There are two types of validations that <code>behave</code> supports, <code>assertions</code> and <code>sequence</code> validations.</p> <h2 id="assertions"><a href="#assertions" class="header-anchor">#</a> Assertions</h2> <p>The server can validate how many times a request is received and matched if at all.</p> <p>If the validation passes, the server returns an <code>HTTP 201</code> but if fails, the server returns an <code>HTTP 406</code> with reason why it fails</p> <h3 id="request-was-matched-at-least-once"><a href="#request-was-matched-at-least-once" class="header-anchor">#</a> Request was matched at least once</h3> <p>Check if the requests have been received and matched at least once</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with 201</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/assert -d <span class="token string">'[
+ {
+   &quot;path&quot;: &quot;/tasks/123&quot;
+ },
+ {
+   &quot;path&quot;: &quot;/tasks/12&quot;
+ }
+]'</span>
+</code></pre></div><h3 id="requests-was-matched-by-an-upper-limit-count"><a href="#requests-was-matched-by-an-upper-limit-count" class="header-anchor">#</a> Requests was matched by an upper limit count</h3> <p>Check if the requests have been received and matched <code>at most</code> twice</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with 201 if it were matched</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/assert -d <span class="token string">'[
+ {
+   &quot;path&quot;: &quot;/tasks/123&quot;,
+   &quot;count&quot;: {
+      &quot;atMost&quot;: 2,
+   }
+ }
+]'</span>
+</code></pre></div><h3 id="requests-was-matched-by-a-lower-limit-count"><a href="#requests-was-matched-by-a-lower-limit-count" class="header-anchor">#</a> Requests was matched by a lower limit count</h3> <p>Check if the requests have been received and matched <code>at least</code> twice</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with 201 if it were matched</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/assert -d <span class="token string">'[
+ {
+   &quot;path&quot;: &quot;/tasks/123&quot;,
+   &quot;count&quot;: {
+      &quot;atLeast&quot;: 2,
+   }
+ }
+]'</span>
+</code></pre></div><h3 id="request-was-matched-by-an-exact-number"><a href="#request-was-matched-by-an-exact-number" class="header-anchor">#</a> Request was matched by an exact number</h3> <p>Check if the requests have been received exactly twice</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with 201 if it were matched</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/assert -d <span class="token string">'[
+ {
+   &quot;path&quot;: &quot;/tasks/123&quot;,
+   &quot;count&quot;: {
+   &quot;atMost&quot;: 2,
+      &quot;atLeast&quot;: 2
+   }
+ }
+]'</span>
+</code></pre></div><h3 id="request-was-never-received"><a href="#request-was-never-received" class="header-anchor">#</a> Request was never received</h3> <p>Check if the requests was never matched</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with 201 if it were matched</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/assert -d <span class="token string">'[
+ {
+   &quot;path&quot;: &quot;/tasks/123&quot;,
+   &quot;count&quot;: {
+      &quot;atMost&quot;: 0,
+   }
+ }
+]'</span>
+</code></pre></div><h3 id="requests-were-received-at-least-at-an-interval"><a href="#requests-were-received-at-least-at-an-interval" class="header-anchor">#</a> Requests were received at least at an interval</h3> <p>Check if this request was received more than once and at least <code>time</code> in seconds apart. This will implicitly require that at least 2 requests was received and matched</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Check that requests were received at least 10 seconds apart</span>
+<span class="token comment"># Responds with 201 if it were matched</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/interval -d <span class="token string">'{
+ &quot;requests&quot;: [{
+    &quot;path&quot;: &quot;/users/123&quot;
+  },
+  {
+    &quot;path&quot;: &quot;/tasks/123&quot;
+  }],
+ &quot;interval&quot;: {
+    &quot;atLeast&quot;: 10
+  }
+}'</span>
+</code></pre></div><h3 id="requests-were-received-at-most-at-an-interval"><a href="#requests-were-received-at-most-at-an-interval" class="header-anchor">#</a> Requests were received at most at an interval</h3> <p>Check if this request was received more than once and at least <code>time</code> in seconds apart. This will implicitly require that at most 2 requests was received and matched</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Check that requests were received at most 10 seconds apart</span>
+<span class="token comment"># Responds with 201 if it were matched</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/assert -d <span class="token string">'[
+ {
+   &quot;path&quot;: &quot;/tasks/123&quot;,
+   &quot;interval&quot;: {
+      &quot;atMost&quot;: 10,
+   }
+ }
+]'</span>
+</code></pre></div><h2 id="request-sequence-assertions"><a href="#request-sequence-assertions" class="header-anchor">#</a> Request Sequence Assertions</h2> <p>The <code>behave</code> can also match the order in which requests are received by the server.</p> <h3 id="requests-were-received-in-a-particular-order"><a href="#requests-were-received-in-a-particular-order" class="header-anchor">#</a> Requests were received in a particular order</h3> <p>Check if the requests were received in the specific order</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with 201 if it were matched</span>
+<span class="token function">curl</span> -X PUT http://localhost:8080/_/api/requests/sequence -d <span class="token string">'[
+ {
+   &quot;path&quot;: &quot;/tasks/123&quot;
+ },
+ {
+   &quot;path&quot;: &quot;/tasks/123/docs/icon.png&quot;
+ }
+]'</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/behave/guide.html" class="prev">
+        Guide
+      </a></span> <span class="next"><a href="/behave/api.html">
+        API
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/behave/assets/js/app.acbf8b06.js" defer></script><script src="/behave/assets/js/2.45932810.js" defer></script><script src="/behave/assets/js/8.20a2dbf2.js" defer></script>
+  </body>
+</html>

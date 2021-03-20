@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Guide | Behave</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="A robust HTTP mocking server to rapidly aid application development and system testing">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="preload" href="/behave/assets/css/0.styles.2e5c98a2.css" as="style"><link rel="preload" href="/behave/assets/js/app.acbf8b06.js" as="script"><link rel="preload" href="/behave/assets/js/2.45932810.js" as="script"><link rel="preload" href="/behave/assets/js/9.2faba85b.js" as="script"><link rel="prefetch" href="/behave/assets/js/10.99269775.js"><link rel="prefetch" href="/behave/assets/js/11.20a8f0ba.js"><link rel="prefetch" href="/behave/assets/js/12.9a39af3e.js"><link rel="prefetch" href="/behave/assets/js/3.5ed7cb29.js"><link rel="prefetch" href="/behave/assets/js/4.b4088367.js"><link rel="prefetch" href="/behave/assets/js/5.42433e02.js"><link rel="prefetch" href="/behave/assets/js/6.60d915b0.js"><link rel="prefetch" href="/behave/assets/js/7.5c2bffd2.js"><link rel="prefetch" href="/behave/assets/js/8.20a2dbf2.js">
+    <link rel="stylesheet" href="/behave/assets/css/0.styles.2e5c98a2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/behave/" class="home-link router-link-active"><img src="/behave/assets/img/landing.svg" alt="Behave" class="logo"> <span class="site-name can-hide">Behave</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/behave/start.html" class="nav-link">
+  Start
+</a></div><div class="nav-item"><a href="/behave/guide.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Guide
+</a></div><div class="nav-item"><a href="/behave/assertions.html" class="nav-link">
+  Assertions
+</a></div><div class="nav-item"><a href="/behave/api.html" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/behave/spec.html" class="nav-link">
+  API Spec
+</a></div> <a href="https://github.com/sayjava/behave" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/behave/start.html" class="nav-link">
+  Start
+</a></div><div class="nav-item"><a href="/behave/guide.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Guide
+</a></div><div class="nav-item"><a href="/behave/assertions.html" class="nav-link">
+  Assertions
+</a></div><div class="nav-item"><a href="/behave/api.html" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/behave/spec.html" class="nav-link">
+  API Spec
+</a></div> <a href="https://github.com/sayjava/behave" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/behave/" aria-current="page" class="sidebar-link">Home</a></li><li><a href="/behave/start.html" class="sidebar-link">Quick Start</a></li><li><a href="/behave/guide.html" aria-current="page" class="active sidebar-link">Guide</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/behave/guide.html#definition" class="sidebar-link">Definition</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#request" class="sidebar-link">Request</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/behave/guide.html#simple-path" class="sidebar-link">Simple Path</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#regex-paths" class="sidebar-link">Regex Paths</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#path-parameters" class="sidebar-link">Path Parameters</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#query-parameters" class="sidebar-link">Query Parameters</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#headers" class="sidebar-link">Headers</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#request-methods" class="sidebar-link">Request Methods</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#request-body" class="sidebar-link">Request Body</a></li></ul></li><li class="sidebar-sub-header"><a href="/behave/guide.html#response" class="sidebar-link">Response</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#templated-response-handlebars" class="sidebar-link">Templated Response (Handlebars)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/behave/guide.html#limited" class="sidebar-link">Limited</a></li><li class="sidebar-sub-header"><a href="/behave/guide.html#delayed" class="sidebar-link">Delayed</a></li></ul></li></ul></li><li><a href="/behave/assertions.html" class="sidebar-link">Assertions</a></li><li><a href="/behave/api.html" class="sidebar-link">API</a></li><li><a href="/behave/spec.html" class="sidebar-link">Open API / Swagger</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="behavior-guide"><a href="#behavior-guide" class="header-anchor">#</a> Behavior Guide</h1> <p>The <code>Behave</code> server uses behaviors to respond to http requests it receives. The server matches the requests it receives to the list of configured behaviors. It will use the first matched behavior as a response to the request and when it can't match a request to a behavior, it will return an http <code>404</code> response back to the client</p> <h2 id="definition"><a href="#definition" class="header-anchor">#</a> Definition</h2> <p>A Behavior is a configuration object that describes how the <code>behave</code> server should respond to http requests it receives.</p> <p>Behaviors can be created on the server by sending an http request to the behavior endpoint of the server. e.g</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">curl</span> -X POST <span class="token string">&quot;http://localhost:8080/_/api/behaviors&quot;</span> -H <span class="token string">&quot;content-type:application/json&quot;</span> -d <span class="token string">'[
+  {
+    &quot;request&quot;: {
+        &quot;path&quot;: &quot;/some/path&quot;
+    },
+    &quot;response&quot;: {
+        &quot;statusCode&quot;: 200,
+        &quot;headers&quot;: {
+            &quot;content-type&quot;: &quot;application/json&quot;
+        },
+        &quot;body&quot;: {
+            &quot;message&quot;: &quot;some response&quot;
+        }
+    }
+  }
+]'</span>
+</code></pre></div><p>The server can also be initialized with a set of behaviors at start up as described <a href="/behave/guide.html#configure">here</a></p> <p>Here is a full sample of a Behavior document in YAML.</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token comment"># Optional</span>
+<span class="token key atrule">name</span><span class="token punctuation">:</span> Name of this behavior
+
+<span class="token comment"># Optional</span>
+<span class="token key atrule">description</span><span class="token punctuation">:</span> Description for this behavior
+
+<span class="token comment"># Required</span>
+<span class="token key atrule">request</span><span class="token punctuation">:</span>
+  
+  <span class="token comment"># Required: the path to match this behavior to</span>
+  <span class="token key atrule">path</span><span class="token punctuation">:</span> a/path/to/match
+  
+  <span class="token comment"># Optional: list of header values to use for matching requests</span>
+  <span class="token key atrule">headers</span><span class="token punctuation">:</span>
+    <span class="token key atrule">x-some-custom-header</span><span class="token punctuation">:</span> any value
+  
+  <span class="token comment"># Optional: JSON/Text used to match incoming requests to this behavior</span>
+  <span class="token key atrule">body</span><span class="token punctuation">:</span> json/text
+
+<span class="token key atrule">response</span><span class="token punctuation">:</span>
+  <span class="token comment"># Optional: Defaults to 200</span>
+  <span class="token key atrule">statusCode</span><span class="token punctuation">:</span> any http status code
+  
+  <span class="token comment">#Optional: Defaults to empty string</span>
+  <span class="token key atrule">body</span><span class="token punctuation">:</span> json object/text
+  
+  <span class="token comment"># Optional: defaults to null</span>
+  <span class="token key atrule">file</span><span class="token punctuation">:</span> read the response from a file on the server instead of the inline response
+  
+  <span class="token comment"># Optional: Response headers </span>
+  <span class="token key atrule">headers</span><span class="token punctuation">:</span>
+    <span class="token key atrule">some_header</span><span class="token punctuation">:</span> some_header_value_like_cookies
+  
+  <span class="token comment"># Optional: defaults to immediately</span>
+  <span class="token key atrule">delay</span><span class="token punctuation">:</span> seconds to delay the response. defaults to 0
+
+<span class="token comment"># Optional: defaults to unlimited</span>
+<span class="token key atrule">limit</span><span class="token punctuation">:</span> how many times this behavior should be used. defaults to unlimited
+
+</code></pre></div><h2 id="request"><a href="#request" class="header-anchor">#</a> Request</h2> <p>To be able to match a Behavior and respond appropriately, a Behavior document needs a request property that describes how the server should match the http requests it receives.</p> <h3 id="simple-path"><a href="#simple-path" class="header-anchor">#</a> Simple Path</h3> <p>The <code>behave</code> server will default to <code>HTTP GET</code> method and <code>HTTP 200</code> response code for matched Behaviors if they are omitted from the Behavior document.</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/a_simple_task&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;A simple task&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200 Ok &quot;A sample task&quot;</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/a_simple_task
+
+<span class="token comment"># Responds with a 404 Not Found</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/another_task
+</code></pre></div><h3 id="regex-paths"><a href="#regex-paths" class="header-anchor">#</a> Regex Paths</h3> <p>Behaviors can use regex paths for matching a request to a configured Behavior. e.g</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/[0-9]+&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Regex based url&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200 Ok</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+
+<span class="token comment"># Responds with a 200 Ok</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/2
+
+<span class="token comment"># Responds with a 404 Not Found</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/a_simple_taks
+</code></pre></div><h3 id="path-parameters"><a href="#path-parameters" class="header-anchor">#</a> Path Parameters</h3> <p>The server can match http requests using dynamic path parameters e.g</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/{id}/docs/{docId}&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;pathParams&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;[0-9]+&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;docId&quot;</span><span class="token operator">:</span> <span class="token string">&quot;[a-z]+.jpg&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Task doc&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123/doc/image.jpg
+
+<span class="token comment"># Responds with a 404</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123/doc/cat.png
+</code></pre></div><h3 id="query-parameters"><a href="#query-parameters" class="header-anchor">#</a> Query Parameters</h3> <p>The server can also match dynamic query parameters. e.g</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/[0-9]+/?completed={isCompleted}&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;queryParams&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;isCompleted&quot;</span><span class="token operator">:</span> <span class="token string">&quot;true|false&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Some completed tasks&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123?isCompleted<span class="token operator">=</span>true
+</code></pre></div><h3 id="headers"><a href="#headers" class="header-anchor">#</a> Headers</h3> <p>The server can match requests based on http request header values. The configured request header values will matched as a subset of the received request headers.</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/[0-9]+&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;headers&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;X-Behave-Id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;behave-[a-z]+&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;match header values&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123 -H <span class="token string">&quot;X-Behave-Id: behave-abcde&quot;</span>
+
+<span class="token comment"># Responds with a 404</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+</code></pre></div><h3 id="request-methods"><a href="#request-methods" class="header-anchor">#</a> Request Methods</h3> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/[0-9]+&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;method&quot;</span><span class="token operator">:</span> <span class="token string">&quot;DELETE&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Task has been deleted&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Respond with a 200</span>
+<span class="token function">curl</span> -X DELETE http://localhost:8080/tasks/123
+
+<span class="token comment"># Respond with a 404</span>
+<span class="token function">curl</span> http://localhost:8080/tasks/123
+</code></pre></div><h3 id="request-body"><a href="#request-body" class="header-anchor">#</a> Request Body</h3> <p>Behaviors can also be matched using the request body. The server will inspect the content-type of the request method to determine how to handle the request body.</p> <h4 id="json-body"><a href="#json-body" class="header-anchor">#</a> JSON Body</h4> <p>Http requests with a <code>Content-Type: application/json</code> header will have its body treated like a json object. The request body will be matched as a superset of the Behavior body. e.g</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;method&quot;</span><span class="token operator">:</span> <span class="token string">&quot;POST&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;user&quot;</span><span class="token operator">:</span> <span class="token string">&quot;john_doe&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;statusCode&quot;</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Task has been deleted&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X POST http://localhost:8080/tasks -d <span class="token string">'{ &quot;name&quot;: &quot;simple-task&quot;, &quot;user&quot;: &quot;john_doe&quot; }'</span> -H <span class="token string">&quot;Content-Type: application/json&quot;</span>
+
+<span class="token comment"># Responds with a 404</span>
+<span class="token function">curl</span> -X POST http://localhost:8080/tasks -d <span class="token string">'{ &quot;name&quot;: &quot;simple-task&quot; }'</span> -H <span class="token string">&quot;Content-Type: application/json&quot;</span>
+</code></pre></div><h4 id="plain-text-body"><a href="#plain-text-body" class="header-anchor">#</a> Plain Text Body</h4> <p>Requests without a specified <code>Content-Type</code> will default to string</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token string">&quot;john_doe&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;statusCode&quot;</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token string">&quot;no tasks for this person&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks -d <span class="token string">'&quot;john_doe&quot;'</span>
+
+<span class="token comment"># Responds with a 404</span>
+<span class="token function">curl</span> -X POST http://localhost:8080/tasks -d <span class="token string">'someone_else'</span>
+</code></pre></div><h4 id="regex-body"><a href="#regex-body" class="header-anchor">#</a> Regex Body</h4> <p>Behaviors can also be matched using a regex body either as a json document or plain text. e.g</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;method&quot;</span><span class="token operator">:</span> <span class="token string">&quot;POST&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;task-[0-9]+&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Task has been deleted&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X POST http://localhost:8080/tasks -d <span class="token string">'{ &quot;name&quot;: &quot;task-123&quot;, id: 2 }'</span> -H <span class="token string">&quot;Content-Type: application/json&quot;</span>
+
+<span class="token comment"># Responds with a 404</span>
+<span class="token function">curl</span> -X POST http://localhost:8080/tasks -d <span class="token string">'{ &quot;name&quot;: &quot;other_tasks&quot;, id: 2 }'</span> -H <span class="token string">&quot;Content-Type: application/json&quot;</span>
+</code></pre></div><h2 id="response"><a href="#response" class="header-anchor">#</a> Response</h2> <p>The server response can also be tailored using the Behavior document.</p> <h2 id="templated-response-handlebars"><a href="#templated-response-handlebars" class="header-anchor">#</a> Templated Response (Handlebars)</h2> <p>Responses can be generated using handlebar templates.</p> <div class="language-shell extra-class"><pre class="language-shell"><code>  <span class="token function">curl</span> -X POST http://localhost:8080/tasks -H <span class="token string">&quot;content-type:application/json&quot;</span> -H <span class="token string">&quot;cookie=accepted=false&quot;</span> -d <span class="token string">'
+  { &quot;name&quot;: &quot;eat out&quot;, &quot;owner&quot;: &quot;me&quot; }'</span>
+</code></pre></div><p>A templated response can look like this.</p> <div class="language-handlebars extra-class"><pre class="language-handlebars"><code>  {
+    <span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token block keyword">#with</span> <span class="token variable">req</span><span class="token punctuation">.</span><span class="token variable">body</span><span class="token delimiter punctuation">}}</span></span>
+    &quot;text&quot;:         &quot;<span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token variable">name</span><span class="token delimiter punctuation">}}</span></span>&quot;,
+    &quot;owner&quot;:        &quot;<span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token variable">owner</span><span class="token delimiter punctuation">}}</span></span>&quot;,
+    <span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token block keyword">/with</span><span class="token delimiter punctuation">}}</span></span>
+    &quot;url&quot;:          &quot;<span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token variable">req</span><span class="token punctuation">.</span><span class="token variable">path</span><span class="token delimiter punctuation">}}</span></span>&quot;,
+    &quot;done&quot;:         &quot;<span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token variable">req</span><span class="token punctuation">.</span><span class="token variable">queryParams</span><span class="token punctuation">.</span><span class="token variable">isDone</span><span class="token delimiter punctuation">}}</span></span>&quot;,
+    &quot;accepted&quot;:     &quot;<span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token variable">req</span><span class="token punctuation">.</span><span class="token variable">cookies</span><span class="token punctuation">.</span><span class="token variable">accepted</span><span class="token delimiter punctuation">}}</span></span>&quot;
+  }
+</code></pre></div><h3 id="limited"><a href="#limited" class="header-anchor">#</a> Limited</h3> <p>The server can limit the amount of instance a Behavior is used to respond to the http requests it matches. Http requests received after the response limit has been reached will result in a <code>404</code> response.</p> <p>The default response limit is <code>unlimited</code>. e.g</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/123&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;statusCode&quot;</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Task 123&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token property">&quot;limit&quot;</span><span class="token operator">:</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+
+<span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+
+<span class="token comment"># Responds with a 404</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+</code></pre></div><p>Response limits can be combined to create some interesting scenarios, e.g first respond with 200s and then fail afterwards</p> <p>The first 2 requests will be successful</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/123&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;statusCode&quot;</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Task 123&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token property">&quot;limit&quot;</span><span class="token operator">:</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Subsequent requests should fail</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/123&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;statusCode&quot;</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Sever blew up&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>
+<span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+
+<span class="token comment"># Responds with a 200</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+
+<span class="token comment"># Responds with a 500</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+</code></pre></div><h3 id="delayed"><a href="#delayed" class="header-anchor">#</a> Delayed</h3> <p>By default, responses are sent immediately to the client when matched but the server can be instructed to delay in seconds when the server should send the response. e.g</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;request&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;path&quot;</span><span class="token operator">:</span> <span class="token string">&quot;/tasks/123&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token property">&quot;response&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;body&quot;</span><span class="token operator">:</span> <span class="token string">&quot;some tasks&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;delay&quot;</span><span class="token operator">:</span> <span class="token number">120</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>
+<span class="token comment"># Responds with a 200 after 120 seconds</span>
+<span class="token function">curl</span> -X GET http://localhost:8080/tasks/123
+
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/behave/start.html" class="prev">
+        Quick Start
+      </a></span> <span class="next"><a href="/behave/assertions.html">
+        Assertions
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/behave/assets/js/app.acbf8b06.js" defer></script><script src="/behave/assets/js/2.45932810.js" defer></script><script src="/behave/assets/js/9.2faba85b.js" defer></script>
+  </body>
+</html>

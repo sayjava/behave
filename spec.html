@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Open API / Swagger | Behave</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="A robust HTTP mocking server to rapidly aid application development and system testing">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="preload" href="/behave/assets/css/0.styles.2e5c98a2.css" as="style"><link rel="preload" href="/behave/assets/js/app.acbf8b06.js" as="script"><link rel="preload" href="/behave/assets/js/2.45932810.js" as="script"><link rel="preload" href="/behave/assets/js/11.20a8f0ba.js" as="script"><link rel="prefetch" href="/behave/assets/js/10.99269775.js"><link rel="prefetch" href="/behave/assets/js/12.9a39af3e.js"><link rel="prefetch" href="/behave/assets/js/3.5ed7cb29.js"><link rel="prefetch" href="/behave/assets/js/4.b4088367.js"><link rel="prefetch" href="/behave/assets/js/5.42433e02.js"><link rel="prefetch" href="/behave/assets/js/6.60d915b0.js"><link rel="prefetch" href="/behave/assets/js/7.5c2bffd2.js"><link rel="prefetch" href="/behave/assets/js/8.20a2dbf2.js"><link rel="prefetch" href="/behave/assets/js/9.2faba85b.js">
+    <link rel="stylesheet" href="/behave/assets/css/0.styles.2e5c98a2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/behave/" class="home-link router-link-active"><img src="/behave/assets/img/landing.svg" alt="Behave" class="logo"> <span class="site-name can-hide">Behave</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/behave/start.html" class="nav-link">
+  Start
+</a></div><div class="nav-item"><a href="/behave/guide.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/behave/assertions.html" class="nav-link">
+  Assertions
+</a></div><div class="nav-item"><a href="/behave/api.html" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/behave/spec.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  API Spec
+</a></div> <a href="https://github.com/sayjava/behave" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/behave/start.html" class="nav-link">
+  Start
+</a></div><div class="nav-item"><a href="/behave/guide.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/behave/assertions.html" class="nav-link">
+  Assertions
+</a></div><div class="nav-item"><a href="/behave/api.html" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/behave/spec.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  API Spec
+</a></div> <a href="https://github.com/sayjava/behave" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/behave/" aria-current="page" class="sidebar-link">Home</a></li><li><a href="/behave/start.html" class="sidebar-link">Quick Start</a></li><li><a href="/behave/guide.html" class="sidebar-link">Guide</a></li><li><a href="/behave/assertions.html" class="sidebar-link">Assertions</a></li><li><a href="/behave/api.html" class="sidebar-link">API</a></li><li><a href="/behave/spec.html" aria-current="page" class="active sidebar-link">Open API / Swagger</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/behave/spec.html#paths" class="sidebar-link">Paths</a></li><li class="sidebar-sub-header"><a href="/behave/spec.html#responses" class="sidebar-link">Responses</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="open-api-3-0-swagger-2-0"><a href="#open-api-3-0-swagger-2-0" class="header-anchor">#</a> Open API 3.0 / Swagger 2.0</h1> <p>Behave supports Open API 3.0 and Swagger 2.0 specification. By pointing behave to a local file or an http location of a <code>json/yml</code> specification file, behave will automatically generate routes from the spec file.</p> <h2 id="paths"><a href="#paths" class="header-anchor">#</a> Paths</h2> <p>Behave will automatically generate behavior routes for all defined paths in the spec file. There will be a unique behavior for each defined route and response type in the spec file. e.g</p> <p>Example spec file (a snippet of the Github open spec api file)</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">openapi</span><span class="token punctuation">:</span> 3.0.3
+<span class="token key atrule">servers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token string">'https://api.github.com'</span>
+<span class="token key atrule">paths</span><span class="token punctuation">:</span>
+    <span class="token key atrule">/user/followers</span><span class="token punctuation">:</span>
+    <span class="token key atrule">get</span><span class="token punctuation">:</span>
+        <span class="token key atrule">description</span><span class="token punctuation">:</span> Lists the people following the authenticated user.
+        <span class="token key atrule">externalDocs</span><span class="token punctuation">:</span>
+            <span class="token key atrule">description</span><span class="token punctuation">:</span> API method documentation
+            <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token string">'https://developer.github.com/v3/users/followers/#list-followers-of-the-authenticated-user'</span>
+        <span class="token key atrule">operationId</span><span class="token punctuation">:</span> users/list<span class="token punctuation">-</span>followers<span class="token punctuation">-</span>for<span class="token punctuation">-</span>authenticated<span class="token punctuation">-</span>user
+        <span class="token key atrule">parameters</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">$ref</span><span class="token punctuation">:</span> <span class="token string">'#/components/parameters/per_page'</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">$ref</span><span class="token punctuation">:</span> <span class="token string">'#/components/parameters/page'</span>
+        <span class="token key atrule">responses</span><span class="token punctuation">:</span>
+            <span class="token key atrule">'200'</span><span class="token punctuation">:</span>
+                <span class="token key atrule">content</span><span class="token punctuation">:</span>
+                    <span class="token key atrule">application/json</span><span class="token punctuation">:</span>
+                <span class="token key atrule">description</span><span class="token punctuation">:</span> response
+                <span class="token key atrule">headers</span><span class="token punctuation">:</span>
+                    <span class="token key atrule">Link</span><span class="token punctuation">:</span>
+                        <span class="token key atrule">$ref</span><span class="token punctuation">:</span> <span class="token string">'#/components/headers/link'</span>
+            <span class="token key atrule">'304'</span><span class="token punctuation">:</span>
+                <span class="token key atrule">$ref</span><span class="token punctuation">:</span> <span class="token string">'#/components/responses/not_modified'</span>
+            <span class="token key atrule">'401'</span><span class="token punctuation">:</span>
+                <span class="token key atrule">$ref</span><span class="token punctuation">:</span> <span class="token string">'#/components/responses/requires_authentication'</span>
+            <span class="token key atrule">'403'</span><span class="token punctuation">:</span>
+                <span class="token key atrule">$ref</span><span class="token punctuation">:</span> <span class="token string">'#/components/responses/forbidden'</span>
+</code></pre></div><p>A route is automatically generated for the <code>GET</code> route for the <code>/user/followers</code> path.</p> <h2 id="responses"><a href="#responses" class="header-anchor">#</a> Responses</h2> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token comment">/*
+    optional, defaults to {}
+    */</span>
+    <span class="token property">&quot;content&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/*
+    optional, defaults to {}
+    */</span>
+    <span class="token property">&quot;headers&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/*
+    optional limit, defaults to unlimited 
+    */</span>
+    <span class="token property">&quot;limit&quot;</span><span class="token operator">:</span> <span class="token string">&quot;unlimited&quot;</span><span class="token punctuation">,</span>
+
+    <span class="token comment">/*
+    optional delay, defaults to 0 
+    */</span>
+    <span class="token property">&quot;delay&quot;</span><span class="token operator">:</span> <span class="token number">0</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/behave/api.html" class="prev">
+        API
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/behave/assets/js/app.acbf8b06.js" defer></script><script src="/behave/assets/js/2.45932810.js" defer></script><script src="/behave/assets/js/11.20a8f0ba.js" defer></script>
+  </body>
+</html>
